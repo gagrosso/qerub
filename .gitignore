@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / herramientas locales
+.claude/
+.vscode/
+.idea/
+*.log
+
+# Dependencias / build (futuro P1)
+node_modules/
+dist/
+.cache/
