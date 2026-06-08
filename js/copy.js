@@ -2,10 +2,9 @@
 
 // ── DATOS DE CONTACTO ───────────────────────────────────────────────────────
 // Fuente única de los datos de contacto: edítalos aquí y se aplican en toda la web.
-// ⚠️  El teléfono es un EJEMPLO — sustitúyelo por el real (o pon '' para ocultarlo).
 window.QERUB_CONTACT = {
-  email:   'hola@qerub.com',            // TODO: confirma tu correo real
-  phone:   '+34 600 00 00 00',          // TODO: teléfono real (placeholder de ejemplo)
+  email:   'hola@qerub.com',            // TODO: confirmar correo real
+  phone:   '+34 615 60 07 07',
   hoursEs: 'Lun–Vie · 9:00–18:00 CET',
   hoursEn: 'Mon–Fri · 9:00–18:00 CET',
 };
