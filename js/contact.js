@@ -3,7 +3,7 @@
 // (New form → copia la URL "https://formspree.io/f/XXXXXXX") y pégalo aquí.
 // Mientras tenga el valor de ejemplo, el envío fallará y se mostrará el aviso
 // de error con el correo de contacto como alternativa.
-const QERUB_FORM_ENDPOINT = 'https://formspree.io/f/TU_FORM_ID';
+const QERUB_FORM_ENDPOINT = 'https://formspree.io/f/xjgdrjpz';
 // ──────────────────────────────────────────────────────────────────────────
 
 function ContactPage() {
