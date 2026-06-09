@@ -3,7 +3,7 @@
 // ── DATOS DE CONTACTO ───────────────────────────────────────────────────────
 // Fuente única de los datos de contacto: edítalos aquí y se aplican en toda la web.
 window.QERUB_CONTACT = {
-  email:   'hola@qerub.com',            // TODO: confirmar correo real
+  email:   'info@qerub.com',
   phone:   '+34 615 60 07 07',
   hoursEs: 'Lun–Vie · 9:00–18:00 CET',
   hoursEn: 'Mon–Fri · 9:00–18:00 CET',
