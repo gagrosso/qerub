@@ -48,7 +48,6 @@ El bundle ya viene compilado y commiteado, así que el host solo sirve archivos.
 
 - [ ] `legal/*.html`: completar los campos en rojo (`[...]`) — razón social, NIF, domicilio,
       datos registrales, ciudad, DPD, proveedor de correo — y revisión legal.
-- [ ] Confirmar el dominio en las metaetiquetas de `index.html` (se asume `qerub.com`).
 - [ ] (Opcional) Prerender/SSR para SEO: hoy el contenido se renderiza en cliente.
 - [ ] (Opcional) Versiones en inglés de los 3 recursos descargables.
 
