@@ -12,3 +12,6 @@ Thumbs.db
 node_modules/
 dist/
 .cache/
+
+# Material de diseño/estrategia interno — NO publicar (contiene docs privados)
+Qerub2/

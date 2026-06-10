@@ -1,4 +1,4 @@
-function LangToggle() {
+function LangToggle({ onDark = false }) {
   const { lang, setLang } = useT();
   return (
     <div
@@ -8,8 +8,8 @@ function LangToggle() {
         display: 'inline-flex',
         alignItems: 'center',
         padding: 3,
-        background: 'rgba(14,20,22,0.04)',
-        border: '1px solid var(--line)',
+        background: onDark ? 'rgba(246,244,239,0.08)' : 'rgba(14,20,22,0.04)',
+        border: onDark ? '1px solid rgba(246,244,239,0.18)' : '1px solid var(--line)',
         borderRadius: 999,
       }}
     >
@@ -20,8 +20,8 @@ function LangToggle() {
           aria-pressed={lang === l}
           style={{
             border: 'none',
-            background: lang === l ? 'var(--ink)' : 'transparent',
-            color: lang === l ? 'var(--bg)' : 'var(--ink-3)',
+            background: lang === l ? (onDark ? 'var(--bg)' : 'var(--ink)') : 'transparent',
+            color: lang === l ? (onDark ? 'var(--ink)' : 'var(--bg)') : (onDark ? 'rgba(246,244,239,0.65)' : 'var(--ink-3)'),
             padding: '6px 12px',
             borderRadius: 999,
             fontFamily: 'var(--font-mono)',
@@ -60,6 +60,8 @@ function Header() {
     { k: 'resources', label: t.nav.resources, anchor: 'resources' },
     { k: 'about', label: t.nav.about, anchor: 'about' },
   ];
+
+  const overDark = route === 'home' && !scrolled && !open;
 
   const handleNav = (anchor) => {
     setOpen(false);
@@ -104,7 +106,7 @@ function Header() {
           aria-label="Qerub home"
           style={{ display: 'inline-flex', alignItems: 'center' }}
         >
-          <QWordmark height={24} />
+          <QWordmark height={24} onDark={overDark} />
         </a>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: 4 }} className="desktop-nav">
@@ -116,15 +118,15 @@ function Header() {
                 background: 'transparent',
                 border: 'none',
                 padding: '8px 14px',
-                color: 'var(--ink-2)',
+                color: overDark ? 'rgba(246,244,239,0.82)' : 'var(--ink-2)',
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
                 fontSize: 14,
                 letterSpacing: '0.01em',
                 borderRadius: 8,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--teal-deep)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--ink-2)')}
+              onMouseEnter={(e) => (e.currentTarget.style.color = overDark ? '#8cc0cf' : 'var(--teal-deep)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = overDark ? 'rgba(246,244,239,0.82)' : 'var(--ink-2)')}
             >
               {it.label}
             </button>
@@ -132,9 +134,10 @@ function Header() {
         </nav>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <LangToggle />
+          <LangToggle onDark={overDark} />
           <Btn
             variant="primary"
+            onDark={overDark}
             onClick={() => goto('contact')}
             style={{ padding: '10px 18px', fontSize: 13.5 }}
           >
@@ -147,8 +150,9 @@ function Header() {
             onClick={() => setOpen(!open)}
             style={{
               display: 'none',
-              border: '1px solid var(--line-strong)',
+              border: overDark ? '1px solid rgba(246,244,239,0.3)' : '1px solid var(--line-strong)',
               background: 'transparent',
+              color: overDark ? 'var(--bg)' : 'var(--ink)',
               borderRadius: 999,
               padding: 10,
             }}

@@ -4,7 +4,7 @@ function Hero() {
   const h = t.hero;
 
   return (
-    <section id="home" style={{ paddingTop: 150, paddingBottom: 80, position: 'relative', overflow: 'hidden' }}>
+    <section id="home" className="dark" style={{ paddingTop: 150, paddingBottom: 90, position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
       {/* Background micro-grid */}
       <div
         aria-hidden="true"
@@ -12,10 +12,23 @@ function Hero() {
           position: 'absolute',
           inset: 0,
           backgroundImage:
-            'linear-gradient(rgba(14,20,22,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(14,20,22,0.025) 1px, transparent 1px)',
+            'linear-gradient(rgba(246,244,239,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(246,244,239,0.04) 1px, transparent 1px)',
           backgroundSize: '64px 64px',
           maskImage: 'radial-gradient(ellipse at 30% 30%, #000 30%, transparent 75%)',
           WebkitMaskImage: 'radial-gradient(ellipse at 30% 30%, #000 30%, transparent 75%)',
+          pointerEvents: 'none',
+        }}
+      />
+      {/* Teal glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '-20%',
+          right: '-10%',
+          width: '55%',
+          height: '80%',
+          background: 'radial-gradient(ellipse at center, rgba(120,165,176,0.14) 0%, transparent 65%)',
           pointerEvents: 'none',
         }}
       />
@@ -33,7 +46,7 @@ function Hero() {
           {/* Left: text */}
           <div>
             <Reveal>
-              <Pill>{h.eyebrow}</Pill>
+              <Pill theme="dark">{h.eyebrow}</Pill>
             </Reveal>
             <Reveal delay={80}>
               <h1
@@ -52,7 +65,7 @@ function Hero() {
                 style={{
                   marginTop: 28,
                   fontSize: 19,
-                  color: 'var(--ink-3)',
+                  color: 'rgba(246,244,239,0.72)',
                   maxWidth: 580,
                   lineHeight: 1.55,
                 }}
@@ -63,10 +76,10 @@ function Hero() {
 
             <Reveal delay={240}>
               <div style={{ display: 'flex', gap: 12, marginTop: 36, flexWrap: 'wrap' }}>
-                <Btn variant="primary" onClick={() => goto('contact')}>
+                <Btn variant="primary" onDark onClick={() => goto('contact')}>
                   {h.primary} <ArrowRight />
                 </Btn>
-                <Btn variant="ghost" onClick={() => {
+                <Btn variant="ghost" onDark onClick={() => {
                   const el = document.getElementById('services');
                   if (el) {
                     const y = el.getBoundingClientRect().top + window.scrollY - 80;
@@ -79,33 +92,52 @@ function Hero() {
             </Reveal>
 
             <Reveal delay={320}>
-              <div
-                style={{
-                  marginTop: 56,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  padding: '14px 18px',
-                  borderRadius: 999,
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--line)',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 12,
-                  letterSpacing: '0.04em',
-                  color: 'var(--ink-2)',
-                  boxShadow: '0 1px 0 rgba(14,20,22,0.02)',
-                }}
-              >
-                <span
+              <div style={{ marginTop: 56, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <div
                   style={{
-                    display: 'inline-block',
-                    width: 8, height: 8, borderRadius: 999,
-                    background: '#5db58e',
-                    boxShadow: '0 0 0 4px rgba(93,181,142,0.18)',
-                    animation: 'pulse 1.8s ease-in-out infinite',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '14px 18px',
+                    borderRadius: 999,
+                    background: 'var(--dark-2)',
+                    border: '1px solid rgba(246,244,239,0.14)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 12,
+                    letterSpacing: '0.04em',
+                    color: 'rgba(246,244,239,0.85)',
                   }}
-                />
-                {h.tag}
+                >
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      width: 8, height: 8, borderRadius: 999,
+                      background: '#5db58e',
+                      boxShadow: '0 0 0 4px rgba(93,181,142,0.18)',
+                      animation: 'pulse 1.8s ease-in-out infinite',
+                    }}
+                  />
+                  {h.tag}
+                </div>
+                {h.presence && (
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      padding: '14px 18px',
+                      borderRadius: 999,
+                      border: '1px solid rgba(246,244,239,0.10)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 12,
+                      letterSpacing: '0.04em',
+                      color: 'rgba(246,244,239,0.6)',
+                    }}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.4" stroke="currentColor" strokeWidth="1.2"></circle><path d="M1.6 8h12.8M8 1.6c2.2 1.8 2.2 11 0 12.8M8 1.6c-2.2 1.8-2.2 11 0 12.8" stroke="currentColor" strokeWidth="1.2"></path></svg>
+                    {h.presence}
+                  </div>
+                )}
               </div>
               <style>{`
                 @keyframes pulse {
@@ -153,7 +185,7 @@ function HeroVisual() {
     <div style={{ position: 'relative', minHeight: 540 }}>
       {/* Decorative ring backdrop */}
       <div style={{ position: 'absolute', inset: -40, opacity: 0.7, pointerEvents: 'none' }}>
-        <QHeroMark size="100%" theme="light" />
+        <QHeroMark size="100%" theme="dark" />
       </div>
 
       {/* Scorecard card */}
@@ -241,12 +273,13 @@ function HeroVisual() {
           position: 'absolute',
           left: 0,
           bottom: 40,
-          background: 'var(--dark)',
+          background: 'var(--dark-3)',
           color: 'var(--bg)',
           borderRadius: 14,
           padding: '16px 18px',
           maxWidth: 240,
-          boxShadow: '0 20px 40px -20px rgba(14,20,22,0.25)',
+          border: '1px solid rgba(246,244,239,0.12)',
+          boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8cc0cf' }}>

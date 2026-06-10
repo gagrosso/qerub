@@ -107,6 +107,11 @@ function Services() {
           <Reveal><span className="eyebrow">{t.services.eyebrow}</span></Reveal>
           <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{t.services.title}</h2></Reveal>
           <Reveal delay={140}><p className="sub">{t.services.sub}</p></Reveal>
+          {t.services.priceNote && (
+            <Reveal delay={180}>
+              <p style={{ marginTop: 14, fontFamily: 'var(--font-mono)', fontSize: 11.5, letterSpacing: '0.06em', color: 'var(--teal-deep)' }}>{t.services.priceNote}</p>
+            </Reveal>
+          )}
         </div>
 
         <div
@@ -161,24 +166,22 @@ function Services() {
                   ))}
                 </ul>
 
-                <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--line)' }}>
-                  <button
-                    onClick={() => goto('services', s.code.toLowerCase().replace(/\s/g, '-'))}
+                <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--ink)' }}>{s.price}</span>
+                  <a
+                    href={`/servicios/${s.slug}`}
                     style={{
-                      background: 'transparent',
-                      border: 'none',
                       color: 'var(--ink)',
                       fontFamily: 'var(--font-body)',
                       fontWeight: 600,
                       fontSize: 13.5,
-                      padding: 0,
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: 8,
                     }}
                   >
                     {t.locale === 'es' ? 'Ver alcance' : 'See scope'} <ArrowRight />
-                  </button>
+                  </a>
                 </div>
               </div>
             </Reveal>
@@ -368,8 +371,10 @@ function Sectors() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
-          {t.sectors.items.map((s, i) => (
-            <Reveal key={i} delay={i * 60}>
+          {t.sectors.items.map((s, i) => {
+            const sectorHrefs = { 0: '/sectores/asesorias', 2: '/sectores/clinicas' };
+            const href = sectorHrefs[i];
+            const card = (
               <div
                 className="card"
                 style={{
@@ -385,9 +390,19 @@ function Sectors() {
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--ink-4)', letterSpacing: '0.14em' }}>0{i + 1}</span>
                 <h3 style={{ fontSize: 20, fontWeight: 600, marginTop: 'auto' }}>{s.t}</h3>
                 <p style={{ fontSize: 13.5, color: 'var(--ink-3)', lineHeight: 1.55 }}>{s.d}</p>
+                {href && (
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--teal-deep)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                    {t.locale === 'es' ? 'Ver sector' : 'View sector'} <ArrowRight />
+                  </span>
+                )}
               </div>
-            </Reveal>
-          ))}
+            );
+            return (
+              <Reveal key={i} delay={i * 60}>
+                {href ? <a href={href} style={{ display: 'block', height: '100%' }}>{card}</a> : card}
+              </Reveal>
+            );
+          })}
         </div>
       </Container>
     </section>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seguridad Microsoft 365 para empresas — hardening y auditoría | Qerub</title>
+<meta name="description" content="Hardening de Microsoft 365 para pymes: MFA forzado, Conditional Access, revisión de forwarding y accesos privilegiados, copias y retención. Configuramos y entregamos evidencias." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://qerub.com/servicios/seguridad-microsoft-365-empresa" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Qerub" />
+<meta property="og:title" content="Seguridad Microsoft 365 para empresas — hardening y auditoría | Qerub" />
+<meta property="og:description" content="Hardening de Microsoft 365 para pymes: MFA forzado, Conditional Access, revisión de forwarding y accesos privilegiados, copias y retención. Configuramos y entregamos evidencias." />
+<meta property="og:url" content="https://qerub.com/servicios/seguridad-microsoft-365-empresa" />
+<meta property="og:image" content="https://qerub.com/assets/img/qerub-logo.png" />
+<meta property="og:locale" content="es_ES" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="/css/fonts.css" />
+<link rel="stylesheet" href="/css/seo-page.css" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Seguridad Microsoft 365 para tu empresa","serviceType":"Seguridad Microsoft 365","provider":{"@type":"ProfessionalService","name":"Qerub","url":"https://qerub.com/"},"areaServed":["ES","MX","CO","AR","CL","PE"],"description":"Hardening de Microsoft 365 para pymes: MFA forzado, Conditional Access, revisión de forwarding y accesos privilegiados, copias y retención. Configuramos y entregamos evidencias.","offers":{"@type":"Offer","priceCurrency":"EUR","price":"1850","description":"desde 1.850 € · precio cerrado por propuesta"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Interrumpe la operación?","acceptedAnswer":{"@type":"Answer","text":"No. Los cambios se aplican por fases y fuera de horario crítico. El único cambio visible para empleados es el MFA — y lo acompañamos con una guía de 1 página."}},{"@type":"Question","name":"¿Trabajáis con nuestro proveedor IT?","acceptedAnswer":{"@type":"Answer","text":"Sí, y es lo habitual. Nosotros definimos y verificamos; tu proveedor puede ejecutar si lo prefieres."}},{"@type":"Question","name":"¿Qué pasa con Google Workspace?","acceptedAnswer":{"@type":"Answer","text":"Ofrecemos el mismo servicio con alcance equivalente: 2SV forzado, accesos, reenvíos, grupos y retención en Vault."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://qerub.com/"},{"@type":"ListItem","position":2,"name":"Servicios","item":"https://qerub.com/servicios/"},{"@type":"ListItem","position":3,"name":"Seguridad Microsoft 365","item":"https://qerub.com/servicios/seguridad-microsoft-365-empresa"}]}</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" aria-label="Qerub — inicio"><img class="logo" src="/assets/img/qerub-icon.png" alt="Qerub" /></a>
+    <nav class="hnav">
+      <a href="/#services">Servicios</a>
+      <a href="/#sectors">Sectores</a>
+      <a href="/#resources">Recursos</a>
+      <a href="/#about">Sobre Qerub</a>
+    </nav>
+    <a class="btn small" href="/#contact">Solicitar diagnóstico</a>
+  </div>
+</header>
+
+<main data-screen-label="SEO M365">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="/">Inicio</a><span>/</span><a href="/#services">Servicios</a><span>/</span><span>Seguridad Microsoft 365</span>
+    </nav>
+
+    <section class="hero">
+      <span class="code">Q-365 Shield</span>
+      <h1>Seguridad Microsoft 365 para tu empresa</h1>
+      <p class="lead">Tu tenant de Microsoft 365 es hoy tu oficina entera: correo, archivos, identidad. Lo endurecemos con configuración real — no recomendaciones — y te entregamos las evidencias.</p>
+      <div class="meta-chips">
+        <span class="chip">Plazo · <strong>2–3 semanas</strong></span>
+        <span class="chip">Precio · <strong>desde 1.850 €</strong></span>
+        <span class="chip">Microsoft Secure Score · CIS M365 Benchmark</span>
+      </div>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">El problema</span>
+      <h2>Una contraseña filtrada no debería bastar para entrar. Hoy probablemente basta.</h2>
+      <div class="cols-2">
+        <p class="body-text">La mayoría de los tenants de Microsoft 365 se configuró una vez, deprisa, y nunca se revisó. MFA sin forzar para todos los usuarios, reenvío externo abierto, sin Conditional Access, aplicaciones de terceros con permisos totales y cuentas de administración usadas para el día a día. Cada una de esas piezas es una puerta.</p>
+        <p class="body-text">Un atacante con una contraseña filtrada entra como si fuera un empleado: lee el correo, estudia las facturas y, cuando llega el momento, suplanta a un proveedor o al CEO. La mayoría de los fraudes BEC empieza exactamente así — con un buzón comprometido durante semanas sin que nadie lo note.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">Qué incluye</span>
+      <h2>Configuración real sobre tu tenant, con cambios acordados y documentados.</h2>
+      <div class="inc-grid">
+        <article class="inc"><h3>MFA forzado para todos</h3><p>Políticas de MFA sin excepciones silenciosas, con método resistente a phishing para cuentas críticas.</p></article>
+        <article class="inc"><h3>Conditional Access</h3><p>Reglas por ubicación, dispositivo y riesgo: el acceso imposible se bloquea solo.</p></article>
+        <article class="inc"><h3>Auditoría de accesos</h3><p>Cuentas privilegiadas, exempleados, aplicaciones conectadas y permisos delegados.</p></article>
+        <article class="inc"><h3>Reglas de buzón y forwarding</h3><p>Detección y cierre de reenvíos externos y reglas ocultas — el escondite clásico del atacante.</p></article>
+        <article class="inc"><h3>Etiquetado de correo externo</h3><p>Banner visible en todo correo que viene de fuera: la defensa anti-suplantación más barata que existe.</p></article>
+        <article class="inc"><h3>Copias y retención</h3><p>Políticas de retención y copia de Exchange, SharePoint y OneDrive verificadas con restauración.</p></article>
+      </div>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">Entregables</span>
+      <h2>Lo que recibes al terminar</h2>
+      <ul class="dlist">
+        <li><span class="n">01</span>Tenant endurecido con cada cambio documentado (antes / después)</li>
+        <li><span class="n">02</span>Informe de Secure Score con evolución medible</li>
+        <li><span class="n">03</span>Matriz de accesos privilegiados depurada</li>
+        <li><span class="n">04</span>Guía de operación para tu proveedor IT o responsable interno</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">Para quién</span>
+      <h2>Pensado para empresas de 10 a 250 empleados</h2>
+      <div class="who">
+        <article class="inc"><h3>Empresas en Microsoft 365</h3><p>Business Basic, Standard o Premium. También Google Workspace con alcance equivalente.</p></article>
+        <article class="inc"><h3>Tras un susto</h3><p>Si ya hubo un intento de fraude o una cuenta comprometida, este es el primer paso.</p></article>
+        <article class="inc"><h3>Exigencia de cliente o seguro</h3><p>Cada vez más clientes corporativos y aseguradoras piden evidencias de esta configuración.</p></article>
+      </div>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Antes de contratar</h2>
+      <div style="margin-top: 32px;">
+        <div class="faq-item"><h3>¿Interrumpe la operación?</h3><p>No. Los cambios se aplican por fases y fuera de horario crítico. El único cambio visible para empleados es el MFA — y lo acompañamos con una guía de 1 página.</p></div>
+        <div class="faq-item"><h3>¿Trabajáis con nuestro proveedor IT?</h3><p>Sí, y es lo habitual. Nosotros definimos y verificamos; tu proveedor puede ejecutar si lo prefieres.</p></div>
+        <div class="faq-item"><h3>¿Qué pasa con Google Workspace?</h3><p>Ofrecemos el mismo servicio con alcance equivalente: 2SV forzado, accesos, reenvíos, grupos y retención en Vault.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="cta-final">
+    <div class="container">
+      <h2>Cierra las puertas de tu Microsoft 365 antes de que alguien las encuentre.</h2>
+      <p>Una llamada de 30 minutos. Cero compromiso. Sales con un alcance claro y un precio cerrado.</p>
+      <a class="btn" href="/#contact">Solicitar diagnóstico →</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>© 2026 Qerub · Ciberseguridad práctica para pymes · España y Latinoamérica</span>
+    <a href="mailto:info@qerub.com">info@qerub.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

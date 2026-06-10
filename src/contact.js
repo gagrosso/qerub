@@ -10,7 +10,7 @@ function ContactPage() {
   const { t } = useT();
   const c = t.contact;
   // honeypot `website`: campo trampa oculto; si un bot lo rellena, descartamos.
-  const [form, setForm] = useState({ name: '', company: '', email: '', size: '', msg: '', consent: false, website: '' });
+  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', size: '', msg: '', consent: false, website: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const [errors, setErrors] = useState({});
 
@@ -42,6 +42,7 @@ function ContactPage() {
           nombre: form.name,
           empresa: form.company,
           email: form.email,
+          telefono: form.phone,
           tamano: form.size,
           mensaje: form.msg,
           _subject: `Nueva solicitud de diagnóstico — ${form.company || form.name}`,
@@ -83,6 +84,13 @@ function ContactPage() {
                 <div style={{ marginTop: 18, display: 'grid', gap: 12 }}>
                   <ContactRow icon="mail" label={c.altMail} href={`mailto:${c.altMail}`} />
                   <ContactRow icon="phone" label={c.altPhone} href={`tel:${c.altPhone.replace(/\s/g, '')}`} />
+                  {c.altWhatsapp && (
+                    <ContactRow
+                      icon="chat"
+                      label={c.altWhatsapp}
+                      href={`https://wa.me/${window.QERUB_CONTACT.phone.replace(/[+\s]/g, '')}`}
+                    />
+                  )}
                   <ContactRow icon="clock" label={c.altHours} />
                 </div>
               </div>
@@ -134,6 +142,14 @@ function ContactPage() {
                     onChange={(v) => setForm({ ...form, email: v })}
                     error={errors.email}
                   />
+                  {c.fields.phone && (
+                    <Field
+                      type="tel"
+                      label={c.fields.phone}
+                      value={form.phone}
+                      onChange={(v) => setForm({ ...form, phone: v })}
+                    />
+                  )}
                   <SelectField
                     label={c.fields.size}
                     value={form.size}
@@ -174,6 +190,11 @@ function ContactPage() {
                       {status === 'sending' ? (t.locale === 'es' ? 'Enviando…' : 'Sending…') : c.fields.submit} <ArrowRight />
                     </Btn>
                   </div>
+                  {c.fields.trustNote && (
+                    <p style={{ marginTop: 2, fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.04em', color: 'var(--ink-4)', textAlign: 'center', lineHeight: 1.6 }}>
+                      {c.fields.trustNote}
+                    </p>
+                  )}
                 </form>
               ) : (
                 <div style={{ textAlign: 'center', padding: '24px 0' }}>
@@ -305,6 +326,7 @@ function ContactRow({ icon, label, href }) {
     mail: <path d="M2 5l8 6 8-6M2 5v10h16V5M2 5h16" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />,
     phone: <path d="M5 3h3l1.5 4-2 1.5a10 10 0 005 5L14 11.5l4 1.5v3a2 2 0 01-2 2A14 14 0 013 5a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" fill="none" />,
     clock: <g><circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.4" fill="none" /><path d="M10 6v4l3 2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></g>,
+    chat: <path d="M10 3a7 7 0 00-6 10.5L3 17l3.6-1A7 7 0 1010 3z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" fill="none" />,
   };
   const content = (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12, color: 'var(--ink)' }}>
