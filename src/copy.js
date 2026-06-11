@@ -64,7 +64,7 @@ window.QERUB_COPY = {
     },
     services: {
       eyebrow: 'Servicios',
-      title: 'Ocho servicios. Alcance, entregable y precio cerrados en cada uno.',
+      title: 'Nueve servicios. Alcance, entregable y precio cerrados en cada uno.',
       sub: 'Nada de consultoría infinita. Cada servicio tiene entregable definido, alcance claro y precio cerrado antes de empezar.',
       priceNote: 'Precios orientativos para 10–50 empleados. Propuesta cerrada en 24 h.',
       items: [
@@ -139,6 +139,15 @@ window.QERUB_COPY = {
           time: '1–2 semanas',
           price: 'desde 490 €',
           slug: 'ciberseguro-pyme',
+        },
+        {
+          code: 'Q-AI Ready',
+          t: 'Seguridad del uso de IA',
+          d: 'Tu equipo ya usa ChatGPT, Copilot o Gemini — con o sin permiso. Política de uso de IA, evaluación de herramientas, configuración segura de Copilot en Microsoft 365 y formación corta al equipo.',
+          bullets: ['Política de uso de IA', 'Evaluación de herramientas', 'Copilot M365 seguro', 'Formación al equipo'],
+          time: '1–2 semanas',
+          price: 'desde 690 €',
+          slug: 'seguridad-ia-empresa',
         },
       ],
     },
@@ -261,7 +270,7 @@ window.QERUB_COPY = {
         resources: 'Recursos',
       },
       links: {
-        services: ['Q-Start · Diagnóstico', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity', 'Q-Dark Watch', 'Q-Insure'],
+        services: ['Q-Start · Diagnóstico', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity', 'Q-Dark Watch', 'Q-Insure', 'Q-AI Ready'],
         company: ['Sobre Qerub', 'Sectores', 'Contacto'],
         resources: ['Checklist de ciberhigiene', 'Guía phishing/BEC', 'Plantilla de respuesta a incidentes'],
       },
@@ -325,7 +334,7 @@ window.QERUB_COPY = {
     },
     services: {
       eyebrow: 'Services',
-      title: 'Eight services. Closed scope, deliverable and price on each.',
+      title: 'Nine services. Closed scope, deliverable and price on each.',
       sub: 'No infinite consulting. Each service has a defined deliverable, clear scope and a closed price before we start.',
       priceNote: 'Indicative pricing for 10\u201350 employees. Closed proposal within 24 h.',
       items: [
@@ -337,6 +346,7 @@ window.QERUB_COPY = {
         { code: 'Q-Continuity', t: 'vCISO Lite & continuity', d: 'Practical monthly governance: live risk register, action tracking, exec mini-committee, incident drill and evidence folder for NIS2 or audits.', bullets: ['Monthly review', 'Exec committee', 'Incident drill', 'NIS2 / audit evidence'], time: 'Ongoing \u00b7 monthly fee', price: 'from \u20ac590/mo', slug: 'vciso-pyme' },
         { code: 'Q-Dark Watch', t: 'Dark web & breach monitoring', d: 'We monitor the dark web, forums and data dumps for your company credentials, domains and brand. If something surfaces, you get an alert with an action plan — not a scare without context.', bullets: ['Continuous credential monitoring', 'Domains, emails & brand', 'Alert with action plan', 'Monthly executive report'], time: 'Ongoing \u00b7 monthly fee', price: 'from \u20ac150/mo', slug: 'vigilancia-dark-web-empresa' },
         { code: 'Q-Insure', t: 'Cyber insurance readiness', d: 'We get you ready to buy or renew cyber insurance: pre-policy assessment, insurer questionnaire answered and the minimum required controls closed.', bullets: ['Pre-policy assessment', 'Questionnaire response', 'Minimum required controls', 'Client questionnaires too'], time: '1\u20132 weeks', price: 'from \u20ac490', slug: 'ciberseguro-pyme' },
+        { code: 'Q-AI Ready', t: 'AI usage security', d: 'Your team already uses ChatGPT, Copilot or Gemini — with or without permission. AI-use policy, tool assessment, secure Microsoft 365 Copilot configuration and a short team training.', bullets: ['AI use policy', 'Tool assessment', 'Secure M365 Copilot', 'Team training'], time: '1\u20132 weeks', price: 'from \u20ac690', slug: 'seguridad-ia-empresa' },
       ],
     },
     method: {
@@ -440,7 +450,7 @@ window.QERUB_COPY = {
         resources: 'Resources',
       },
       links: {
-        services: ['Q-Start · Assessment', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity', 'Q-Dark Watch', 'Q-Insure'],
+        services: ['Q-Start · Assessment', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity', 'Q-Dark Watch', 'Q-Insure', 'Q-AI Ready'],
         company: ['About Qerub', 'Sectors', 'Contact'],
         resources: ['Cyber hygiene checklist', 'Phishing/BEC guide', 'Incident response template'],
       },
