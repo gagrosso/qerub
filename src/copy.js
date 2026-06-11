@@ -64,7 +64,7 @@ window.QERUB_COPY = {
     },
     services: {
       eyebrow: 'Servicios',
-      title: 'Seis servicios. Alcance, entregable y precio cerrados en cada uno.',
+      title: 'Ocho servicios. Alcance, entregable y precio cerrados en cada uno.',
       sub: 'Nada de consultoría infinita. Cada servicio tiene entregable definido, alcance claro y precio cerrado antes de empezar.',
       priceNote: 'Precios orientativos para 10–50 empleados. Propuesta cerrada en 24 h.',
       items: [
@@ -121,6 +121,24 @@ window.QERUB_COPY = {
           time: 'Continuo · cuota mensual',
           price: 'desde 590 €/mes',
           slug: 'vciso-pyme',
+        },
+        {
+          code: 'Q-Dark Watch',
+          t: 'Vigilancia de dark web y filtraciones',
+          d: 'Monitorizamos dark web, foros y volcados de datos en busca de credenciales, dominios y marca de tu empresa. Si algo aparece, recibes alerta con plan de acción — no un susto sin contexto.',
+          bullets: ['Vigilancia continua de credenciales', 'Dominios, correos y marca', 'Alerta con plan de acción', 'Informe mensual ejecutivo'],
+          time: 'Continuo · cuota mensual',
+          price: 'desde 150 €/mes',
+          slug: 'vigilancia-dark-web-empresa',
+        },
+        {
+          code: 'Q-Insure',
+          t: 'Preparación para el ciberseguro',
+          d: 'Te dejamos a punto para contratar o renovar un ciberseguro: evaluación previa, respuesta al cuestionario de la aseguradora y cierre de los controles mínimos que exigen.',
+          bullets: ['Evaluación pre-póliza', 'Respuesta al cuestionario', 'Controles mínimos exigidos', 'También cuestionarios de clientes'],
+          time: '1–2 semanas',
+          price: 'desde 490 €',
+          slug: 'ciberseguro-pyme',
         },
       ],
     },
@@ -243,7 +261,7 @@ window.QERUB_COPY = {
         resources: 'Recursos',
       },
       links: {
-        services: ['Q-Start · Diagnóstico', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity'],
+        services: ['Q-Start · Diagnóstico', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity', 'Q-Dark Watch', 'Q-Insure'],
         company: ['Sobre Qerub', 'Sectores', 'Contacto'],
         resources: ['Checklist de ciberhigiene', 'Guía phishing/BEC', 'Plantilla de respuesta a incidentes'],
       },
@@ -307,7 +325,7 @@ window.QERUB_COPY = {
     },
     services: {
       eyebrow: 'Services',
-      title: 'Six services. Closed scope, deliverable and price on each.',
+      title: 'Eight services. Closed scope, deliverable and price on each.',
       sub: 'No infinite consulting. Each service has a defined deliverable, clear scope and a closed price before we start.',
       priceNote: 'Indicative pricing for 10\u201350 employees. Closed proposal within 24 h.',
       items: [
@@ -317,6 +335,8 @@ window.QERUB_COPY = {
         { code: 'Q-Phishing Drill', t: 'Phishing simulation & awareness', d: 'Short, continuous campaigns (not a yearly PDF). Templates in neutral Spanish and English. Post-click microlearning and monthly executive reporting.', bullets: ['Monthly campaigns', 'Post-click microlearning', 'Executive reporting', 'Awareness kit'], time: 'Ongoing \u00b7 monthly fee', price: 'from \u20ac290/mo', slug: 'simulacion-phishing-empresa' },
         { code: 'Q-Incident', t: 'Incident response plan', d: 'Tailored playbook with roles, decisions and contacts, backup restoration test and a tabletop exercise with your management team.', bullets: ['Editable playbook', 'Backup restore test', 'Management tabletop', 'Contacts & legal templates'], time: '2 weeks', price: 'from \u20ac1,150', slug: 'plan-respuesta-incidentes-pyme' },
         { code: 'Q-Continuity', t: 'vCISO Lite & continuity', d: 'Practical monthly governance: live risk register, action tracking, exec mini-committee, incident drill and evidence folder for NIS2 or audits.', bullets: ['Monthly review', 'Exec committee', 'Incident drill', 'NIS2 / audit evidence'], time: 'Ongoing \u00b7 monthly fee', price: 'from \u20ac590/mo', slug: 'vciso-pyme' },
+        { code: 'Q-Dark Watch', t: 'Dark web & breach monitoring', d: 'We monitor the dark web, forums and data dumps for your company credentials, domains and brand. If something surfaces, you get an alert with an action plan — not a scare without context.', bullets: ['Continuous credential monitoring', 'Domains, emails & brand', 'Alert with action plan', 'Monthly executive report'], time: 'Ongoing \u00b7 monthly fee', price: 'from \u20ac150/mo', slug: 'vigilancia-dark-web-empresa' },
+        { code: 'Q-Insure', t: 'Cyber insurance readiness', d: 'We get you ready to buy or renew cyber insurance: pre-policy assessment, insurer questionnaire answered and the minimum required controls closed.', bullets: ['Pre-policy assessment', 'Questionnaire response', 'Minimum required controls', 'Client questionnaires too'], time: '1\u20132 weeks', price: 'from \u20ac490', slug: 'ciberseguro-pyme' },
       ],
     },
     method: {
@@ -420,7 +440,7 @@ window.QERUB_COPY = {
         resources: 'Resources',
       },
       links: {
-        services: ['Q-Start · Assessment', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity'],
+        services: ['Q-Start · Assessment', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity', 'Q-Dark Watch', 'Q-Insure'],
         company: ['About Qerub', 'Sectors', 'Contact'],
         resources: ['Cyber hygiene checklist', 'Phishing/BEC guide', 'Incident response template'],
       },
