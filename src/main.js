@@ -3,6 +3,7 @@ function HomePage() {
     <main data-screen-label="01 Home">
       <Hero />
       <TrustStrip />
+      <StatsBand />
       <Pains />
       <Services />
       <Method />
@@ -20,6 +21,7 @@ function App() {
   const { route } = useRoute();
   return (
     <>
+      <ScrollProgress />
       <Header />
       {route === 'home' && <HomePage />}
       {route === 'services' && <main data-screen-label="02 Services"><ServicesDetailPage /></main>}

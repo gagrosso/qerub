@@ -1,5 +1,5 @@
 // Shared components for Qerub site
-const { useState, useEffect, useRef, useCallback, useMemo, createContext, useContext } = React;
+const { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo, createContext, useContext } = React;
 
 // i18n context
 const I18nContext = createContext({ t: window.QERUB_COPY.es, lang: 'es', setLang: () => {} });
@@ -50,13 +50,104 @@ function RouteProvider({ children }) {
 }
 const useRoute = () => useContext(RouteContext);
 
-// Reveal — no-op (always visible). Animation removed due to environment issue.
-function Reveal({ children, as: As = 'div', className = '', style }) {
+// Reveal — fades + lifts its children into view on scroll (IntersectionObserver).
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Fails open: content is visible by default. We only "arm" the hidden→reveal
+// animation when the environment is healthy (real viewport + IntersectionObserver
+// + motion allowed). If anything is off, content simply shows — never blank.
+function Reveal({ children, as: As = 'div', className = '', style, delay = 0 }) {
+  const ref = useRef(null);
+  const [state, setState] = useState('idle'); // idle (visible) | armed (hidden) | visible
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const healthy =
+      typeof IntersectionObserver !== 'undefined' &&
+      window.innerHeight > 0 &&
+      !prefersReducedMotion();
+    if (!healthy) return; // stay visible, no animation
+    setState('armed'); // hide before paint to avoid flash
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { setState('visible'); io.disconnect(); }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  const cls =
+    'reveal' +
+    (state === 'armed' || state === 'visible' ? ' armed' : '') +
+    (state === 'visible' ? ' is-visible' : '') +
+    (className ? ' ' + className : '');
   return (
-    <As className={className} style={style}>
+    <As ref={ref} className={cls} style={{ ...style, transitionDelay: state === 'visible' ? `${delay}ms` : '0ms' }}>
       {children}
     </As>
   );
+}
+
+// Counter — animates a number from 0 → `to` the first time it scrolls into view.
+function Counter({ to = 0, prefix = '', suffix = '', dur = 1500 }) {
+  const ref = useRef(null);
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === 'undefined' || !window.innerHeight || prefersReducedMotion()) {
+      setVal(to);
+      return;
+    }
+    let raf, start, fired = false;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !fired) {
+            fired = true; io.disconnect();
+            const tick = (ts) => {
+              if (!start) start = ts;
+              const p = Math.min((ts - start) / dur, 1);
+              setVal(to * (1 - Math.pow(1 - p, 3)));
+              if (p < 1) raf = requestAnimationFrame(tick);
+            };
+            raf = requestAnimationFrame(tick);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(el);
+    return () => { io.disconnect(); if (raf) cancelAnimationFrame(raf); };
+  }, [to]);
+  return <span ref={ref}>{prefix}{Math.round(val)}{suffix}</span>;
+}
+
+// Slim scroll-progress bar fixed at the top of the viewport.
+function ScrollProgress() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const bar = ref.current;
+    if (!bar) return;
+    let ticking = false;
+    const update = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+      ticking = false;
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
+  }, []);
+  return <div id="q-progress" ref={ref} aria-hidden="true" />;
 }
 
 // Container
@@ -111,5 +202,5 @@ function Pill({ children, theme = 'light' }) {
 Object.assign(window, {
   I18nProvider, I18nContext, useT,
   RouteProvider, RouteContext, useRoute,
-  Reveal, Container, Btn, ArrowRight, Pill,
+  Reveal, Counter, ScrollProgress, Container, Btn, ArrowRight, Pill,
 });

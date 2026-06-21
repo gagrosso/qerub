@@ -2,17 +2,18 @@
 
 function TrustStrip() {
   const { t } = useT();
+  const items = t.trust.items;
   return (
     <section className="tight" style={{ paddingTop: 0, paddingBottom: 56 }}>
       <Container>
         <Reveal>
           <div
+            className="trust-row"
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: 32,
-              flexWrap: 'wrap',
-              padding: '28px 32px',
+              padding: '24px 32px',
               borderTop: '1px solid var(--line)',
               borderBottom: '1px solid var(--line)',
             }}
@@ -20,22 +21,15 @@ function TrustStrip() {
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-3)', flex: '0 0 auto' }}>
               {t.trust.title}
             </span>
-            <div style={{ flex: 1, display: 'flex', gap: 28, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-              {t.trust.items.map((it) => (
-                <span
-                  key={it}
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontWeight: 600,
-                    fontSize: 16,
-                    letterSpacing: '0.02em',
-                    color: 'var(--ink-2)',
-                    opacity: 0.7,
-                  }}
-                >
-                  {it}
-                </span>
-              ))}
+            <div className="marquee">
+              <div className="marquee-track">
+                {[...items, ...items].map((it, i) => (
+                  <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 16 }}>
+                    <span style={{ width: 5, height: 5, borderRadius: 999, background: 'var(--teal)', opacity: 0.55 }} />
+                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 16, letterSpacing: '0.02em', color: 'var(--ink-2)', opacity: 0.82 }}>{it}</span>
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </Reveal>
@@ -44,11 +38,44 @@ function TrustStrip() {
   );
 }
 
+function StatsBand() {
+  const { t } = useT();
+  const es = t.locale === 'es';
+  const stats = [
+    { to: 96, suffix: '%', label: es ? 'de las brechas llegan por tres vías conocidas' : 'of breaches come through three known paths' },
+    { to: 7, suffix: '', label: es ? 'días hábiles hasta tu diagnóstico' : 'business days to your assessment' },
+    { to: 9, suffix: '', label: es ? 'servicios con alcance y precio cerrados' : 'services with closed scope and price' },
+    { to: 24, prefix: '<', suffix: 'h', label: es ? 'para responder a tu solicitud' : 'to reply to your request' },
+  ];
+  return (
+    <section className="tight" style={{ paddingTop: 8, paddingBottom: 72 }}>
+      <Container>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 28 }}>
+          {stats.map((s, i) => (
+            <Reveal key={i} delay={i * 90}>
+              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
+                <div className="stat-num grad-text">
+                  <Counter to={s.to} prefix={s.prefix || ''} suffix={s.suffix} />
+                </div>
+                <p style={{ marginTop: 12, fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.5, maxWidth: 220, margin: '12px auto 0' }}>{s.label}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 function Pains() {
   const { t } = useT();
   return (
-    <section className="dark" id="pains">
-      <Container>
+    <section className="dark" id="pains" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div className="aurora" aria-hidden="true">
+        <div className="aurora-blob a1" />
+        <div className="aurora-blob a2" />
+      </div>
+      <Container style={{ position: 'relative', zIndex: 1 }}>
         <div className="sec-head">
           <Reveal><span className="eyebrow">{t.pains.eyebrow}</span></Reveal>
           <Reveal delay={80}>
@@ -570,8 +597,13 @@ function FinalCTA() {
   const { t } = useT();
   const { goto } = useRoute();
   return (
-    <section className="dark" style={{ paddingTop: 120, paddingBottom: 120 }}>
-      <Container>
+    <section className="dark" style={{ paddingTop: 120, paddingBottom: 120, position: 'relative', overflow: 'hidden' }}>
+      <div className="aurora" aria-hidden="true">
+        <div className="aurora-blob a1" />
+        <div className="aurora-blob a2" />
+        <div className="aurora-blob a3" />
+      </div>
+      <Container style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: 880 }}>
           <Reveal>
             <h2 className="pre" style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}>{t.finalCta.title}</h2>
@@ -641,6 +673,6 @@ function About() {
 }
 
 Object.assign(window, {
-  TrustStrip, Pains, Services, Method, Deliverable, DeliverableMock, Stat,
+  TrustStrip, StatsBand, Pains, Services, Method, Deliverable, DeliverableMock, Stat,
   Sectors, Resources, FAQ, FinalCTA, About,
 });

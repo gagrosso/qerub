@@ -19,21 +19,14 @@ function Hero() {
           pointerEvents: 'none',
         }}
       />
-      {/* Teal glow */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '-20%',
-          right: '-10%',
-          width: '55%',
-          height: '80%',
-          background: 'radial-gradient(ellipse at center, rgba(120,165,176,0.14) 0%, transparent 65%)',
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Aurora glow */}
+      <div className="aurora" aria-hidden="true">
+        <div className="aurora-blob a1" />
+        <div className="aurora-blob a2" />
+        <div className="aurora-blob a3" />
+      </div>
 
-      <Container style={{ position: 'relative' }}>
+      <Container style={{ position: 'relative', zIndex: 1 }}>
         <div
           style={{
             display: 'grid',
@@ -190,16 +183,14 @@ function HeroVisual() {
 
       {/* Scorecard card */}
       <div
+        className="glass"
         style={{
           position: 'absolute',
           right: 0,
           top: 40,
           width: 'min(380px, 90%)',
-          background: 'var(--bg-card)',
           borderRadius: 18,
-          border: '1px solid var(--line)',
           padding: 24,
-          boxShadow: '0 30px 60px -30px rgba(14,20,22,0.18)',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
