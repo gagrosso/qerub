@@ -760,13 +760,15 @@ function Pillars() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 20 }}>
           {p.items.map((it, i) => {
             const founder = isFounder(it.status);
+            const Tag = it.href ? 'a' : 'div';
+            const navProps = it.href ? { href: it.href } : { onClick: () => goto(it.to) };
             return (
               <Reveal key={i} delay={i * 70}>
                 <Tilt max={6} style={{ height: '100%' }}>
-                  <div
+                  <Tag
                     className="card"
-                    onClick={() => goto(it.to)}
-                    style={{ padding: 28, height: '100%', display: 'flex', flexDirection: 'column', gap: 14, cursor: 'pointer' }}
+                    {...navProps}
+                    style={{ padding: 28, height: '100%', display: 'flex', flexDirection: 'column', gap: 14, cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
                       <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--teal-deep)', background: 'var(--teal-soft)', padding: '5px 10px', borderRadius: 6 }}>{it.code}</span>
@@ -787,7 +789,7 @@ function Pillars() {
                         {t.locale === 'es' ? 'Saber más' : 'Learn more'} <ArrowRight />
                       </span>
                     </div>
-                  </div>
+                  </Tag>
                 </Tilt>
               </Reveal>
             );

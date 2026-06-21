@@ -71,6 +71,7 @@ window.QERUB_COPY = {
           forWhom: 'CEO · CIO',
           status: 'Programa fundador',
           to: 'contact',
+          href: '/servicios/consultoria-ia-datos-empresa',
         },
         {
           code: 'Q-Build',
@@ -80,6 +81,7 @@ window.QERUB_COPY = {
           forWhom: 'CEO · CTO',
           status: 'Programa fundador',
           to: 'contact',
+          href: '/servicios/desarrollo-software-medida-empresa',
         },
         {
           code: 'Q-Pod',
@@ -89,6 +91,7 @@ window.QERUB_COPY = {
           forWhom: 'Dir. de Talento · CIO',
           status: 'Disponible',
           to: 'contact',
+          href: '/servicios/staff-augmentation-nearshore',
         },
       ],
       note: 'Q-Secure está plenamente operativo. Q-Intelligence y Q-Build se ofrecen hoy como programa fundador: alcance acotado, condiciones especiales y total transparencia sobre lo que ya entregamos.',
@@ -441,9 +444,9 @@ window.QERUB_COPY = {
       sub: 'Technology your leadership team gets on the first read — with fixed scope and price, and senior teams that embed in your company.',
       items: [
         { code: 'Q-Secure', t: 'Cybersecurity', tagline: 'Security as a business advantage, not a brake.', d: 'Assessment, Microsoft 365, anti-fraud, incident response and vCISO. Our most mature pillar: nine services with fixed scope and price.', forWhom: 'CEO · CISO · IT', status: 'Live', to: 'services' },
-        { code: 'Q-Intelligence', t: 'AI & Data', tagline: 'You have the data. You’re missing the decisions — and AI that reaches production.', d: 'From use case to production: agents, Copilot and RAG with measurable ROI, data platform and BI, and AI governance (EU AI Act).', forWhom: 'CEO · CIO', status: 'Founding program', to: 'contact' },
-        { code: 'Q-Build', t: 'Custom software', tagline: 'The software your business needs and off-the-shelf won’t give you.', d: 'Custom development and integrations, app modernization so you can use AI, and MVPs with senior judgment. Full cycle, not a “code factory”.', forWhom: 'CEO · CTO', status: 'Founding program', to: 'contact' },
-        { code: 'Q-Pod', t: 'Embedded senior teams', tagline: 'Senior talent that embeds in your team in days. Pay for outcomes, not seats.', d: 'Staff augmentation and managed operation: vCISO, fractional vCIO/vCTO, managed AI and data. Senior nearshore from Argentina, in your time zone.', forWhom: 'Head of Talent · CIO', status: 'Available', to: 'contact' },
+        { code: 'Q-Intelligence', t: 'AI & Data', tagline: 'You have the data. You’re missing the decisions — and AI that reaches production.', d: 'From use case to production: agents, Copilot and RAG with measurable ROI, data platform and BI, and AI governance (EU AI Act).', forWhom: 'CEO · CIO', status: 'Founding program', to: 'contact', href: '/servicios/consultoria-ia-datos-empresa' },
+        { code: 'Q-Build', t: 'Custom software', tagline: 'The software your business needs and off-the-shelf won’t give you.', d: 'Custom development and integrations, app modernization so you can use AI, and MVPs with senior judgment. Full cycle, not a “code factory”.', forWhom: 'CEO · CTO', status: 'Founding program', to: 'contact', href: '/servicios/desarrollo-software-medida-empresa' },
+        { code: 'Q-Pod', t: 'Embedded senior teams', tagline: 'Senior talent that embeds in your team in days. Pay for outcomes, not seats.', d: 'Staff augmentation and managed operation: vCISO, fractional vCIO/vCTO, managed AI and data. Senior nearshore from Argentina, in your time zone.', forWhom: 'Head of Talent · CIO', status: 'Available', to: 'contact', href: '/servicios/staff-augmentation-nearshore' },
       ],
       note: 'Q-Secure is fully live. Q-Intelligence and Q-Build are offered today as a founding program: tight scope, special terms and full transparency about what we already deliver.',
     },
