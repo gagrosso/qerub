@@ -158,6 +158,8 @@ function Hero() {
 }
 
 function HeroVisual() {
+  const { t } = useT();
+  const es = t.locale === 'es';
   const [score, setScore] = useState(34);
   useEffect(() => {
     let raf, start;
@@ -193,39 +195,51 @@ function HeroVisual() {
           padding: 24,
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-3)' }}>
-            Q-Start · Scorecard
+            {es ? 'Informe Q-Start' : 'Q-Start report'}
           </span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--teal-deep)' }}>v1.0</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--teal-deep)', background: 'var(--teal-soft)', padding: '3px 9px', borderRadius: 999 }}>
+            {es ? 'Ejemplo' : 'Sample'}
+          </span>
         </div>
 
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-3)', marginBottom: 6 }}>
+          {es ? 'Nivel de seguridad' : 'Security level'}
+        </div>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-          <span style={{ fontFamily: 'var(--font-display)', fontSize: 64, fontWeight: 700, lineHeight: 1, color: 'var(--ink)' }}>{scoreInt}</span>
+          <span style={{ fontFamily: 'var(--font-display)', fontSize: 60, fontWeight: 900, lineHeight: 1, color: 'var(--ink)' }}>{scoreInt}</span>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--ink-3)' }}>/ 100</span>
-          <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 11, color: '#b88a3a', background: 'rgba(184,138,58,0.12)', padding: '4px 8px', borderRadius: 6 }}>
-            +44 pts roadmap
+          <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--teal-deep)', background: 'var(--teal-soft)', padding: '5px 9px', borderRadius: 999, whiteSpace: 'nowrap' }}>
+            {es ? '+44 con el plan' : '+44 with the plan'}
           </span>
         </div>
 
-        <div style={{ marginTop: 14, height: 8, background: 'rgba(14,20,22,0.06)', borderRadius: 999, overflow: 'hidden' }}>
+        <div style={{ marginTop: 12, height: 8, background: 'rgba(14,20,22,0.06)', borderRadius: 999, overflow: 'hidden' }}>
           <div
             style={{
               width: `${scoreInt}%`,
               height: '100%',
-              background: 'linear-gradient(90deg, #b88a3a, #78a5b0)',
+              background: 'linear-gradient(90deg, #c4574a, #b88a3a, #4d7e8a)',
               transition: 'width 0.05s linear',
             }}
           />
         </div>
+        <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: 9.5, color: 'var(--ink-4)', letterSpacing: '0.04em' }}>
+          <span>0 · {es ? 'expuesto' : 'exposed'}</span>
+          <span>{es ? 'sólido' : 'solid'} · 100</span>
+        </div>
 
-        <div style={{ marginTop: 22, display: 'grid', gap: 10 }}>
+        <div style={{ marginTop: 20, marginBottom: 12, fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-3)' }}>
+          {es ? '5 áreas revisadas' : '5 areas reviewed'}
+        </div>
+        <div style={{ display: 'grid', gap: 11 }}>
           {[
-            { k: 'Identity & MFA', v: 62, c: '#b88a3a' },
-            { k: 'Email (SPF/DKIM/DMARC)', v: 28, c: '#c4574a' },
-            { k: 'Microsoft 365 hardening', v: 71, c: '#78a5b0' },
-            { k: 'Backups & continuity', v: 55, c: '#b88a3a' },
-            { k: 'Incident response', v: 12, c: '#c4574a' },
+            { k: es ? 'Correo y antifraude' : 'Email & anti-fraud', v: 28, s: es ? 'Crítico' : 'Critical', c: '#c4574a' },
+            { k: es ? 'Identidades y MFA' : 'Identity & MFA', v: 62, s: es ? 'Mejorable' : 'Fair', c: '#b88a3a' },
+            { k: 'Microsoft 365', v: 71, s: es ? 'Bien' : 'Good', c: '#4d7e8a' },
+            { k: es ? 'Copias de seguridad' : 'Backups', v: 55, s: es ? 'Mejorable' : 'Fair', c: '#b88a3a' },
+            { k: es ? 'Plan ante incidentes' : 'Incident plan', v: 12, s: es ? 'Crítico' : 'Critical', c: '#c4574a' },
           ].map((row) => (
             <div key={row.k} style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'center', gap: 12 }}>
               <div>
@@ -234,27 +248,27 @@ function HeroVisual() {
                   <div style={{ width: `${row.v}%`, height: '100%', background: row.c }} />
                 </div>
               </div>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, color: row.c, minWidth: 30, textAlign: 'right' }}>{row.v}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, fontWeight: 500, color: row.c, background: `${row.c}1f`, padding: '4px 9px', borderRadius: 5, minWidth: 70, textAlign: 'center' }}>{row.s}</span>
             </div>
           ))}
         </div>
 
         <div
           style={{
-            marginTop: 22,
+            marginTop: 20,
             paddingTop: 14,
             borderTop: '1px solid var(--line)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             fontFamily: 'var(--font-mono)',
-            fontSize: 10.5,
+            fontSize: 10,
             color: 'var(--ink-3)',
-            letterSpacing: '0.05em',
+            letterSpacing: '0.04em',
           }}
         >
-          <span>NIST CSF 2.0 · CIS IG1</span>
-          <span style={{ color: 'var(--teal-deep)' }}>15 acciones priorizadas →</span>
+          <span>{es ? 'Base: NIST CSF 2.0 · CIS' : 'Based on NIST CSF 2.0 · CIS'}</span>
+          <span style={{ color: 'var(--teal-deep)' }}>{es ? '15 acciones priorizadas →' : '15 prioritised actions →'}</span>
         </div>
       </div>
 
@@ -275,10 +289,10 @@ function HeroVisual() {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8cc0cf' }}>
           <span style={{ width: 6, height: 6, borderRadius: 999, background: '#8cc0cf' }} />
-          MFA enforced
+          {es ? 'MFA activado' : 'MFA enforced'}
         </div>
         <div style={{ marginTop: 8, fontSize: 13, lineHeight: 1.4 }}>
-          17 / 17 cuentas privilegiadas con MFA activado en las últimas 48h.
+          {es ? '17 / 17 cuentas con acceso de administrador protegidas con MFA en 48 h.' : '17 / 17 admin accounts protected with MFA in 48h.'}
         </div>
       </div>
     </div>
