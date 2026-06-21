@@ -128,6 +128,39 @@ function Counter({ to = 0, prefix = '', suffix = '', dur = 1500 }) {
   return <span ref={ref}>{prefix}{Math.round(val)}{suffix}</span>;
 }
 
+// 3D cursor-tilt for showcase cards. Desktop pointer only; honours reduced motion.
+function Tilt({ children, max = 9, className = '', style }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || prefersReducedMotion()) return;
+    if (!window.matchMedia || !window.matchMedia('(pointer: fine)').matches) return;
+    let raf = 0;
+    const move = (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.transform = `perspective(1100px) rotateY(${x * max}deg) rotateX(${-y * max}deg)`;
+      });
+    };
+    const leave = () => { if (raf) cancelAnimationFrame(raf); el.style.transform = ''; };
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerleave', leave);
+    return () => {
+      el.removeEventListener('pointermove', move);
+      el.removeEventListener('pointerleave', leave);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [max]);
+  return (
+    <div ref={ref} className={`tilt ${className}`.trim()} style={style}>
+      {children}
+    </div>
+  );
+}
+
 // Slim scroll-progress bar fixed at the top of the viewport.
 function ScrollProgress() {
   const ref = useRef(null);
@@ -202,5 +235,5 @@ function Pill({ children, theme = 'light' }) {
 Object.assign(window, {
   I18nProvider, I18nContext, useT,
   RouteProvider, RouteContext, useRoute,
-  Reveal, Counter, ScrollProgress, Container, Btn, ArrowRight, Pill,
+  Reveal, Counter, ScrollProgress, Tilt, Container, Btn, ArrowRight, Pill,
 });

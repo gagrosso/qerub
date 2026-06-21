@@ -2,6 +2,24 @@ function Hero() {
   const { t } = useT();
   const { goto } = useRoute();
   const h = t.hero;
+  const auroraRef = useRef(null);
+
+  // Subtle parallax: the aurora drifts slower than the page on scroll.
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const el = auroraRef.current;
+    if (!el) return;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        el.style.transform = `translate3d(0, ${window.scrollY * 0.18}px, 0)`;
+        raf = 0;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, []);
 
   return (
     <section id="home" className="dark" style={{ paddingTop: 150, paddingBottom: 90, position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
@@ -20,7 +38,7 @@ function Hero() {
         }}
       />
       {/* Aurora glow */}
-      <div className="aurora" aria-hidden="true">
+      <div className="aurora" aria-hidden="true" ref={auroraRef}>
         <div className="aurora-blob a1" />
         <div className="aurora-blob a2" />
         <div className="aurora-blob a3" />
@@ -184,13 +202,10 @@ function HeroVisual() {
       </div>
 
       {/* Scorecard card */}
+      <Tilt className="tilt-3d" style={{ position: 'absolute', right: 0, top: 40, width: 'min(380px, 90%)' }}>
       <div
         className="glass"
         style={{
-          position: 'absolute',
-          right: 0,
-          top: 40,
-          width: 'min(380px, 90%)',
           borderRadius: 18,
           padding: 24,
         }}
@@ -271,6 +286,7 @@ function HeroVisual() {
           <span style={{ color: 'var(--teal-deep)' }}>{es ? '15 acciones priorizadas →' : '15 prioritised actions →'}</span>
         </div>
       </div>
+      </Tilt>
 
       {/* Small chip card */}
       <div

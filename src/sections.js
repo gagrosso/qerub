@@ -150,6 +150,7 @@ function Services() {
         >
           {t.services.items.map((s, i) => (
             <Reveal key={i} delay={i * 60}>
+              <Tilt max={6} style={{ height: '100%' }}>
               <div
                 className="card"
                 style={{
@@ -211,6 +212,7 @@ function Services() {
                   </a>
                 </div>
               </div>
+              </Tilt>
             </Reveal>
           ))}
         </div>
@@ -328,7 +330,10 @@ function Deliverable() {
 }
 
 function DeliverableMock({ label }) {
+  const { t } = useT();
+  const es = t.locale === 'es';
   return (
+    <Tilt className="tilt-3d-soft">
     <div
       style={{
         background: 'var(--bg-card)',
@@ -340,15 +345,15 @@ function DeliverableMock({ label }) {
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--line)', paddingBottom: 18 }}>
-        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16 }}>Q-Start Report</span>
+        <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16 }}>{es ? 'Informe Q-Start' : 'Q-Start report'}</span>
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--ink-3)' }}>{label}</span>
       </div>
 
       <div style={{ marginTop: 24, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 18 }}>
-        <Stat label="Score" value="78" unit="/100" color="var(--teal-deep)" />
-        <Stat label="Riesgos altos" value="3" unit="" color="#c4574a" />
-        <Stat label="Quick wins" value="12" unit="" color="#b88a3a" />
-        <Stat label="Roadmap 90d" value="15" unit="acciones" color="var(--ink)" />
+        <Stat label={es ? 'Nivel' : 'Level'} value="78" unit="/100" color="var(--teal-deep)" />
+        <Stat label={es ? 'Riesgos altos' : 'High risks'} value="3" unit="" color="#c4574a" />
+        <Stat label={es ? 'Acciones rápidas' : 'Quick wins'} value="12" unit="" color="#b88a3a" />
+        <Stat label={es ? 'Plan 90 días' : '90-day plan'} value="15" unit={es ? 'acciones' : 'actions'} color="var(--ink)" />
       </div>
 
       <div style={{ marginTop: 26, display: 'grid', gap: 10 }}>
@@ -368,9 +373,10 @@ function DeliverableMock({ label }) {
       </div>
 
       <div style={{ marginTop: 22, padding: '14px 16px', background: 'var(--teal-soft)', borderRadius: 10, fontFamily: 'var(--font-mono)', fontSize: 11.5, color: 'var(--teal-deep)', letterSpacing: '0.04em' }}>
-        ▸ Quick wins 30 días: forzar MFA · romper forwarding · activar DMARC p=quarantine
+        {es ? '▸ Acciones rápidas (30 días): forzar MFA · cortar reenvíos · activar DMARC' : '▸ Quick wins (30 days): enforce MFA · stop forwarding · enable DMARC'}
       </div>
     </div>
+    </Tilt>
   );
 }
 

@@ -250,6 +250,14 @@
     box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(120, 165, 176, 0.12);
   }
 
+  /* 3D tilt — showcase cards float with perspective, straighten toward cursor */
+  .tilt { transition: transform 0.3s var(--ease-out); transform-style: preserve-3d; }
+  .tilt-3d { transform: perspective(1200px) rotateY(-7deg) rotateX(3deg); }
+  .tilt-3d-soft { transform: perspective(1200px) rotateY(6deg) rotateX(2deg); }
+  @media (max-width: 860px) {
+    .tilt-3d, .tilt-3d-soft { transform: none; }
+  }
+
   /* Gradient accent text (stat numbers, key words) */
   .grad-text {
     background: linear-gradient(100deg, var(--teal-deep), var(--teal-2));
@@ -298,5 +306,6 @@
     .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
     .aurora-blob, .marquee-track, [class*="qDrift"] { animation: none !important; }
     .marquee-track { transform: none !important; }
+    .tilt, .tilt-3d, .tilt-3d-soft { transform: none !important; transition: none !important; }
     html { scroll-behavior: auto; }
   }
