@@ -7,7 +7,7 @@ function Hero() {
   const slidesRef = useRef(null);
 
   const scrollToServices = () => {
-    const el = document.getElementById('services');
+    const el = document.getElementById('pillars') || document.getElementById('services');
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
   };
 

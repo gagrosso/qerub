@@ -188,6 +188,18 @@ function Services() {
               <p style={{ marginTop: 14, fontFamily: 'var(--font-mono)', fontSize: 11.5, letterSpacing: '0.06em', color: 'var(--teal-deep)' }}>{t.services.priceNote}</p>
             </Reveal>
           )}
+          {t.services.families && (
+            <Reveal delay={220}>
+              <div style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                {t.services.families.map((f, i) => (
+                  <div key={i} style={{ flex: '1 1 200px', minWidth: 200, padding: '12px 16px', border: '1px solid var(--line)', borderRadius: 12, background: 'var(--bg-card)' }}>
+                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 14.5 }}>{f.t}</div>
+                    <div style={{ marginTop: 4, fontSize: 12.5, color: 'var(--ink-3)' }}>{f.d}</div>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          )}
         </div>
       </Container>
 
@@ -729,7 +741,185 @@ function About() {
   );
 }
 
+// ── Pilares (los 4 frentes de servicio) ──────────────────────────────────────
+function Pillars() {
+  const { t } = useT();
+  const { goto } = useRoute();
+  const p = t.pillars;
+  if (!p) return null;
+  const isFounder = (s) => /fundador|founding/i.test(s || '');
+  return (
+    <section id="pillars">
+      <Container>
+        <div className="sec-head">
+          <Reveal><span className="eyebrow">{p.eyebrow}</span></Reveal>
+          <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{p.title}</h2></Reveal>
+          <Reveal delay={140}><p className="sub">{p.sub}</p></Reveal>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 20 }}>
+          {p.items.map((it, i) => {
+            const founder = isFounder(it.status);
+            return (
+              <Reveal key={i} delay={i * 70}>
+                <Tilt max={6} style={{ height: '100%' }}>
+                  <div
+                    className="card"
+                    onClick={() => goto(it.to)}
+                    style={{ padding: 28, height: '100%', display: 'flex', flexDirection: 'column', gap: 14, cursor: 'pointer' }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--teal-deep)', background: 'var(--teal-soft)', padding: '5px 10px', borderRadius: 6 }}>{it.code}</span>
+                      <span style={{
+                        fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase',
+                        padding: '4px 9px', borderRadius: 999,
+                        color: founder ? '#9a7b2e' : 'var(--teal-deep)',
+                        background: founder ? 'rgba(217,199,154,0.22)' : 'rgba(120,165,176,0.16)',
+                        border: founder ? '1px solid rgba(217,199,154,0.5)' : '1px solid rgba(120,165,176,0.35)',
+                      }}>{it.status}</span>
+                    </div>
+                    <h3 style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>{it.t}</h3>
+                    <p style={{ fontSize: 14.5, color: 'var(--ink)', fontWeight: 600, lineHeight: 1.45 }}>{it.tagline}</p>
+                    <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.6 }}>{it.d}</p>
+                    <div style={{ marginTop: 'auto', paddingTop: 18, borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--ink-4)', letterSpacing: '0.04em' }}>{it.forWhom}</span>
+                      <span style={{ color: 'var(--ink)', fontWeight: 600, fontSize: 13.5, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                        {t.locale === 'es' ? 'Saber más' : 'Learn more'} <ArrowRight />
+                      </span>
+                    </div>
+                  </div>
+                </Tilt>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        {p.note && (
+          <Reveal delay={120}>
+            <p style={{ marginTop: 26, fontSize: 13.5, color: 'var(--ink-3)', maxWidth: 760, lineHeight: 1.6, fontStyle: 'italic' }}>{p.note}</p>
+          </Reveal>
+        )}
+      </Container>
+    </section>
+  );
+}
+
+// ── Mensajes por decisor (CEO / CIO / Talento) ───────────────────────────────
+function Decisors() {
+  const { t } = useT();
+  const { goto } = useRoute();
+  const d = t.decisors;
+  if (!d) return null;
+  return (
+    <section style={{ background: 'var(--bg-2)' }}>
+      <Container>
+        <div className="sec-head">
+          <Reveal><span className="eyebrow">{d.eyebrow}</span></Reveal>
+          <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{d.title}</h2></Reveal>
+          <Reveal delay={140}><p className="sub">{d.sub}</p></Reveal>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
+          {d.items.map((it, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <div className="card" style={{ padding: 30, height: '100%', display: 'flex', flexDirection: 'column', gap: 14, background: 'var(--bg-card)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--teal-deep)' }}>{it.role}</span>
+                <h3 style={{ fontSize: 21, fontWeight: 600, lineHeight: 1.25 }}>{it.t}</h3>
+                <p style={{ fontSize: 14.5, color: 'var(--ink-3)', lineHeight: 1.6 }}>{it.d}</p>
+                <button
+                  onClick={() => goto('contact')}
+                  style={{ marginTop: 'auto', textAlign: 'left', background: 'transparent', border: 'none', padding: '14px 0 0', color: 'var(--ink)', fontWeight: 600, fontSize: 13.5, display: 'inline-flex', alignItems: 'center', gap: 8 }}
+                >
+                  {it.cta} <ArrowRight />
+                </button>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+// ── Prueba honesta: métricas de método + programa fundador ───────────────────
+function Proof() {
+  const { t } = useT();
+  const { goto } = useRoute();
+  const pr = t.proof;
+  if (!pr) return null;
+  return (
+    <section className="tight" style={{ paddingTop: 80, paddingBottom: 88 }}>
+      <Container>
+        <div className="sec-head" style={{ marginBottom: 40 }}>
+          <Reveal><span className="eyebrow">{pr.eyebrow}</span></Reveal>
+          <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{pr.title}</h2></Reveal>
+          <Reveal delay={140}><p className="sub">{pr.sub}</p></Reveal>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 24 }}>
+          {pr.metrics.map((m, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <div style={{ padding: '8px 4px' }}>
+                <div className="stat-num grad-text" style={{ fontSize: 'clamp(36px, 4.6vw, 56px)' }}>{m.v}<span style={{ fontSize: '0.5em' }}>{m.u}</span></div>
+                <p style={{ marginTop: 10, fontSize: 13.5, color: 'var(--ink-3)', lineHeight: 1.5, maxWidth: 230 }}>{m.label}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {pr.founder && (
+          <Reveal delay={120}>
+            <div
+              className="glass"
+              style={{ marginTop: 44, padding: '32px 34px', borderRadius: 18, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}
+            >
+              <div style={{ maxWidth: 640 }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9a7b2e', background: 'rgba(217,199,154,0.22)', border: '1px solid rgba(217,199,154,0.5)', padding: '4px 10px', borderRadius: 999 }}>{pr.founder.tag}</span>
+                <h3 style={{ fontSize: 24, fontWeight: 700, marginTop: 14 }}>{pr.founder.t}</h3>
+                <p style={{ marginTop: 10, fontSize: 15, color: 'var(--ink-3)', lineHeight: 1.6 }}>{pr.founder.d}</p>
+              </div>
+              <Btn variant="primary" onClick={() => goto('contact')}>{pr.founder.cta} <ArrowRight /></Btn>
+            </div>
+          </Reveal>
+        )}
+      </Container>
+    </section>
+  );
+}
+
+// ── Tres husos horarios (sedes con rol) ──────────────────────────────────────
+function Geo() {
+  const { t } = useT();
+  const g = t.geo;
+  if (!g) return null;
+  return (
+    <section className="dark" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div className="aurora" aria-hidden="true">
+        <div className="aurora-blob a1" />
+        <div className="aurora-blob a3" />
+      </div>
+      <Container style={{ position: 'relative', zIndex: 1 }}>
+        <div className="sec-head">
+          <Reveal><span className="eyebrow">{g.eyebrow}</span></Reveal>
+          <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{g.title}</h2></Reveal>
+          <Reveal delay={140}><p className="sub" style={{ maxWidth: 720 }}>{g.sub}</p></Reveal>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 1, background: 'rgba(246,244,239,0.08)', border: '1px solid rgba(246,244,239,0.08)', borderRadius: 16, overflow: 'hidden' }}>
+          {g.items.map((c, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <div style={{ background: 'var(--dark)', padding: '34px 30px', height: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--teal-2)', letterSpacing: '0.14em', textTransform: 'uppercase' }}>{c.role}</span>
+                <h3 style={{ fontSize: 26, fontWeight: 700 }}>{c.city}</h3>
+                <p style={{ fontSize: 14.5, color: 'rgba(246,244,239,0.68)', lineHeight: 1.6 }}>{c.d}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 Object.assign(window, {
-  BadgeMark, TrustStrip, StatsBand, Pains, Services, Method, Deliverable, DeliverableMock, Stat,
+  BadgeMark, TrustStrip, StatsBand, Pillars, Decisors, Proof, Geo, Pains, Services, Method, Deliverable, DeliverableMock, Stat,
   Sectors, Resources, FAQ, FinalCTA, About,
 });

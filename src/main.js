@@ -3,11 +3,14 @@ function HomePage() {
     <main data-screen-label="01 Home">
       <Hero />
       <TrustStrip />
-      <StatsBand />
+      <Pillars />
+      <Decisors />
+      <Proof />
       <Pains />
       <Services />
       <Method />
       <Deliverable />
+      <Geo />
       <Sectors />
       <Resources />
       <About />
@@ -40,6 +43,12 @@ function Root() {
       </RouteProvider>
     </I18nProvider>
   );
+}
+
+// On pinned-scroll pages, browser scroll restoration can leave the pinned
+// hero in a stale state after a reload. Always start at the top.
+if (window.history && 'scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
