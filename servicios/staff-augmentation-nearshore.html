@@ -44,14 +44,30 @@
     </nav>
 
     <section class="hero">
-      <span class="code">Q-Pod</span>
-      <h1>Talento senior integrado en tu equipo en días, no en meses.</h1>
-      <p class="lead">Contratar un perfil senior de IA, datos, cloud o ciberseguridad puede llevarte seis meses — y muchas agencias te mandan un junior disfrazado. Q-Pod es otra cosa: equipos senior que se integran en el tuyo, trabajan en tu huso horario y rinden cuentas por resultado, no por horas de silla. Sin junior facturados.</p>
-      <div class="meta-chips">
-        <span class="chip">Terna senior · <strong>5–10 días</strong></span>
-        <span class="chip">Modelo · <strong>resultado, no sillas</strong></span>
-        <span class="chip">Husos · <strong>ES · AR · EE.UU.</strong></span>
+      <div class="hero-2col" style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;">
+        <div>
+          <span class="code">Q-Pod</span>
+          <h1>Talento senior integrado en tu equipo en días, no en meses.</h1>
+          <p class="lead">Contratar un perfil senior de IA, datos, cloud o ciberseguridad puede llevarte seis meses — y muchas agencias te mandan un junior disfrazado. Q-Pod es otra cosa: equipos senior que se integran en el tuyo, trabajan en tu huso horario y rinden cuentas por resultado, no por horas de silla. Sin junior facturados.</p>
+          <div class="meta-chips">
+            <span class="chip">Terna senior · <strong>5–10 días</strong></span>
+            <span class="chip">Modelo · <strong>resultado, no sillas</strong></span>
+            <span class="chip">Husos · <strong>ES · AR · EE.UU.</strong></span>
+          </div>
+        </div>
+        <figure class="hero-illo" style="margin:0;">
+          <picture>
+            <source srcset="/assets/img/qerub-equipos-pod.webp" type="image/webp">
+            <img src="/assets/img/qerub-equipos-pod.png" width="1000" height="1000" decoding="async" loading="eager" style="width:100%;height:auto;display:block;" alt="Especialistas senior de desarrollo, cloud, ciberseguridad y operación conectados de forma segura con la empresa cliente" />
+          </picture>
+        </figure>
       </div>
+      <style>
+        @media (max-width: 860px){
+          .hero-2col{grid-template-columns:1fr !important;gap:24px !important;}
+          .hero-illo{max-width:360px;margin:0 auto !important;}
+        }
+      </style>
     </section>
 
     <section class="block">
