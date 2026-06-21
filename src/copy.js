@@ -297,6 +297,18 @@ window.QERUB_COPY = {
       title: 'Lo que nos preguntan antes de empezar.',
       items: [
         {
+          q: '¿Solo hacéis ciberseguridad, o también IA, datos y software?',
+          a: 'Las cuatro cosas, con un mismo equipo senior y precio cerrado. La ciberseguridad (Q-Secure) es nuestro pilar más maduro; IA y datos (Q-Intelligence) y software a medida (Q-Build) los ofrecemos hoy como programa fundador, con total transparencia sobre lo que ya entregamos. Somos nuevos en esas líneas y lo decimos claro.',
+        },
+        {
+          q: '¿Cómo funciona el modelo de equipos senior (Q-Pod)?',
+          a: 'Te presentamos una terna senior en 5–10 días, con CV, años de experiencia y stack. La persona se integra en tu equipo y trabaja en tu huso horario. Pagas resultado, no sillas, y si en las dos primeras semanas no encaja, la cambiamos sin coste. Sin junior facturados.',
+        },
+        {
+          q: '¿Tenéis oficinas en tres países?',
+          a: 'Operamos en tres husos horarios — España (cumplimiento europeo), Argentina (entrega senior nearshore) y Estados Unidos (frente comercial) — para estar cerca de tu negocio a la hora que lo necesitas. No te vendemos una "gran firma" que no somos: te decimos exactamente qué hay en cada sitio.',
+        },
+        {
           q: '¿Cuánto cuesta el diagnóstico Q-Start?',
           a: 'Precio cerrado en función del tamaño de tu organización. Te enviamos una propuesta concreta en 24 horas tras la primera llamada. Sin sorpresas.',
         },
@@ -373,7 +385,7 @@ window.QERUB_COPY = {
         resources: 'Recursos',
       },
       links: {
-        services: ['Q-Start · Diagnóstico', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity', 'Q-Dark Watch', 'Q-Insure', 'Q-AI Ready'],
+        services: ['Q-Secure · Ciberseguridad', 'Q-Intelligence · IA y datos', 'Q-Build · Software a medida', 'Q-Pod · Equipos senior'],
         company: ['Sobre Qerub', 'Sectores', 'Contacto'],
         resources: ['Checklist de ciberhigiene', 'Guía phishing/BEC', 'Plantilla de respuesta a incidentes'],
       },
@@ -562,6 +574,9 @@ window.QERUB_COPY = {
       eyebrow: 'FAQ',
       title: 'What people ask us before starting.',
       items: [
+        { q: 'Do you only do cybersecurity, or also AI, data and software?', a: 'All four, with the same senior team and a fixed price. Cybersecurity (Q-Secure) is our most mature pillar; AI and data (Q-Intelligence) and custom software (Q-Build) are offered today as a founding program, with full transparency about what we already deliver. We are new in those lines and we say so plainly.' },
+        { q: 'How does the senior-team model (Q-Pod) work?', a: 'We send a senior shortlist in 5–10 days, with CV, years of experience and stack. The person embeds in your team and works in your time zone. You pay for outcomes, not seats, and if it does not fit in the first two weeks, we replace them at no cost. No junior staff billed.' },
+        { q: 'Do you have offices in three countries?', a: 'We operate across three time zones — Spain (European compliance), Argentina (senior nearshore delivery) and the United States (commercial front) — to be close to your business when you need it. We will not sell you a "big firm" we are not: we tell you exactly what is in each place.' },
         { q: 'How much is the Q-Start assessment?', a: 'Closed price based on your org size. We send a concrete proposal within 24 hours after the first call. No surprises.' },
         { q: 'Do we need an internal tech team to work with you?', a: 'No. Q-Start is designed for management to understand and decide without an internal CISO. If you have an IT vendor, we coordinate with them.' },
         { q: 'What if we already did an audit a while ago?', a: 'Even better. We start from there, not from zero. We validate what was executed, what remained open and where the live risks are today.' },
@@ -621,7 +636,7 @@ window.QERUB_COPY = {
         resources: 'Resources',
       },
       links: {
-        services: ['Q-Start · Assessment', 'Q-365 Shield', 'Q-Mail Shield', 'Q-Phishing Drill', 'Q-Incident', 'Q-Continuity', 'Q-Dark Watch', 'Q-Insure', 'Q-AI Ready'],
+        services: ['Q-Secure · Cybersecurity', 'Q-Intelligence · AI & data', 'Q-Build · Custom software', 'Q-Pod · Senior teams'],
         company: ['About Qerub', 'Sectors', 'Contact'],
         resources: ['Cyber hygiene checklist', 'Phishing/BEC guide', 'Incident response template'],
       },

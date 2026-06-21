@@ -18,11 +18,15 @@ function Footer() {
           <div>
             <QWordmark height={26} onDark withTagline />
             <p style={{ marginTop: 20, fontSize: 14.5, maxWidth: 320, lineHeight: 1.6, color: 'rgba(246,244,239,0.68)' }}>
-              {f.base}.
+              {f.base}
             </p>
           </div>
 
-          <FooterCol title={f.cols.services} items={f.links.services} onClick={() => goto('services')} />
+          <FooterCol title={f.cols.services} items={f.links.services} onClick={(idx) => {
+            const hubs = [null, '/servicios/consultoria-ia-datos-empresa', '/servicios/desarrollo-software-medida-empresa', '/servicios/staff-augmentation-nearshore'];
+            if (idx === 0) goto('services');
+            else if (hubs[idx]) window.location.href = hubs[idx];
+          }} />
           <FooterCol title={f.cols.company} items={f.links.company} onClick={(idx) => {
             if (idx === 0) goto('home', 'about');
             if (idx === 1) goto('home', 'sectors');

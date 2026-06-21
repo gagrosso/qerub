@@ -54,7 +54,7 @@ function Header() {
   }, []);
 
   const navItems = [
-    { k: 'services', label: t.nav.services, anchor: 'services' },
+    { k: 'services', label: t.nav.services, anchor: 'pillars' },
     { k: 'method', label: t.nav.method, anchor: 'method' },
     { k: 'sectors', label: t.nav.sectors, anchor: 'sectors' },
     { k: 'resources', label: t.nav.resources, anchor: 'resources' },
