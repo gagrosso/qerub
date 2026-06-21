@@ -4,18 +4,24 @@ const { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo, crea
 // i18n context
 const I18nContext = createContext({ t: window.QERUB_COPY.es, lang: 'es', setLang: () => {} });
 
+// The URL path is the source of truth for the locale (so each locale is a
+// real, shareable, indexable URL): /en-us/... = English, everything else = es.
+const detectLang = () =>
+  (typeof window !== 'undefined' && window.location.pathname.indexOf('/en-us') === 0)
+    ? 'en-US'
+    : 'es';
+
 function I18nProvider({ children }) {
-  const [lang, setLang] = useState(() => {
-    try {
-      const stored = localStorage.getItem('qerub_lang');
-      if (stored === 'en') return 'en-US';            // migrate legacy key
-      if (window.QERUB_COPY[stored]) return stored;
-    } catch (e) {}
-    return 'es';
-  });
+  const [lang] = useState(detectLang);
   useEffect(() => {
-    try { localStorage.setItem('qerub_lang', lang); } catch (e) {}
     document.documentElement.lang = lang;
+  }, [lang]);
+  // Switching language navigates to the matching locale URL (full load → the
+  // right <head>: title, canonical, hreflang). The section hash is preserved.
+  const setLang = useCallback((l) => {
+    if (l === lang) return;
+    const base = l === 'en-US' ? '/en-us/' : '/';
+    window.location.assign(base + (window.location.hash || ''));
   }, [lang]);
   const t = window.QERUB_COPY[lang] || window.QERUB_COPY.es;
   return <I18nContext.Provider value={{ t, lang, setLang }}>{children}</I18nContext.Provider>;
