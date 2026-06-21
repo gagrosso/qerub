@@ -468,7 +468,7 @@ function Sectors() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
           {t.sectors.items.map((s, i) => {
-            const sectorHrefs = { 0: '/sectores/asesorias', 2: '/sectores/clinicas' };
+            const sectorHrefs = { 1: '/sectores/clinicas', 4: '/sectores/asesorias' };
             const href = sectorHrefs[i];
             const card = (
               <div

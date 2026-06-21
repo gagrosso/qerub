@@ -276,10 +276,11 @@ window.QERUB_COPY = {
       title: 'Hablamos el idioma de tu sector.',
       sub: 'Empezamos por los perfiles donde más rápido se entiende y se cierra. Si tu sector no aparece aquí, pregúntanos.',
       items: [
-        { t: 'Asesorías y gestorías', d: 'Datos fiscales y bancarios de tus clientes. Cero margen para error.' },
-        { t: 'Despachos profesionales', d: 'Confidencialidad, secreto profesional y comunicación cliente segura.' },
-        { t: 'Clínicas y salud', d: 'Datos especialmente protegidos. Cumplimiento RGPD y continuidad.' },
-        { t: 'Empresas de servicios', d: '10–250 empleados. Microsoft 365, proveedores, facturación y operación remota.' },
+        { t: 'Servicios financieros y fintech', d: 'Riesgo, fraude y decisiones en tiempo real sobre tus sistemas, con cumplimiento y datos bajo control.' },
+        { t: 'Salud y healthtech', d: 'Datos especialmente protegidos: IA gobernada, analítica clínica y continuidad, con RGPD de serie.' },
+        { t: 'Industria y manufactura', d: 'Moderniza el legacy y lleva los datos de planta a la mesa de decisión — y cierra las puertas de entrada.' },
+        { t: 'Retail y e-commerce', d: 'Analítica de demanda, surtido y personalización; y la operación protegida frente al fraude.' },
+        { t: 'Servicios profesionales', d: 'Despachos y asesorías: Copilot seguro, automatización y confidencialidad. Cero margen para el error.' },
       ],
     },
     resources: {
@@ -554,10 +555,11 @@ window.QERUB_COPY = {
       title: 'We speak your industry\u2019s language.',
       sub: 'We start with profiles where the conversation closes fastest. If your sector isn\u2019t here, ask us.',
       items: [
-        { t: 'Accounting & advisory firms', d: 'Tax and banking data of your clients. Zero room for error.' },
-        { t: 'Law firms', d: 'Confidentiality, attorney-client privilege and secure client comms.' },
-        { t: 'Clinics & healthcare', d: 'Specially protected data. GDPR compliance and continuity.' },
-        { t: 'Service companies', d: '10\u2013250 employees. Microsoft 365, suppliers, billing and remote ops.' },
+        { t: 'Financial services & fintech', d: 'Risk, fraud and real-time decisions on your systems, with compliance and data under control.' },
+        { t: 'Health & healthtech', d: 'Specially protected data: governed AI, clinical analytics and continuity, with GDPR built in.' },
+        { t: 'Industry & manufacturing', d: 'Modernize the legacy and bring plant data to the decision table \u2014 and close the entry doors.' },
+        { t: 'Retail & e-commerce', d: 'Demand, assortment and personalization analytics; and an operation protected from fraud.' },
+        { t: 'Professional services', d: 'Firms and advisories: secure Copilot, automation and confidentiality. Zero room for error.' },
       ],
     },
     resources: {
