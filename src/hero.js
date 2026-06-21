@@ -22,7 +22,7 @@ function Hero() {
   }, []);
 
   return (
-    <section id="home" className="dark" style={{ paddingTop: 150, paddingBottom: 90, position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
+    <section id="home" className="dark hero-section" style={{ position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
       {/* Background micro-grid */}
       <div
         aria-hidden="true"
@@ -63,9 +63,9 @@ function Hero() {
               <h1
                 className="pre"
                 style={{
-                  fontSize: 'clamp(40px, 5.5vw, 72px)',
-                  marginTop: 24,
-                  maxWidth: '14ch',
+                  fontSize: 'clamp(32px, 4vw, 52px)',
+                  marginTop: 16,
+                  maxWidth: '600px',
                 }}
               >
                 {h.title}
@@ -74,11 +74,11 @@ function Hero() {
             <Reveal delay={160}>
               <p
                 style={{
-                  marginTop: 28,
-                  fontSize: 19,
+                  marginTop: 18,
+                  fontSize: 16.5,
                   color: 'rgba(246,244,239,0.72)',
-                  maxWidth: 580,
-                  lineHeight: 1.55,
+                  maxWidth: 540,
+                  lineHeight: 1.5,
                 }}
               >
                 {h.sub}
@@ -86,7 +86,7 @@ function Hero() {
             </Reveal>
 
             <Reveal delay={240}>
-              <div style={{ display: 'flex', gap: 12, marginTop: 36, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 12, marginTop: 26, flexWrap: 'wrap' }}>
                 <Btn variant="primary" onDark onClick={() => goto('contact')}>
                   {h.primary} <ArrowRight />
                 </Btn>
@@ -103,7 +103,7 @@ function Hero() {
             </Reveal>
 
             <Reveal delay={320}>
-              <div style={{ marginTop: 56, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <div style={{ marginTop: 28, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                 <div
                   style={{
                     display: 'inline-flex',
@@ -195,14 +195,14 @@ function HeroVisual() {
   const scoreInt = Math.round(score);
 
   return (
-    <div style={{ position: 'relative', minHeight: 540 }}>
+    <div style={{ position: 'relative', minHeight: 470 }}>
       {/* Decorative ring backdrop */}
       <div style={{ position: 'absolute', inset: -40, opacity: 0.7, pointerEvents: 'none' }}>
         <QHeroMark size="100%" theme="dark" />
       </div>
 
       {/* Scorecard card */}
-      <Tilt className="tilt-3d" style={{ position: 'absolute', right: 0, top: 40, width: 'min(380px, 90%)' }}>
+      <Tilt className="tilt-3d" style={{ position: 'absolute', right: 0, top: 4, width: 'min(348px, 88%)' }}>
       <div
         className="glass"
         style={{
@@ -292,13 +292,13 @@ function HeroVisual() {
       <div
         style={{
           position: 'absolute',
-          left: 0,
-          bottom: 40,
+          left: -12,
+          bottom: 18,
           background: 'var(--dark-3)',
           color: 'var(--bg)',
           borderRadius: 14,
-          padding: '16px 18px',
-          maxWidth: 240,
+          padding: '14px 16px',
+          maxWidth: 196,
           border: '1px solid rgba(246,244,239,0.12)',
           boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
         }}

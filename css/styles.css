@@ -289,6 +289,18 @@
     letter-spacing: -0.03em;
   }
 
+  /* Hero: one full impression on desktop (no scroll needed) */
+  .hero-section { padding: 116px 0 72px; }
+  @media (min-width: 961px) {
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 92px 0 48px;
+    }
+  }
+
   /* Top progress bar (scroll indicator) */
   #q-progress {
     position: fixed; top: 0; left: 0; height: 3px; width: 0;
