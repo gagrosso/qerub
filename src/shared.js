@@ -8,7 +8,8 @@ function I18nProvider({ children }) {
   const [lang, setLang] = useState(() => {
     try {
       const stored = localStorage.getItem('qerub_lang');
-      if (stored === 'es' || stored === 'en') return stored;
+      if (stored === 'en') return 'en-US';            // migrate legacy key
+      if (window.QERUB_COPY[stored]) return stored;
     } catch (e) {}
     return 'es';
   });
@@ -16,7 +17,7 @@ function I18nProvider({ children }) {
     try { localStorage.setItem('qerub_lang', lang); } catch (e) {}
     document.documentElement.lang = lang;
   }, [lang]);
-  const t = window.QERUB_COPY[lang];
+  const t = window.QERUB_COPY[lang] || window.QERUB_COPY.es;
   return <I18nContext.Provider value={{ t, lang, setLang }}>{children}</I18nContext.Provider>;
 }
 

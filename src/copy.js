@@ -413,8 +413,8 @@ window.QERUB_COPY = {
     },
   },
 
-  en: {
-    locale: 'en',
+  'en-US': {
+    locale: 'en-US',
     nav: {
       services: 'Services',
       method: 'Method',

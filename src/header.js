@@ -13,11 +13,12 @@ function LangToggle({ onDark = false }) {
         borderRadius: 999,
       }}
     >
-      {['es', 'en'].map((l) => (
+      {['es', 'en-US'].map((l) => (
         <button
           key={l}
           onClick={() => setLang(l)}
           aria-pressed={lang === l}
+          aria-label={l === 'es' ? 'Español' : 'English (US)'}
           style={{
             border: 'none',
             background: lang === l ? (onDark ? 'var(--bg)' : 'var(--ink)') : 'transparent',
@@ -33,7 +34,7 @@ function LangToggle({ onDark = false }) {
             transition: 'all 0.16s ease',
           }}
         >
-          {l}
+          {l === 'es' ? 'es' : 'en'}
         </button>
       ))}
     </div>
