@@ -2,27 +2,67 @@ function Hero() {
   const { t } = useT();
   const { goto } = useRoute();
   const h = t.hero;
-  const auroraRef = useRef(null);
+  const slides = h.slides && h.slides.length ? h.slides : [{ title: h.title, sub: h.sub }];
+  const heroRef = useRef(null);
+  const slidesRef = useRef(null);
 
-  // Subtle parallax: the aurora drifts slower than the page on scroll.
+  const scrollToServices = () => {
+    const el = document.getElementById('services');
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+  };
+
+  // Pinned, scrub-linked message conveyor (GSAP + ScrollTrigger).
+  // Fails open: without GSAP / a real viewport / motion, only the first
+  // message shows in normal flow (CSS), no pin. Desktop only.
   useEffect(() => {
-    if (prefersReducedMotion()) return;
-    const el = auroraRef.current;
-    if (!el) return;
-    let raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        el.style.transform = `translate3d(0, ${window.scrollY * 0.18}px, 0)`;
-        raf = 0;
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST || !window.innerHeight || slides.length < 2) return;
+    g.registerPlugin(ST);
+    const section = heroRef.current, wrap = slidesRef.current;
+    if (!section || !wrap) return;
+    const slideEls = Array.from(wrap.querySelectorAll('.hero-slide'));
+    const dots = Array.from(section.querySelectorAll('.hero-dot'));
+    const label = section.querySelector('.hero-progress-label');
+    const n = slideEls.length;
+    const mm = g.matchMedia();
+    mm.add('(min-width: 961px) and (prefers-reduced-motion: no-preference)', () => {
+      section.classList.add('hero-carousel-on');
+      const hMax = Math.max.apply(null, slideEls.map((s) => s.offsetHeight));
+      wrap.style.height = hMax + 'px';
+      g.set(slideEls, { display: 'block', position: 'absolute', top: 0, left: 0, width: '100%' });
+      g.set(slideEls, { xPercent: (i) => (i === 0 ? 0 : -110), autoAlpha: (i) => (i === 0 ? 1 : 0) });
+      const setActive = (idx) => {
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        if (label) label.textContent = '0' + (idx + 1) + ' / 0' + n;
+      };
+      const tl = g.timeline({
+        defaults: { ease: 'power2.inOut' },
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: '+=' + window.innerHeight * (n - 1),
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => setActive(Math.round(self.progress * (n - 1))),
+        },
       });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => { window.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
-  }, []);
+      for (let i = 0; i < n - 1; i++) {
+        tl.to(slideEls[i], { xPercent: 110, autoAlpha: 0, duration: 0.6 }, i);
+        tl.to(slideEls[i + 1], { xPercent: 0, autoAlpha: 1, duration: 0.6 }, i + 0.18);
+      }
+      return () => {
+        section.classList.remove('hero-carousel-on');
+        wrap.style.height = '';
+        g.set(slideEls, { clearProps: 'all' });
+        dots.forEach((d) => d.classList.remove('active'));
+      };
+    });
+    return () => mm.revert();
+  }, [slides.length]);
 
   return (
-    <section id="home" className="dark hero-section" style={{ position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
+    <section id="home" className="dark hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
       {/* Background micro-grid */}
       <div
         aria-hidden="true"
@@ -38,7 +78,7 @@ function Hero() {
         }}
       />
       {/* Aurora glow */}
-      <div className="aurora" aria-hidden="true" ref={auroraRef}>
+      <div className="aurora" aria-hidden="true">
         <div className="aurora-blob a1" />
         <div className="aurora-blob a2" />
         <div className="aurora-blob a3" />
@@ -54,115 +94,60 @@ function Hero() {
           }}
           className="hero-grid"
         >
-          {/* Left: text */}
+          {/* Left: cycling messages */}
           <div>
-            <Reveal>
-              <Pill theme="dark">{h.eyebrow}</Pill>
-            </Reveal>
-            <Reveal delay={80}>
-              <h1
-                className="pre"
-                style={{
-                  fontSize: 'clamp(32px, 4vw, 52px)',
-                  marginTop: 16,
-                  maxWidth: '600px',
-                }}
-              >
-                {h.title}
-              </h1>
-            </Reveal>
-            <Reveal delay={160}>
-              <p
-                style={{
-                  marginTop: 18,
-                  fontSize: 16.5,
-                  color: 'rgba(246,244,239,0.72)',
-                  maxWidth: 540,
-                  lineHeight: 1.5,
-                }}
-              >
-                {h.sub}
-              </p>
-            </Reveal>
+            <Pill theme="dark">{h.eyebrow}</Pill>
 
-            <Reveal delay={240}>
-              <div style={{ display: 'flex', gap: 12, marginTop: 26, flexWrap: 'wrap' }}>
-                <Btn variant="primary" onDark onClick={() => goto('contact')}>
-                  {h.primary} <ArrowRight />
-                </Btn>
-                <Btn variant="ghost" onDark onClick={() => {
-                  const el = document.getElementById('services');
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 80;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
-                }}>
-                  {h.secondary}
-                </Btn>
+            <div className="hero-slides" ref={slidesRef} style={{ marginTop: 18 }}>
+              {slides.map((s, i) => (
+                <div className="hero-slide" key={i}>
+                  <h1 className="pre" style={{ fontSize: 'clamp(32px, 4vw, 52px)', maxWidth: '600px' }}>{s.title}</h1>
+                  <p style={{ marginTop: 18, fontSize: 16.5, color: 'rgba(246,244,239,0.72)', maxWidth: 540, lineHeight: 1.5 }}>{s.sub}</p>
+                  <div style={{ display: 'flex', gap: 12, marginTop: 26, flexWrap: 'wrap' }}>
+                    <Btn variant="primary" onDark onClick={() => goto('contact')}>{h.primary} <ArrowRight /></Btn>
+                    <Btn variant="ghost" onDark onClick={scrollToServices}>{h.secondary}</Btn>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Progress (only shown when the carousel is active) */}
+            <div className="hero-progress" aria-hidden="true">
+              <div className="hero-dots">
+                {slides.map((_, i) => <span className={'hero-dot' + (i === 0 ? ' active' : '')} key={i} />)}
               </div>
-            </Reveal>
+              <span className="hero-progress-label">01 / 0{slides.length}</span>
+            </div>
 
-            <Reveal delay={320}>
-              <div style={{ marginTop: 28, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+            {/* Persistent trust chips */}
+            <div style={{ marginTop: 28, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <div
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 12, padding: '14px 18px', borderRadius: 999,
+                  background: 'var(--dark-2)', border: '1px solid rgba(246,244,239,0.14)',
+                  fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.04em', color: 'rgba(246,244,239,0.85)',
+                }}
+              >
+                <span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: 999, background: '#5db58e', boxShadow: '0 0 0 4px rgba(93,181,142,0.18)', animation: 'pulse 1.8s ease-in-out infinite' }} />
+                {h.tag}
+              </div>
+              {h.presence && (
                 <div
                   style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 12,
-                    padding: '14px 18px',
-                    borderRadius: 999,
-                    background: 'var(--dark-2)',
-                    border: '1px solid rgba(246,244,239,0.14)',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 12,
-                    letterSpacing: '0.04em',
-                    color: 'rgba(246,244,239,0.85)',
+                    display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 18px', borderRadius: 999,
+                    border: '1px solid rgba(246,244,239,0.10)', fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.04em', color: 'rgba(246,244,239,0.6)',
                   }}
                 >
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      width: 8, height: 8, borderRadius: 999,
-                      background: '#5db58e',
-                      boxShadow: '0 0 0 4px rgba(93,181,142,0.18)',
-                      animation: 'pulse 1.8s ease-in-out infinite',
-                    }}
-                  />
-                  {h.tag}
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.4" stroke="currentColor" strokeWidth="1.2"></circle><path d="M1.6 8h12.8M8 1.6c2.2 1.8 2.2 11 0 12.8M8 1.6c-2.2 1.8-2.2 11 0 12.8" stroke="currentColor" strokeWidth="1.2"></path></svg>
+                  {h.presence}
                 </div>
-                {h.presence && (
-                  <div
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 10,
-                      padding: '14px 18px',
-                      borderRadius: 999,
-                      border: '1px solid rgba(246,244,239,0.10)',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: 12,
-                      letterSpacing: '0.04em',
-                      color: 'rgba(246,244,239,0.6)',
-                    }}
-                  >
-                    <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.4" stroke="currentColor" strokeWidth="1.2"></circle><path d="M1.6 8h12.8M8 1.6c2.2 1.8 2.2 11 0 12.8M8 1.6c-2.2 1.8-2.2 11 0 12.8" stroke="currentColor" strokeWidth="1.2"></path></svg>
-                    {h.presence}
-                  </div>
-                )}
-              </div>
-              <style>{`
-                @keyframes pulse {
-                  0%, 100% { box-shadow: 0 0 0 4px rgba(93,181,142,0.18); }
-                  50% { box-shadow: 0 0 0 7px rgba(93,181,142,0.05); }
-                }
-              `}</style>
-            </Reveal>
+              )}
+            </div>
+            <style>{`@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 4px rgba(93,181,142,0.18); } 50% { box-shadow: 0 0 0 7px rgba(93,181,142,0.05); } }`}</style>
           </div>
 
           {/* Right: visual */}
-          <Reveal delay={200}>
-            <HeroVisual />
-          </Reveal>
+          <HeroVisual />
         </div>
       </Container>
 

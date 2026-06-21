@@ -313,11 +313,89 @@
     .trust-row { flex-direction: column !important; align-items: flex-start !important; gap: 18px !important; }
   }
 
+  /* ─────────────────────────────────────────────────────────────
+     PINNED SCRUB CAROUSELS (GSAP + ScrollTrigger)
+     Everything fails open: without the .*-on class (added by JS only
+     in a healthy desktop, motion-OK environment) the markup is a
+     plain, fully visible, non-overflowing layout.
+     ───────────────────────────────────────────────────────────── */
+
+  /* Hero message conveyor */
+  .hero-slides { position: relative; }
+  .hero-slide:not(:first-child) { display: none; }      /* fallback: first message only */
+  .hero-progress { display: none; align-items: center; gap: 14px; margin-top: 26px; }
+  .hero-carousel-on .hero-progress { display: flex; }
+  .hero-dots { display: inline-flex; gap: 9px; }
+  .hero-dot {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: rgba(246, 244, 239, 0.22);
+    transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  }
+  .hero-dot.active { background: var(--teal-2); transform: scale(1.35); box-shadow: 0 0 12px rgba(140, 192, 207, 0.7); }
+  .hero-progress-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: rgba(246, 244, 239, 0.45); }
+
+  /* Services horizontal gallery */
+  .svc-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .svc-pinned-on {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;          /* clip the off-screen cards, no page scrollbar */
+  }
+  .svc-pinned-on .svc-track {
+    display: flex;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    will-change: transform;
+  }
+  .svc-pinned-on .svc-item { flex: 0 0 340px; width: 340px; }
+  .svc-progress { display: none; }
+  .svc-pinned-on .svc-progress { display: flex; align-items: center; gap: 20px; margin-top: 36px; }
+  .svc-hint {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-4); white-space: nowrap;
+  }
+  .svc-progress-bar { position: relative; flex: 1; max-width: 360px; height: 3px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .svc-progress-fill { position: absolute; top: 0; left: 0; bottom: 0; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--teal-deep), var(--teal-2)); }
+
+  /* Trusted-by band */
+  .trust-band-title {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 30px;
+  }
+  .trust-marquee { width: 100%; }
+  .trust-marquee .marquee-track { gap: 28px; animation-duration: 40s; padding: 4px 28px; }
+  .trust-logo {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 13px 22px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg-card);
+    color: var(--ink-3);
+    filter: grayscale(1);
+    opacity: 0.7;
+    transition: opacity 0.25s var(--ease-out), color 0.25s var(--ease-out), border-color 0.25s var(--ease-out), filter 0.25s var(--ease-out);
+  }
+  .trust-logo:hover { opacity: 1; filter: grayscale(0); color: var(--teal-deep); border-color: rgba(120, 165, 176, 0.5); }
+  .trust-logo-name { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: 0.01em; white-space: nowrap; }
+
   /* Respect users who prefer less motion */
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
     .aurora-blob, .marquee-track, [class*="qDrift"] { animation: none !important; }
     .marquee-track { transform: none !important; }
     .tilt, .tilt-3d, .tilt-3d-soft { transform: none !important; transition: none !important; }
+    .hero-dot { transition: none !important; }
+    .trust-logo { transition: none !important; }
     html { scroll-behavior: auto; }
   }

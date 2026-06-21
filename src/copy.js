@@ -30,6 +30,20 @@ window.QERUB_COPY = {
       secondary: 'Ver servicios',
       tag: 'Q-Start · Diagnóstico cerrado en 7 días hábiles',
       presence: 'Operación remota · España y Latinoamérica',
+      slides: [
+        {
+          title: 'Reducimos el riesgo digital de tu empresa.\nSin humo. Sin complejidad innecesaria.',
+          sub: 'Auditamos, endurecemos y entrenamos tu operación digital — correo, identidades, Microsoft 365 y respuesta a incidentes — sin la complejidad ni el coste de una plataforma enterprise.',
+        },
+        {
+          title: 'En 7 días sabes exactamente\ndónde está expuesta tu empresa.',
+          sub: 'El diagnóstico Q-Start revisa correo, identidad, Microsoft 365, copias y respuesta a incidentes. Recibes un scorecard claro, los 15 riesgos priorizados y un plan de 90 días.',
+        },
+        {
+          title: 'El 96% de las brechas llegan\npor tres vías. Las cerramos.',
+          sub: 'Fraude por correo (BEC), Microsoft 365 mal configurado y phishing. Endurecemos esas puertas y entrenamos a tu equipo — con precio cerrado y sin contratos eternos.',
+        },
+      ],
     },
     trust: {
       title: 'Trabajamos con los marcos de referencia que importan',
@@ -316,6 +330,20 @@ window.QERUB_COPY = {
       secondary: 'See services',
       tag: 'Q-Start · Closed assessment in 7 business days',
       presence: 'Remote operation · Spain & Latin America',
+      slides: [
+        {
+          title: 'We reduce your company’s digital risk.\nNo smoke. No unnecessary complexity.',
+          sub: 'We audit, harden and train your digital operation — email, identities, Microsoft 365 and incident response — without the complexity or cost of an enterprise platform.',
+        },
+        {
+          title: 'In 7 days you know exactly\nwhere your company is exposed.',
+          sub: 'The Q-Start assessment reviews email, identity, Microsoft 365, backups and incident response. You get a clear scorecard, the top 15 prioritised risks and a 90-day plan.',
+        },
+        {
+          title: '96% of breaches come through\nthree paths. We close them.',
+          sub: 'Email fraud (BEC), misconfigured Microsoft 365 and phishing. We harden those doors and train your team — with a closed price and no forever contracts.',
+        },
+      ],
     },
     trust: {
       title: 'We work with the frameworks that matter',

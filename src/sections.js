@@ -1,39 +1,49 @@
 // All home sections: trust, pains, services, method, deliverable, sectors, resources, faq, finalCta
 
+// Monochrome "logo" marks for the standards/frameworks band.
+function BadgeMark({ i }) {
+  const marks = [
+    // shield
+    <path d="M11 2.2 4 5v6c0 4.4 3 6.8 7 8.8 4-2 7-4.4 7-8.8V5l-7-2.8Z" />,
+    // lock
+    <><rect x="4.5" y="9.5" width="13" height="9.5" rx="2" /><path d="M7.5 9.5V7a3.5 3.5 0 0 1 7 0v2.5" /></>,
+    // globe
+    <><circle cx="11" cy="11" r="8" /><path d="M3 11h16M11 3c2.6 2.2 2.6 13.8 0 16M11 3c-2.6 2.2-2.6 13.8 0 16" /></>,
+    // badge-check
+    <><path d="M11 2.5 13.4 5l3.4.2.2 3.4L19.5 11l-2.5 2.4-.2 3.4-3.4.2L11 19.5 8.6 17l-3.4-.2-.2-3.4L2.5 11l2.5-2.4.2-3.4L8.6 5 11 2.5Z" /><path d="m8 11 2.2 2.2L15 8.5" /></>,
+    // hexagon
+    <path d="M11 2.5 18.5 7v8L11 19.5 3.5 15V7L11 2.5Z" />,
+    // layers
+    <><path d="M11 3 3 7l8 4 8-4-8-4Z" /><path d="m3 12 8 4 8-4M3 16l8 4 8-4" /></>,
+  ];
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {marks[i % marks.length]}
+    </svg>
+  );
+}
+
 function TrustStrip() {
   const { t } = useT();
   const items = t.trust.items;
   return (
-    <section className="tight" style={{ paddingTop: 0, paddingBottom: 56 }}>
+    <section className="tight trust-band" style={{ paddingTop: 0, paddingBottom: 56 }}>
       <Container>
         <Reveal>
-          <div
-            className="trust-row"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 32,
-              padding: '24px 32px',
-              borderTop: '1px solid var(--line)',
-              borderBottom: '1px solid var(--line)',
-            }}
-          >
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-3)', flex: '0 0 auto' }}>
-              {t.trust.title}
-            </span>
-            <div className="marquee">
-              <div className="marquee-track">
-                {[...items, ...items].map((it, i) => (
-                  <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 16 }}>
-                    <span style={{ width: 5, height: 5, borderRadius: 999, background: 'var(--teal)', opacity: 0.55 }} />
-                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 16, letterSpacing: '0.02em', color: 'var(--ink-2)', opacity: 0.82 }}>{it}</span>
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          <p className="trust-band-title">{t.trust.title}</p>
         </Reveal>
       </Container>
+      {/* Full-bleed, infinite right-to-left marquee (grayscale, pause on hover) */}
+      <div className="marquee trust-marquee" role="img" aria-label={t.trust.title}>
+        <div className="marquee-track">
+          {[...items, ...items].map((it, i) => (
+            <span className="trust-logo" key={i}>
+              <BadgeMark i={i % items.length} />
+              <span className="trust-logo-name">{it}</span>
+            </span>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -126,7 +136,46 @@ function Pains() {
 
 function Services() {
   const { t } = useT();
-  const { goto } = useRoute();
+  const pinRef = useRef(null);
+  const trackRef = useRef(null);
+  const fillRef = useRef(null);
+
+  // Horizontal pinned scrub gallery on desktop. Fails open to the
+  // responsive grid (mobile / no GSAP / reduced motion).
+  useEffect(() => {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST || !window.innerHeight) return;
+    g.registerPlugin(ST);
+    const pin = pinRef.current, track = trackRef.current, fill = fillRef.current;
+    if (!pin || !track) return;
+    const mm = g.matchMedia();
+    mm.add('(min-width: 961px) and (prefers-reduced-motion: no-preference)', () => {
+      pin.classList.add('svc-pinned-on');
+      const distance = () => Math.max(0, track.scrollWidth - pin.offsetWidth);
+      if (distance() <= 0) { pin.classList.remove('svc-pinned-on'); return; }
+      const tween = g.to(track, {
+        x: () => -distance(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: pin,
+          start: 'top top',
+          end: () => '+=' + distance(),
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => { if (fill) fill.style.width = (self.progress * 100).toFixed(1) + '%'; },
+        },
+      });
+      return () => {
+        pin.classList.remove('svc-pinned-on');
+        g.set(track, { clearProps: 'x' });
+        if (fill) fill.style.width = '';
+      };
+    });
+    return () => mm.revert();
+  }, [t.locale]);
+
   return (
     <section id="services">
       <Container>
@@ -140,81 +189,83 @@ function Services() {
             </Reveal>
           )}
         </div>
+      </Container>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: 20,
-          }}
-        >
-          {t.services.items.map((s, i) => (
-            <Reveal key={i} delay={i * 60}>
-              <Tilt max={6} style={{ height: '100%' }}>
-              <div
-                className="card"
-                style={{
-                  padding: 28,
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 16,
-                  position: 'relative',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: 11,
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      color: 'var(--teal-deep)',
-                      background: 'var(--teal-soft)',
-                      padding: '5px 10px',
-                      borderRadius: 6,
-                    }}
-                  >
-                    {s.code}
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--ink-4)' }}>{s.time}</span>
+      <Container>
+        <div className="svc-pinned" ref={pinRef}>
+          <div className="svc-track" ref={trackRef}>
+            {t.services.items.map((s, i) => (
+              <Tilt key={i} max={6} className="svc-item" style={{ height: '100%' }}>
+                <div
+                  className="card svc-card"
+                  style={{
+                    padding: 28,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 16,
+                    position: 'relative',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 11,
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        color: 'var(--teal-deep)',
+                        background: 'var(--teal-soft)',
+                        padding: '5px 10px',
+                        borderRadius: 6,
+                      }}
+                    >
+                      {s.code}
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--ink-4)' }}>{s.time}</span>
+                  </div>
+
+                  <h3 style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>{s.t}</h3>
+                  <p style={{ fontSize: 14.5, color: 'var(--ink-3)', lineHeight: 1.6 }}>{s.d}</p>
+
+                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'grid', gap: 8, marginTop: 4 }}>
+                    {s.bullets.map((b, j) => (
+                      <li key={j} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13.5, color: 'var(--ink-2)' }}>
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                          <path d="M3 8.5l3.5 3L13 5" stroke="var(--teal-deep)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--ink)' }}>{s.price}</span>
+                    <a
+                      href={`/servicios/${s.slug}`}
+                      style={{
+                        color: 'var(--ink)',
+                        fontFamily: 'var(--font-body)',
+                        fontWeight: 600,
+                        fontSize: 13.5,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 8,
+                      }}
+                    >
+                      {t.locale === 'es' ? 'Ver alcance' : 'See scope'} <ArrowRight />
+                    </a>
+                  </div>
                 </div>
-
-                <h3 style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>{s.t}</h3>
-                <p style={{ fontSize: 14.5, color: 'var(--ink-3)', lineHeight: 1.6 }}>{s.d}</p>
-
-                <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'grid', gap: 8, marginTop: 4 }}>
-                  {s.bullets.map((b, j) => (
-                    <li key={j} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13.5, color: 'var(--ink-2)' }}>
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8.5l3.5 3L13 5" stroke="var(--teal-deep)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-
-                <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--ink)' }}>{s.price}</span>
-                  <a
-                    href={`/servicios/${s.slug}`}
-                    style={{
-                      color: 'var(--ink)',
-                      fontFamily: 'var(--font-body)',
-                      fontWeight: 600,
-                      fontSize: 13.5,
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 8,
-                    }}
-                  >
-                    {t.locale === 'es' ? 'Ver alcance' : 'See scope'} <ArrowRight />
-                  </a>
-                </div>
-              </div>
               </Tilt>
-            </Reveal>
-          ))}
+            ))}
+          </div>
+
+          {/* Scrub progress (only visible while pinned) */}
+          <div className="svc-progress" aria-hidden="true">
+            <span className="svc-hint">{t.locale === 'es' ? 'Desplázate para recorrer los 9 servicios' : 'Scroll to move through all 9 services'}</span>
+            <span className="svc-progress-bar"><span className="svc-progress-fill" ref={fillRef} /></span>
+          </div>
         </div>
       </Container>
     </section>
@@ -679,6 +730,6 @@ function About() {
 }
 
 Object.assign(window, {
-  TrustStrip, StatsBand, Pains, Services, Method, Deliverable, DeliverableMock, Stat,
+  BadgeMark, TrustStrip, StatsBand, Pains, Services, Method, Deliverable, DeliverableMock, Stat,
   Sectors, Resources, FAQ, FinalCTA, About,
 });
