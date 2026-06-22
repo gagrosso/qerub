@@ -950,10 +950,9 @@ function GeoMap({ items }) {
         const m = W.m[keyFor(c.city || '')];
         if (!m) return null;
         return (
-          <div key={i} className="gm" style={{ left: (m[0] / W.w * 100) + '%', top: (m[1] / W.h * 100) + '%' }} tabIndex={0}>
-            <span className="gm-ring" style={{ animationDelay: (i * 0.8) + 's' }} aria-hidden="true" />
-            <span className="gm-dot" aria-hidden="true" />
-            <span className="gm-label"><b>{c.city}</b><i>{c.role}</i></span>
+          <div key={i} className="gm" style={{ left: (m[0] / W.w * 100) + '%', top: (m[1] / W.h * 100) + '%' }} aria-hidden="true">
+            <span className="gm-ring" style={{ animationDelay: (i * 0.8) + 's' }} />
+            <span className="gm-dot" />
           </div>
         );
       })}

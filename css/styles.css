@@ -398,14 +398,9 @@
   /* Geo: dotted world map + time-zone markers */
   .geo-map { position: relative; width: 100%; aspect-ratio: 1000 / 372; margin: 6px 0 36px; }
   .geo-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .gm { position: absolute; transform: translate(-50%, -50%); cursor: pointer; z-index: 2; outline: none; }
+  .gm { position: absolute; transform: translate(-50%, -50%); z-index: 2; pointer-events: none; }
   .gm-ring { position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: rgba(140,192,207,0.5); animation: gmpulse 2.6s ease-out infinite; }
-  .gm-dot { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: #8cc0cf; box-shadow: 0 0 0 2px rgba(14,20,22,0.9), 0 0 10px rgba(140,192,207,0.8); transition: transform 0.2s ease; }
-  .gm-label { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); white-space: nowrap; text-align: center; pointer-events: none; }
-  .gm-label b { display: block; font-size: 13px; font-weight: 500; color: #f6f4ef; }
-  .gm-label i { display: block; font-style: normal; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #8cc0cf; opacity: 0; max-height: 0; transition: opacity 0.2s ease; }
-  .gm:hover .gm-dot, .gm:focus-visible .gm-dot { transform: scale(1.5); }
-  .gm:hover .gm-label i, .gm:focus-visible .gm-label i { opacity: 1; max-height: 20px; }
+  .gm-dot { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: #8cc0cf; box-shadow: 0 0 0 2px rgba(14,20,22,0.9), 0 0 10px rgba(140,192,207,0.8); }
   @keyframes gmpulse { 0% { transform: scale(0.6); opacity: 0.55; } 80% { opacity: 0; } 100% { transform: scale(2.6); opacity: 0; } }
 
   /* Respect users who prefer less motion */
