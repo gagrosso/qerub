@@ -1,8 +1,115 @@
+// The 4 fronts that lead the site, in priority order.
+function heroFronts(es) {
+  return [
+    {
+      code: 'Q-Intelligence',
+      name: es ? 'IA + Analítica Avanzada' : 'AI + Advanced Analytics',
+      title: es ? 'Decisiones con IA y datos, no con corazonadas.' : 'Decisions driven by AI and data, not hunches.',
+      sub: es ? 'Modelos, analítica avanzada y automatización aplicados a tu negocio, con resultados medibles.' : 'Models, advanced analytics and automation applied to your business, with measurable results.',
+      icon: 'ai',
+    },
+    {
+      code: 'Q-Build',
+      name: es ? 'Software con Agentes IA' : 'Software built with AI agents',
+      title: es ? 'Software a medida, construido con agentes de IA.' : 'Custom software, built with AI agents.',
+      sub: es ? 'Producto y modernización más rápidos, con alcance y precio cerrados. El código es tuyo.' : 'Faster product and modernization, with fixed scope and price. The code is yours.',
+      icon: 'agents',
+    },
+    {
+      code: 'Q-Pod',
+      name: es ? 'Staff Augmentation' : 'Staff Augmentation',
+      title: es ? 'Talento senior integrado en tu equipo, en días.' : 'Senior talent embedded in your team, in days.',
+      sub: es ? 'Especialistas de IA, datos, cloud y software que trabajan en tu huso horario. Sin junior facturados.' : 'AI, data, cloud and software specialists working in your time zone. No junior staff billed.',
+      icon: 'staff',
+    },
+    {
+      code: 'Q-Secure',
+      name: es ? 'Ciberseguridad' : 'Cybersecurity',
+      title: es ? 'Seguridad como ventaja, no como freno.' : 'Security as an advantage, not a brake.',
+      sub: es ? 'Auditoría, Microsoft 365, anti-fraude y vCISO. Nuestro pilar más maduro.' : 'Assessment, Microsoft 365, anti-fraud and vCISO. Our most mature pillar.',
+      icon: 'secure',
+    },
+  ];
+}
+
+// Line-icon set for the hero fronts (stroke = currentColor).
+function HeroFrontIcon({ name }) {
+  const paths = {
+    ai:     <><path d="M11 3.5 12.7 8.3 17.5 10 12.7 11.7 11 16.5 9.3 11.7 4.5 10 9.3 8.3Z" /><path d="M18 13.5 18.7 15.3 20.5 16 18.7 16.7 18 18.5 17.3 16.7 15.5 16 17.3 15.3Z" /></>,
+    agents: <><path d="m8.5 8-3.5 4 3.5 4" /><path d="m15.5 8 3.5 4-3.5 4" /><path d="M12 3.6l.6 1.7L14.3 6l-1.7.7L12 8.3l-.6-1.6L9.7 6l1.7-.7Z" /></>,
+    staff:  <><path d="M9.5 11.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" /><path d="M4 20c0-3 2.5-5 5.5-5s5.5 2 5.5 5" /><path d="M16 5.6a3 3 0 0 1 0 6.2" /><path d="M17 15.4c2.1.5 3.8 2.3 3.8 4.6" /></>,
+    secure: <><path d="M12 3 5 5.6v5.4c0 4 2.9 6.6 7 8 4.1-1.4 7-4 7-8V5.6L12 3Z" /><path d="m9 11.6 2 2 4-4" /></>,
+  };
+  return paths[name] || null;
+}
+
+// Hero centerpiece: a shield-diamond with the Q logo at its core. Each of the four
+// triangular facets carries one front and lights up as the hero scrubs through it.
+function HeroNucleo({ fronts }) {
+  // [path, fill, icon, icon-x, icon-y] per facet (clockwise from upper-left).
+  const facets = [
+    { d: 'M170 170 L30 170 L170 30 Z',  fill: '#6aa0ac', x: 119, y: 119 },
+    { d: 'M170 170 L170 30 L310 170 Z', fill: '#4d7e8a', x: 221, y: 119 },
+    { d: 'M170 170 L310 170 L170 310 Z', fill: '#5d8b97', x: 221, y: 221 },
+    { d: 'M170 170 L170 310 L30 170 Z', fill: '#588f9b', x: 119, y: 221 },
+  ];
+  return (
+    <div style={{ position: 'relative', width: 'min(460px, 92%)', margin: '0 auto', aspectRatio: '1 / 1' }}>
+      <svg viewBox="0 0 340 340" width="100%" height="100%" role="img" aria-label="Núcleo Qerub: IA y analítica, software con agentes IA, staff augmentation y ciberseguridad">
+        <defs>
+          <radialGradient id="hnGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#8cc0cf" stopOpacity="0.20" />
+            <stop offset="65%" stopColor="#78a5b0" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#78a5b0" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <circle cx="170" cy="170" r="168" fill="url(#hnGlow)" />
+        <circle cx="170" cy="170" r="158" fill="none" stroke="rgba(246,244,239,0.08)" strokeWidth="1" />
+        {facets.map((f, i) => (
+          <path
+            key={'f' + i}
+            className="hn-facet"
+            data-i={i}
+            d={f.d}
+            fill={f.fill}
+            stroke="rgba(246,244,239,0.24)"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+            style={{ transition: 'opacity 0.45s ease' }}
+          />
+        ))}
+        {/* Center cutout for the Q */}
+        <circle cx="170" cy="170" r="52" fill="var(--dark)" stroke="rgba(140,192,207,0.5)" strokeWidth="1.5" />
+        {facets.map((f, i) => (
+          <g
+            key={'i' + i}
+            className="hn-ic"
+            data-i={i}
+            transform={`translate(${f.x - 16},${f.y - 16}) scale(1.33)`}
+            fill="none"
+            stroke="#eef4f3"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ transition: 'opacity 0.45s ease' }}
+          >
+            <HeroFrontIcon name={fronts[i].icon} />
+          </g>
+        ))}
+      </svg>
+      <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: '20%', display: 'flex', justifyContent: 'center' }}>
+        <QMark size="100%" />
+      </div>
+    </div>
+  );
+}
+
 function Hero() {
   const { t } = useT();
   const { goto } = useRoute();
   const h = t.hero;
-  const slides = h.slides && h.slides.length ? h.slides : [{ title: h.title, sub: h.sub }];
+  const es = t.locale === 'es';
+  const fronts = heroFronts(es);
   const heroRef = useRef(null);
   const slidesRef = useRef(null);
 
@@ -11,19 +118,25 @@ function Hero() {
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
   };
 
-  // Pinned, scrub-linked message conveyor (GSAP + ScrollTrigger).
-  // Fails open: without GSAP / a real viewport / motion, only the first
-  // message shows in normal flow (CSS), no pin. Desktop only.
+  // Pinned, scrub-linked conveyor: the left message hands off front by front while the
+  // matching facet of the shield lights up. Fails open (CSS shows the first front only,
+  // shield fully lit, no pin) without GSAP / a real viewport / motion. Desktop only.
   useEffect(() => {
     const g = window.gsap, ST = window.ScrollTrigger;
-    if (!g || !ST || !window.innerHeight || slides.length < 2) return;
+    if (!g || !ST || !window.innerHeight) return;
     g.registerPlugin(ST);
     const section = heroRef.current, wrap = slidesRef.current;
     if (!section || !wrap) return;
     const slideEls = Array.from(wrap.querySelectorAll('.hero-slide'));
     const dots = Array.from(section.querySelectorAll('.hero-dot'));
     const label = section.querySelector('.hero-progress-label');
+    const facetEls = Array.from(section.querySelectorAll('.hn-facet'));
+    const iconEls = Array.from(section.querySelectorAll('.hn-ic'));
     const n = slideEls.length;
+    const lightTo = (idx) => {
+      facetEls.forEach((f, i) => { f.style.opacity = i === idx ? 1 : 0.4; });
+      iconEls.forEach((ic, i) => { ic.style.opacity = i === idx ? 1 : 0.42; });
+    };
     const mm = g.matchMedia();
     mm.add('(min-width: 961px) and (prefers-reduced-motion: no-preference)', () => {
       section.classList.add('hero-carousel-on');
@@ -34,7 +147,9 @@ function Hero() {
       const setActive = (idx) => {
         dots.forEach((d, i) => d.classList.toggle('active', i === idx));
         if (label) label.textContent = '0' + (idx + 1) + ' / 0' + n;
+        lightTo(idx);
       };
+      lightTo(0);
       const tl = g.timeline({
         defaults: { ease: 'power2.inOut' },
         scrollTrigger: {
@@ -56,10 +171,12 @@ function Hero() {
         wrap.style.height = '';
         g.set(slideEls, { clearProps: 'all' });
         dots.forEach((d) => d.classList.remove('active'));
+        facetEls.forEach((f) => { f.style.opacity = 1; });
+        iconEls.forEach((ic) => { ic.style.opacity = 1; });
       };
     });
     return () => mm.revert();
-  }, [slides.length]);
+  }, [fronts.length, es]);
 
   return (
     <section id="home" className="dark hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
@@ -94,29 +211,34 @@ function Hero() {
           }}
           className="hero-grid"
         >
-          {/* Left: cycling messages */}
+          {/* Left: cycling fronts */}
           <div>
             <Pill theme="dark">{h.eyebrow}</Pill>
 
             <div className="hero-slides" ref={slidesRef} style={{ marginTop: 18 }}>
-              {slides.map((s, i) => (
+              {fronts.map((f, i) => (
                 <div className="hero-slide" key={i}>
-                  <h1 className="pre" style={{ fontSize: 'clamp(32px, 4vw, 52px)', maxWidth: '600px' }}>{s.title}</h1>
-                  <p style={{ marginTop: 18, fontSize: 16.5, color: 'rgba(246,244,239,0.72)', maxWidth: 540, lineHeight: 1.5 }}>{s.sub}</p>
-                  <div style={{ display: 'flex', gap: 12, marginTop: 26, flexWrap: 'wrap' }}>
-                    <Btn variant="primary" onDark onClick={() => goto('contact')}>{h.primary} <ArrowRight /></Btn>
-                    <Btn variant="ghost" onDark onClick={scrollToServices}>{h.secondary}</Btn>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8cc0cf', marginBottom: 14 }}>
+                    0{i + 1} · {f.name}
                   </div>
+                  <h1 className="pre" style={{ fontSize: 'clamp(30px, 3.6vw, 48px)', maxWidth: '600px' }}>{f.title}</h1>
+                  <p style={{ marginTop: 18, fontSize: 16.5, color: 'rgba(246,244,239,0.72)', maxWidth: 540, lineHeight: 1.55 }}>{f.sub}</p>
                 </div>
               ))}
+            </div>
+
+            {/* Persistent CTAs */}
+            <div style={{ display: 'flex', gap: 12, marginTop: 26, flexWrap: 'wrap' }}>
+              <Btn variant="primary" onDark onClick={() => goto('contact')}>{h.primary} <ArrowRight /></Btn>
+              <Btn variant="ghost" onDark onClick={scrollToServices}>{h.secondary}</Btn>
             </div>
 
             {/* Progress (only shown when the carousel is active) */}
             <div className="hero-progress" aria-hidden="true">
               <div className="hero-dots">
-                {slides.map((_, i) => <span className={'hero-dot' + (i === 0 ? ' active' : '')} key={i} />)}
+                {fronts.map((_, i) => <span className={'hero-dot' + (i === 0 ? ' active' : '')} key={i} />)}
               </div>
-              <span className="hero-progress-label">01 / 0{slides.length}</span>
+              <span className="hero-progress-label">01 / 0{fronts.length}</span>
             </div>
 
             {/* Persistent trust chips */}
@@ -146,8 +268,8 @@ function Hero() {
             <style>{`@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 4px rgba(93,181,142,0.18); } 50% { box-shadow: 0 0 0 7px rgba(93,181,142,0.05); } }`}</style>
           </div>
 
-          {/* Right: visual */}
-          <HeroVisual />
+          {/* Right: animated shield-diamond núcleo */}
+          <HeroNucleo fronts={fronts} />
         </div>
       </Container>
 
@@ -160,144 +282,4 @@ function Hero() {
   );
 }
 
-function HeroVisual() {
-  const { t } = useT();
-  const es = t.locale === 'es';
-  const [score, setScore] = useState(34);
-  useEffect(() => {
-    let raf, start;
-    const tick = (ts) => {
-      if (!start) start = ts;
-      const t = Math.min((ts - start) / 1400, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setScore(34 + (78 - 34) * eased);
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  const scoreInt = Math.round(score);
-
-  return (
-    <div style={{ position: 'relative', minHeight: 470 }}>
-      {/* Decorative ring backdrop */}
-      <div style={{ position: 'absolute', inset: -40, opacity: 0.7, pointerEvents: 'none' }}>
-        <QHeroMark size="100%" theme="dark" />
-      </div>
-
-      {/* Scorecard card */}
-      <Tilt className="tilt-3d" style={{ position: 'absolute', right: 0, top: 4, width: 'min(348px, 88%)' }}>
-      <div
-        className="glass"
-        style={{
-          borderRadius: 18,
-          padding: 24,
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--ink-3)' }}>
-            {es ? 'Informe Q-Start' : 'Q-Start report'}
-          </span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--teal-deep)', background: 'var(--teal-soft)', padding: '3px 9px', borderRadius: 999 }}>
-            {es ? 'Ejemplo' : 'Sample'}
-          </span>
-        </div>
-
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-3)', marginBottom: 6 }}>
-          {es ? 'Nivel de seguridad' : 'Security level'}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-          <span style={{ fontFamily: 'var(--font-display)', fontSize: 60, fontWeight: 900, lineHeight: 1, color: 'var(--ink)' }}>{scoreInt}</span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--ink-3)' }}>/ 100</span>
-          <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--teal-deep)', background: 'var(--teal-soft)', padding: '5px 9px', borderRadius: 999, whiteSpace: 'nowrap' }}>
-            {es ? '+44 con el plan' : '+44 with the plan'}
-          </span>
-        </div>
-
-        <div style={{ marginTop: 12, height: 8, background: 'rgba(14,20,22,0.06)', borderRadius: 999, overflow: 'hidden' }}>
-          <div
-            style={{
-              width: `${scoreInt}%`,
-              height: '100%',
-              background: 'linear-gradient(90deg, #c4574a, #b88a3a, #4d7e8a)',
-              transition: 'width 0.05s linear',
-            }}
-          />
-        </div>
-        <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: 9.5, color: 'var(--ink-4)', letterSpacing: '0.04em' }}>
-          <span>0 · {es ? 'expuesto' : 'exposed'}</span>
-          <span>{es ? 'sólido' : 'solid'} · 100</span>
-        </div>
-
-        <div style={{ marginTop: 20, marginBottom: 12, fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-3)' }}>
-          {es ? '5 áreas revisadas' : '5 areas reviewed'}
-        </div>
-        <div style={{ display: 'grid', gap: 11 }}>
-          {[
-            { k: es ? 'Correo y antifraude' : 'Email & anti-fraud', v: 28, s: es ? 'Crítico' : 'Critical', c: '#c4574a' },
-            { k: es ? 'Identidades y MFA' : 'Identity & MFA', v: 62, s: es ? 'Mejorable' : 'Fair', c: '#b88a3a' },
-            { k: 'Microsoft 365', v: 71, s: es ? 'Bien' : 'Good', c: '#4d7e8a' },
-            { k: es ? 'Copias de seguridad' : 'Backups', v: 55, s: es ? 'Mejorable' : 'Fair', c: '#b88a3a' },
-            { k: es ? 'Plan ante incidentes' : 'Incident plan', v: 12, s: es ? 'Crítico' : 'Critical', c: '#c4574a' },
-          ].map((row) => (
-            <div key={row.k} style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'center', gap: 12 }}>
-              <div>
-                <div style={{ fontSize: 12.5, fontWeight: 500, color: 'var(--ink)' }}>{row.k}</div>
-                <div style={{ marginTop: 4, height: 4, background: 'rgba(14,20,22,0.06)', borderRadius: 999, overflow: 'hidden' }}>
-                  <div style={{ width: `${row.v}%`, height: '100%', background: row.c }} />
-                </div>
-              </div>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, fontWeight: 500, color: row.c, background: `${row.c}1f`, padding: '4px 9px', borderRadius: 5, minWidth: 70, textAlign: 'center' }}>{row.s}</span>
-            </div>
-          ))}
-        </div>
-
-        <div
-          style={{
-            marginTop: 20,
-            paddingTop: 14,
-            borderTop: '1px solid var(--line)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 10,
-            color: 'var(--ink-3)',
-            letterSpacing: '0.04em',
-          }}
-        >
-          <span>{es ? 'Base: NIST CSF 2.0 · CIS' : 'Based on NIST CSF 2.0 · CIS'}</span>
-          <span style={{ color: 'var(--teal-deep)' }}>{es ? '15 acciones priorizadas →' : '15 prioritised actions →'}</span>
-        </div>
-      </div>
-      </Tilt>
-
-      {/* Small chip card */}
-      <div
-        style={{
-          position: 'absolute',
-          left: -12,
-          bottom: 18,
-          background: 'var(--dark-3)',
-          color: 'var(--bg)',
-          borderRadius: 14,
-          padding: '14px 16px',
-          maxWidth: 196,
-          border: '1px solid rgba(246,244,239,0.12)',
-          boxShadow: '0 20px 40px -20px rgba(0,0,0,0.5)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8cc0cf' }}>
-          <span style={{ width: 6, height: 6, borderRadius: 999, background: '#8cc0cf' }} />
-          {es ? 'MFA activado' : 'MFA enforced'}
-        </div>
-        <div style={{ marginTop: 8, fontSize: 13, lineHeight: 1.4 }}>
-          {es ? '17 / 17 cuentas con acceso de administrador protegidas con MFA en 48 h.' : '17 / 17 admin accounts protected with MFA in 48h.'}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-Object.assign(window, { Hero, HeroVisual });
+Object.assign(window, { Hero, HeroNucleo, HeroFrontIcon });

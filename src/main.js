@@ -3,8 +3,6 @@ function HomePage() {
     <main data-screen-label="01 Home">
       <Hero />
       <TrustStrip />
-      <CubeFaceted />
-      <CubeRotating />
       <Pillars />
       <Decisors />
       <Proof />
