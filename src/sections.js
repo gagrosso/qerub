@@ -890,8 +890,9 @@ function Proof() {
 }
 
 // ── Tres husos horarios (sedes con rol) ──────────────────────────────────────
-// Dotted world map with the three time-zone markers. Dots react to the cursor
-// (enlarge + push away) on canvas; markers pulse and reveal their role on hover.
+// Dotted world map as a background layer. Dots react to the cursor (enlarge +
+// push away) on canvas; 3 markers pulse. "Cover"-scaled to fill the section;
+// markers are placed in px (same transform) so they track the map.
 function GeoMap({ items }) {
   const areaRef = useRef(null);
   const cvRef = useRef(null);
@@ -899,24 +900,26 @@ function GeoMap({ items }) {
     const W = qerubWorld(), D = W.d;
     const area = areaRef.current, cv = cvRef.current;
     if (!area || !cv) return;
+    const section = area.closest('section') || area;
     const ctx = cv.getContext('2d');
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let cw = 0, ch = 0, sx = 1, sy = 1, cursor = null, raf = 0;
-    const R = 70, PUSH = 8, BR = 1.4, XR = 2.2, BA = 0.22, XA = 0.7;
     const M = W.m, arcs = [['us', 'es'], ['es', 'ar'], ['us', 'ar']];
+    let cw = 0, ch = 0, scale = 1, ox = 0, oy = 0, cursor = null, raf = 0;
+    const R = 80, PUSH = 8, BR = 1.4, XR = 2.2, BA = 0.2, XA = 0.7;
+    const mp = (k) => [ox + M[k][0] * scale, oy + M[k][1] * scale];
     const drawArc = (a, b) => {
-      const ax = M[a][0] * sx, ay = M[a][1] * sy, bx = M[b][0] * sx, by = M[b][1] * sy;
-      const mx = (ax + bx) / 2, my = (ay + by) / 2 - Math.hypot(bx - ax, by - ay) * 0.22;
-      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.quadraticCurveTo(mx, my, bx, by); ctx.stroke();
+      const A = mp(a), B = mp(b);
+      const mx = (A[0] + B[0]) / 2, my = (A[1] + B[1]) / 2 - Math.hypot(B[0] - A[0], B[1] - A[1]) * 0.22;
+      ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.quadraticCurveTo(mx, my, B[0], B[1]); ctx.stroke();
     };
     const render = () => {
       ctx.clearRect(0, 0, cw, ch);
-      ctx.strokeStyle = 'rgba(140,192,207,0.22)'; ctx.lineWidth = 1; ctx.setLineDash([2, 5]);
+      ctx.strokeStyle = 'rgba(140,192,207,0.18)'; ctx.lineWidth = 1; ctx.setLineDash([2, 5]);
       for (let k = 0; k < arcs.length; k++) drawArc(arcs[k][0], arcs[k][1]);
       ctx.setLineDash([]);
       for (let i = 0; i < D.length; i += 2) {
-        let bx = D[i] * sx, by = D[i + 1] * sy, x = bx, y = by, r = BR, a = BA;
+        let bx = ox + D[i] * scale, by = oy + D[i + 1] * scale, x = bx, y = by, r = BR, a = BA;
         if (cursor) {
           const dx = bx - cursor.x, dy = by - cursor.y, d = Math.hypot(dx, dy);
           if (d < R) { const f = 1 - d / R, p = f * PUSH, inv = d ? 1 / d : 0; x = bx + dx * inv * p; y = by + dy * inv * p; r = BR + f * XR; a = BA + f * XA; }
@@ -924,33 +927,40 @@ function GeoMap({ items }) {
         ctx.beginPath(); ctx.fillStyle = 'rgba(140,192,207,' + a.toFixed(3) + ')'; ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
       }
     };
+    const placeMarkers = () => {
+      area.querySelectorAll('.gm').forEach((el) => {
+        const k = el.getAttribute('data-mk'); if (!M[k]) return;
+        const p = mp(k); el.style.left = p[0] + 'px'; el.style.top = p[1] + 'px'; el.style.opacity = '1';
+      });
+    };
     const size = () => {
       cw = area.clientWidth; ch = area.clientHeight; if (!cw || !ch) return;
       cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
-      sx = cw / W.w; sy = ch / W.h; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); render();
+      scale = Math.max(cw / W.w, ch / W.h); ox = (cw - W.w * scale) / 2; oy = (ch - W.h * scale) / 2;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); placeMarkers(); render();
     };
     const onMove = (e) => { const rc = cv.getBoundingClientRect(); cursor = { x: e.clientX - rc.left, y: e.clientY - rc.top }; if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); };
     const onLeave = () => { cursor = null; render(); };
-    if (!reduce) { area.addEventListener('pointermove', onMove); area.addEventListener('pointerleave', onLeave); }
+    if (!reduce) { section.addEventListener('pointermove', onMove); section.addEventListener('pointerleave', onLeave); }
     size();
     let ro = null;
     if (window.ResizeObserver) { ro = new ResizeObserver(size); ro.observe(area); } else { window.addEventListener('resize', size); }
     return () => {
-      area.removeEventListener('pointermove', onMove); area.removeEventListener('pointerleave', onLeave);
+      section.removeEventListener('pointermove', onMove); section.removeEventListener('pointerleave', onLeave);
       if (ro) ro.disconnect(); else window.removeEventListener('resize', size);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
-  const W = qerubWorld();
   const keyFor = (c) => /espa|spain/i.test(c) ? 'es' : (/argent/i.test(c) ? 'ar' : 'us');
+  const seen = {};
   return (
-    <div className="geo-map" ref={areaRef} role="group" aria-label="Mapa de los tres husos horarios: España, Argentina y Estados Unidos">
-      <canvas ref={cvRef} className="geo-canvas" aria-hidden="true" />
+    <div className="geo-bg" ref={areaRef} aria-hidden="true">
+      <canvas ref={cvRef} className="geo-canvas" />
       {(items || []).map((c, i) => {
-        const m = W.m[keyFor(c.city || '')];
-        if (!m) return null;
+        const k = keyFor(c.city || '');
+        if (seen[k]) return null; seen[k] = 1;
         return (
-          <div key={i} className="gm" style={{ left: (m[0] / W.w * 100) + '%', top: (m[1] / W.h * 100) + '%' }} aria-hidden="true">
+          <div key={i} className="gm" data-mk={k} style={{ opacity: 0 }}>
             <span className="gm-ring" style={{ animationDelay: (i * 0.8) + 's' }} />
             <span className="gm-dot" />
           </div>
@@ -965,25 +975,25 @@ function Geo() {
   const g = t.geo;
   if (!g) return null;
   return (
-    <section className="dark" style={{ position: 'relative', overflow: 'hidden' }}>
+    <section className="dark geo-section" style={{ position: 'relative', overflow: 'hidden' }}>
       <div className="aurora" aria-hidden="true">
         <div className="aurora-blob a1" />
         <div className="aurora-blob a3" />
       </div>
+      <GeoMap items={g.items} />
       <Container style={{ position: 'relative', zIndex: 1 }}>
         <div className="sec-head">
           <Reveal><span className="eyebrow">{g.eyebrow}</span></Reveal>
           <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{g.title}</h2></Reveal>
-          <Reveal delay={140}><p className="sub" style={{ maxWidth: 720 }}>{g.sub}</p></Reveal>
+          <Reveal delay={140}><p className="sub" style={{ maxWidth: 560 }}>{g.sub}</p></Reveal>
         </div>
-        <Reveal delay={180}><GeoMap items={g.items} /></Reveal>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 1, background: 'rgba(246,244,239,0.08)', border: '1px solid rgba(246,244,239,0.08)', borderRadius: 16, overflow: 'hidden' }}>
+        <div className="geo-cards">
           {g.items.map((c, i) => (
             <Reveal key={i} delay={i * 80}>
-              <div style={{ background: 'var(--dark)', padding: '34px 30px', height: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div className="geo-card">
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--teal-2)', letterSpacing: '0.14em', textTransform: 'uppercase' }}>{c.role}</span>
-                <h3 style={{ fontSize: 26, fontWeight: 700 }}>{c.city}</h3>
-                <p style={{ fontSize: 14.5, color: 'rgba(246,244,239,0.68)', lineHeight: 1.6 }}>{c.d}</p>
+                <h3 style={{ fontSize: 24, fontWeight: 700, marginTop: 12 }}>{c.city}</h3>
+                <p style={{ fontSize: 14.5, color: 'rgba(246,244,239,0.72)', lineHeight: 1.6, marginTop: 10 }}>{c.d}</p>
               </div>
             </Reveal>
           ))}
