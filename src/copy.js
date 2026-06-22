@@ -69,7 +69,7 @@ window.QERUB_COPY = {
           tagline: 'Tienes los datos. Te falta convertirlos en decisiones — y en IA que llega a producción.',
           d: 'Del caso de uso a producción: agentes, Copilot y RAG con ROI medible, plataforma de datos y BI, y gobierno de IA (EU AI Act).',
           forWhom: 'CEO · CIO',
-          status: 'Programa fundador',
+          status: 'Disponible',
           to: 'contact',
           href: '/servicios/consultoria-ia-datos-empresa',
         },
@@ -79,7 +79,7 @@ window.QERUB_COPY = {
           tagline: 'El software que tu negocio necesita y el estándar no te da.',
           d: 'Desarrollo a medida e integraciones, modernización de aplicaciones para poder usar IA, y MVPs con criterio senior. Ciclo completo, no “fábrica de código”.',
           forWhom: 'CEO · CTO',
-          status: 'Programa fundador',
+          status: 'Disponible',
           to: 'contact',
           href: '/servicios/desarrollo-software-medida-empresa',
         },
@@ -94,7 +94,7 @@ window.QERUB_COPY = {
           href: '/servicios/staff-augmentation-nearshore',
         },
       ],
-      note: 'Q-Secure está plenamente operativo. Q-Intelligence y Q-Build se ofrecen hoy como programa fundador: alcance acotado, condiciones especiales y total transparencia sobre lo que ya entregamos.',
+      note: 'Q-Secure es nuestro pilar más maduro. Q-Intelligence y Q-Build se entregan con alcance acotado, precio cerrado y total transparencia.',
     },
     decisors: {
       eyebrow: 'Para quién trabajamos',
@@ -116,11 +116,11 @@ window.QERUB_COPY = {
         { v: '100', u: '%', label: 'perfiles senior · sin junior facturados' },
         { v: '0', u: '€', label: 'sorpresas: precio y alcance cerrados antes de empezar' },
       ],
-      founder: {
-        tag: 'Programa fundador',
-        t: 'Buscamos cinco clientes fundadores.',
-        d: 'Para Q-Intelligence y Q-Build ofrecemos condiciones especiales a cambio de tu testimonio. Proyecto acotado, riesgo bajo y total transparencia sobre lo que ya entregamos.',
-        cta: 'Quiero ser cliente fundador',
+      cta: {
+        tag: 'Empieza por aquí',
+        t: 'Arranca con un diagnóstico de bajo riesgo.',
+        d: 'Definimos alcance y precio cerrados antes de empezar y validamos el caso con ROI claro antes de escalar. Sin compromisos largos y con total transparencia.',
+        cta: 'Hablar con un socio senior',
       },
     },
     geo: {
@@ -299,7 +299,7 @@ window.QERUB_COPY = {
       items: [
         {
           q: '¿Solo hacéis ciberseguridad, o también IA, datos y software?',
-          a: 'Las cuatro cosas, con un mismo equipo senior y precio cerrado. La ciberseguridad (Q-Secure) es nuestro pilar más maduro; IA y datos (Q-Intelligence) y software a medida (Q-Build) los ofrecemos hoy como programa fundador, con total transparencia sobre lo que ya entregamos. Somos nuevos en esas líneas y lo decimos claro.',
+          a: 'Las cuatro cosas, con un mismo equipo senior y precio cerrado. La ciberseguridad (Q-Secure) es nuestro pilar más maduro; IA y datos (Q-Intelligence) y software a medida (Q-Build) se entregan con alcance acotado, precio cerrado y total transparencia.',
         },
         {
           q: '¿Cómo funciona el modelo de equipos senior (Q-Pod)?',
@@ -457,11 +457,11 @@ window.QERUB_COPY = {
       sub: 'Technology your leadership team gets on the first read — with fixed scope and price, and senior teams that embed in your company.',
       items: [
         { code: 'Q-Secure', t: 'Cybersecurity', tagline: 'Security as a business advantage, not a brake.', d: 'Assessment, Microsoft 365, anti-fraud, incident response and vCISO. Our most mature pillar: nine services with fixed scope and price.', forWhom: 'CEO · CISO · IT', status: 'Live', to: 'services' },
-        { code: 'Q-Intelligence', t: 'AI & Data', tagline: 'You have the data. You’re missing the decisions — and AI that reaches production.', d: 'From use case to production: agents, Copilot and RAG with measurable ROI, data platform and BI, and AI governance (EU AI Act).', forWhom: 'CEO · CIO', status: 'Founding program', to: 'contact', href: '/servicios/consultoria-ia-datos-empresa' },
-        { code: 'Q-Build', t: 'Custom software', tagline: 'The software your business needs and off-the-shelf won’t give you.', d: 'Custom development and integrations, app modernization so you can use AI, and MVPs with senior judgment. Full cycle, not a “code factory”.', forWhom: 'CEO · CTO', status: 'Founding program', to: 'contact', href: '/servicios/desarrollo-software-medida-empresa' },
+        { code: 'Q-Intelligence', t: 'AI & Data', tagline: 'You have the data. You’re missing the decisions — and AI that reaches production.', d: 'From use case to production: agents, Copilot and RAG with measurable ROI, data platform and BI, and AI governance (EU AI Act).', forWhom: 'CEO · CIO', status: 'Available', to: 'contact', href: '/servicios/consultoria-ia-datos-empresa' },
+        { code: 'Q-Build', t: 'Custom software', tagline: 'The software your business needs and off-the-shelf won’t give you.', d: 'Custom development and integrations, app modernization so you can use AI, and MVPs with senior judgment. Full cycle, not a “code factory”.', forWhom: 'CEO · CTO', status: 'Available', to: 'contact', href: '/servicios/desarrollo-software-medida-empresa' },
         { code: 'Q-Pod', t: 'Embedded senior teams', tagline: 'Senior talent that embeds in your team in days. Pay for outcomes, not seats.', d: 'Staff augmentation and managed operation: vCISO, fractional vCIO/vCTO, managed AI and data. Senior nearshore from Argentina, in your time zone.', forWhom: 'Head of Talent · CIO', status: 'Available', to: 'contact', href: '/servicios/staff-augmentation-nearshore' },
       ],
-      note: 'Q-Secure is fully live. Q-Intelligence and Q-Build are offered today as a founding program: tight scope, special terms and full transparency about what we already deliver.',
+      note: 'Q-Secure is our most mature pillar. Q-Intelligence and Q-Build are delivered with tight scope, fixed price and full transparency.',
     },
     decisors: {
       eyebrow: 'Who we work for',
@@ -483,11 +483,11 @@ window.QERUB_COPY = {
         { v: '100', u: '%', label: 'senior profiles · no junior staff billed' },
         { v: '0', u: '€', label: 'surprises: fixed scope and price before we start' },
       ],
-      founder: {
-        tag: 'Founding program',
-        t: 'We’re looking for five founding clients.',
-        d: 'For Q-Intelligence and Q-Build we offer special terms in exchange for your testimonial. Tight scope, low risk and full transparency about what we already deliver.',
-        cta: 'I want to be a founding client',
+      cta: {
+        tag: 'Start here',
+        t: 'Start with a low-risk assessment.',
+        d: 'We set fixed scope and price before we begin and validate the use case with clear ROI before scaling. No long commitments, full transparency.',
+        cta: 'Talk to a senior partner',
       },
     },
     geo: {
@@ -576,7 +576,7 @@ window.QERUB_COPY = {
       eyebrow: 'FAQ',
       title: 'What people ask us before starting.',
       items: [
-        { q: 'Do you only do cybersecurity, or also AI, data and software?', a: 'All four, with the same senior team and a fixed price. Cybersecurity (Q-Secure) is our most mature pillar; AI and data (Q-Intelligence) and custom software (Q-Build) are offered today as a founding program, with full transparency about what we already deliver. We are new in those lines and we say so plainly.' },
+        { q: 'Do you only do cybersecurity, or also AI, data and software?', a: 'All four, with the same senior team and a fixed price. Cybersecurity (Q-Secure) is our most mature pillar; AI and data (Q-Intelligence) and custom software (Q-Build) are delivered with tight scope, fixed price and full transparency.' },
         { q: 'How does the senior-team model (Q-Pod) work?', a: 'We send a senior shortlist in 5–10 days, with CV, years of experience and stack. The person embeds in your team and works in your time zone. You pay for outcomes, not seats, and if it does not fit in the first two weeks, we replace them at no cost. No junior staff billed.' },
         { q: 'Do you have offices in three countries?', a: 'We operate across three time zones — Spain (European compliance), Argentina (senior nearshore delivery) and the United States (commercial front) — to be close to your business when you need it. We will not sell you a "big firm" we are not: we tell you exactly what is in each place.' },
         { q: 'How much is the Q-Start assessment?', a: 'Closed price based on your org size. We send a concrete proposal within 24 hours after the first call. No surprises.' },

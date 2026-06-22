@@ -747,7 +747,6 @@ function Pillars() {
   const { goto } = useRoute();
   const p = t.pillars;
   if (!p) return null;
-  const isFounder = (s) => /fundador|founding/i.test(s || '');
   // Lead with the same priority order as the hero (IA → software → staff → cyber).
   const order = ['Q-Intelligence', 'Q-Build', 'Q-Pod', 'Q-Secure'];
   const items = (p.items || []).slice().sort((a, b) => order.indexOf(a.code) - order.indexOf(b.code));
@@ -762,7 +761,6 @@ function Pillars() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 20 }}>
           {items.map((it, i) => {
-            const founder = isFounder(it.status);
             const Tag = it.href ? 'a' : 'div';
             const navProps = it.href ? { href: it.href } : { onClick: () => goto(it.to) };
             return (
@@ -778,9 +776,9 @@ function Pillars() {
                       <span style={{
                         fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase',
                         padding: '4px 9px', borderRadius: 999,
-                        color: founder ? '#9a7b2e' : 'var(--teal-deep)',
-                        background: founder ? 'rgba(217,199,154,0.22)' : 'rgba(120,165,176,0.16)',
-                        border: founder ? '1px solid rgba(217,199,154,0.5)' : '1px solid rgba(120,165,176,0.35)',
+                        color: 'var(--teal-deep)',
+                        background: 'rgba(120,165,176,0.16)',
+                        border: '1px solid rgba(120,165,176,0.35)',
                       }}>{it.status}</span>
                     </div>
                     <h3 style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>{it.t}</h3>
@@ -845,7 +843,7 @@ function Decisors() {
   );
 }
 
-// ── Prueba honesta: métricas de método + programa fundador ───────────────────
+// ── Prueba honesta: métricas de método + CTA de cierre ───────────────────────
 function Proof() {
   const { t } = useT();
   const { goto } = useRoute();
@@ -871,18 +869,18 @@ function Proof() {
           ))}
         </div>
 
-        {pr.founder && (
+        {pr.cta && (
           <Reveal delay={120}>
             <div
               className="glass"
               style={{ marginTop: 44, padding: '32px 34px', borderRadius: 18, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 24 }}
             >
               <div style={{ maxWidth: 640 }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9a7b2e', background: 'rgba(217,199,154,0.22)', border: '1px solid rgba(217,199,154,0.5)', padding: '4px 10px', borderRadius: 999 }}>{pr.founder.tag}</span>
-                <h3 style={{ fontSize: 24, fontWeight: 700, marginTop: 14 }}>{pr.founder.t}</h3>
-                <p style={{ marginTop: 10, fontSize: 15, color: 'var(--ink-3)', lineHeight: 1.6 }}>{pr.founder.d}</p>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--teal-deep)', background: 'rgba(120,165,176,0.16)', border: '1px solid rgba(120,165,176,0.35)', padding: '4px 10px', borderRadius: 999 }}>{pr.cta.tag}</span>
+                <h3 style={{ fontSize: 24, fontWeight: 700, marginTop: 14 }}>{pr.cta.t}</h3>
+                <p style={{ marginTop: 10, fontSize: 15, color: 'var(--ink-3)', lineHeight: 1.6 }}>{pr.cta.d}</p>
               </div>
-              <Btn variant="primary" onClick={() => goto('contact')}>{pr.founder.cta} <ArrowRight /></Btn>
+              <Btn variant="primary" onClick={() => goto('contact')}>{pr.cta.cta} <ArrowRight /></Btn>
             </div>
           </Reveal>
         )}
