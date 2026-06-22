@@ -748,9 +748,6 @@ function Pillars() {
   const p = t.pillars;
   if (!p) return null;
   const isFounder = (s) => /fundador|founding/i.test(s || '');
-  const coreAlt = t.locale === 'es'
-    ? 'Las cuatro disciplinas de Qerub —ciberseguridad, IA y datos, software a medida y equipos senior— integradas en un único núcleo seguro'
-    : "Qerub's four disciplines — cybersecurity, AI and data, custom software and senior teams — integrated into a single secure core";
   return (
     <section id="pillars">
       <Container>
@@ -759,20 +756,6 @@ function Pillars() {
           <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{p.title}</h2></Reveal>
           <Reveal delay={140}><p className="sub">{p.sub}</p></Reveal>
         </div>
-
-        <Reveal delay={180}>
-          <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0 40px' }}>
-            <img
-              src="/assets/img/qerub-core-pilares.webp"
-              width="1000"
-              height="1000"
-              alt={coreAlt}
-              loading="lazy"
-              decoding="async"
-              style={{ width: '100%', maxWidth: 320, height: 'auto', display: 'block' }}
-            />
-          </div>
-        </Reveal>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 20 }}>
           {p.items.map((it, i) => {
@@ -938,7 +921,211 @@ function Geo() {
   );
 }
 
+// ── Núcleo animado: dos opciones a comparar (A facetado · C cubo 3D) ──────────
+function qPillars(es) {
+  return [
+    { code: 'Q-Secure',       t: es ? 'Ciberseguridad'   : 'Cybersecurity',   d: es ? 'Auditoría, Microsoft 365, anti-fraude y vCISO. Tu pilar más maduro.' : 'Assessment, Microsoft 365, anti-fraud and vCISO. Our most mature pillar.' },
+    { code: 'Q-Intelligence', t: es ? 'IA y datos'       : 'AI & data',       d: es ? 'IA aplicada y analítica que ayuda a decidir, no a presumir.' : 'Applied AI and analytics that help you decide, not show off.' },
+    { code: 'Q-Build',        t: es ? 'Software a medida' : 'Custom software', d: es ? 'Producto y modernización, con alcance y precio cerrados.' : 'Product and modernization, with fixed scope and price.' },
+    { code: 'Q-Pod',          t: es ? 'Equipos senior'    : 'Senior teams',    d: es ? 'Talento senior integrado en tu equipo, en días no en meses.' : 'Senior talent embedded in your team, in days not months.' },
+  ];
+}
+
+function PillarIcon({ name }) {
+  const paths = {
+    secure: <><path d="M12 3 5 5.6v5.4c0 4 2.9 6.6 7 8 4.1-1.4 7-4 7-8V5.6L12 3Z" /><path d="m9 11.6 2 2 4-4" /></>,
+    intel:  <><path d="M6 20v-7" /><path d="M12 20V5" /><path d="M18 20v-4" /></>,
+    build:  <><path d="m9 8-4 4 4 4" /><path d="m15 8 4 4-4 4" /></>,
+    pod:    <><path d="M9.5 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" /><path d="M4 20c0-3 2.5-5 5.5-5s5.5 2 5.5 5" /><path d="M16 5.4a3 3 0 0 1 0 6.2" /><path d="M17 15.2c2.1.5 3.8 2.3 3.8 4.8" /></>,
+  };
+  return (
+    <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {paths[name]}
+    </svg>
+  );
+}
+
+// Option A — faceted core: each facet lights up on scroll (pin + scrub).
+function CubeFaceted() {
+  const { t } = useT();
+  const es = t.locale === 'es';
+  const P = qPillars(es);
+  const ref = useRef(null);
+  const facets = [
+    { clip: 'polygon(0 0,100% 0,50% 50%)',     bg: '#5d8b97', ix: '50%', iy: '21%' },
+    { clip: 'polygon(100% 0,100% 100%,50% 50%)', bg: '#4d7e8a', ix: '79%', iy: '50%' },
+    { clip: 'polygon(100% 100%,0 100%,50% 50%)', bg: '#6f9aa6', ix: '50%', iy: '79%' },
+    { clip: 'polygon(0 100%,0 0,50% 50%)',     bg: '#588f9b', ix: '21%', iy: '50%' },
+  ];
+  const icons = ['secure', 'intel', 'build', 'pod'];
+
+  useEffect(() => {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST || !window.innerHeight) return;
+    g.registerPlugin(ST);
+    const section = ref.current; if (!section) return;
+    const fills = Array.from(section.querySelectorAll('.qnf-fill'));
+    const ics = Array.from(section.querySelectorAll('.qnf-ic'));
+    const dots = Array.from(section.querySelectorAll('.qnf-dot'));
+    const code = section.querySelector('.qcube-code');
+    const title = section.querySelector('.qcube-title');
+    const desc = section.querySelector('.qcube-desc');
+    const setSummary = () => {
+      if (!code) return;
+      code.textContent = es ? 'núcleo Qerub' : 'Qerub core';
+      title.textContent = es ? 'Cuatro frentes, un solo núcleo' : 'Four fronts, one core';
+      desc.textContent = es ? 'Desplázate: cada cara se enciende y muestra lo que hacemos.' : 'Scroll: each face lights up and shows what we do.';
+    };
+    const update = (p) => {
+      let active = -1;
+      for (let i = 0; i < 4; i++) {
+        const fp = Math.max(0, Math.min(1, p * 4 - i));
+        fills[i].style.opacity = fp;
+        ics[i].style.opacity = fp;
+        ics[i].style.transform = 'translate(-50%,-50%) scale(' + (0.62 + 0.38 * fp) + ')';
+        dots[i].style.background = fp > 0.5 ? 'var(--teal-deep)' : 'transparent';
+        if (fp > 0.02) active = i;
+      }
+      if (active < 0) setSummary();
+      else { code.textContent = P[active].code; title.textContent = P[active].t; desc.textContent = P[active].d; }
+    };
+    const mm = g.matchMedia();
+    mm.add('(min-width: 961px) and (prefers-reduced-motion: no-preference)', () => {
+      update(0);
+      const st = ST.create({
+        trigger: section, start: 'top top', end: '+=' + Math.round(window.innerHeight * 1.5),
+        pin: true, scrub: 1, invalidateOnRefresh: true, onUpdate: (self) => update(self.progress),
+      });
+      return () => {
+        st.kill();
+        fills.forEach((f) => { f.style.opacity = 1; });
+        ics.forEach((ic) => { ic.style.opacity = 1; ic.style.transform = 'translate(-50%,-50%) scale(1)'; });
+        dots.forEach((d) => { d.style.background = 'var(--teal-deep)'; });
+        if (code) { code.textContent = es ? 'núcleo Qerub' : 'Qerub core'; title.textContent = es ? 'Cuatro frentes, un solo núcleo' : 'Four fronts, one core'; desc.textContent = es ? 'Ciberseguridad · IA y datos · Software · Equipos senior' : 'Cybersecurity · AI & data · Software · Senior teams'; }
+      };
+    });
+    return () => mm.revert();
+  }, [es]);
+
+  return (
+    <section id="cube-a" ref={ref} style={{ overflow: 'hidden' }}>
+      <Container>
+        <div className="sec-head">
+          <Reveal><span className="eyebrow">{es ? 'Opción A · núcleo facetado' : 'Option A · faceted core'}</span></Reveal>
+          <Reveal delay={80}><h2 className="pre" style={{ marginTop: 14 }}>{es ? 'Cuatro frentes. Un solo socio senior.' : 'Four fronts. One senior partner.'}</h2></Reveal>
+        </div>
+        <div className="qcube-grid" style={{ display: 'grid', gridTemplateColumns: '280px minmax(0,1fr)', gap: 36, alignItems: 'center', maxWidth: 820, margin: '8px auto 0' }}>
+          <div>
+            <div style={{ position: 'relative', width: 280, height: 280, margin: '0 auto', borderRadius: 20, overflow: 'hidden', border: '1px solid var(--line)' }}>
+              {facets.map((f, i) => (
+                <div key={'f' + i} style={{ position: 'absolute', inset: 0, background: 'rgba(120,150,160,0.10)', clipPath: f.clip }}>
+                  <div className="qnf-fill" style={{ position: 'absolute', inset: 0, background: f.bg, opacity: 1 }} />
+                </div>
+              ))}
+              {facets.map((f, i) => (
+                <div key={'i' + i} className="qnf-ic" style={{ position: 'absolute', left: f.ix, top: f.iy, width: 34, height: 34, transform: 'translate(-50%,-50%) scale(1)', color: '#eef4f3', opacity: 1, zIndex: 2 }}>
+                  <PillarIcon name={icons[i]} />
+                </div>
+              ))}
+              <div style={{ position: 'absolute', left: '50%', top: '50%', width: 46, height: 46, transform: 'translate(-50%,-50%) rotate(45deg)', background: '#3f6b76', border: '1px solid rgba(246,244,239,0.4)', borderRadius: 7, zIndex: 3 }} />
+            </div>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 16 }}>
+              {[0, 1, 2, 3].map((i) => (<span key={i} className="qnf-dot" style={{ width: 9, height: 9, borderRadius: '50%', border: '1px solid var(--teal-deep)', background: 'var(--teal-deep)' }} />))}
+            </div>
+          </div>
+          <div>
+            <div className="qcube-code" style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--teal-deep)' }}>{es ? 'núcleo Qerub' : 'Qerub core'}</div>
+            <div className="qcube-title" style={{ fontSize: 22, fontWeight: 600, margin: '8px 0 6px', color: 'var(--ink)' }}>{es ? 'Cuatro frentes, un solo núcleo' : 'Four fronts, one core'}</div>
+            <div className="qcube-desc" style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink-3)' }}>{es ? 'Ciberseguridad · IA y datos · Software · Equipos senior' : 'Cybersecurity · AI & data · Software · Senior teams'}</div>
+          </div>
+        </div>
+      </Container>
+      <style>{`@media (max-width:720px){ .qcube-grid{ grid-template-columns:1fr !important; gap:20px !important; justify-items:center; text-align:center; } }`}</style>
+    </section>
+  );
+}
+
+// Option C — 3D cube: rotates on scroll, bringing each face to the front (pin + scrub).
+function CubeRotating() {
+  const { t } = useT();
+  const es = t.locale === 'es';
+  const P = qPillars(es);
+  const ref = useRef(null);
+  const faces = [
+    { bg: '#4d7e8a', tf: 'translateZ(94px)',                  icon: 'secure', label: 0 },
+    { bg: '#5d8b97', tf: 'rotateY(90deg) translateZ(94px)',   icon: 'intel',  label: 1 },
+    { bg: '#6f9aa6', tf: 'rotateY(180deg) translateZ(94px)',  icon: 'build',  label: 2 },
+    { bg: '#588f9b', tf: 'rotateY(-90deg) translateZ(94px)',  icon: 'pod',    label: 3 },
+    { bg: '#3f6b76', tf: 'rotateX(90deg) translateZ(94px)',   core: true },
+    { bg: '#2f5560', tf: 'rotateX(-90deg) translateZ(94px)' },
+  ];
+
+  useEffect(() => {
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST || !window.innerHeight) return;
+    g.registerPlugin(ST);
+    const section = ref.current; if (!section) return;
+    const cube = section.querySelector('.q3d-cube');
+    const dots = Array.from(section.querySelectorAll('.q3d-dot'));
+    const code = section.querySelector('.qcube-code');
+    const title = section.querySelector('.qcube-title');
+    const desc = section.querySelector('.qcube-desc');
+    const update = (p) => {
+      cube.style.transform = 'rotateX(-16deg) rotateY(' + (-p * 270) + 'deg)';
+      const idx = Math.max(0, Math.min(3, Math.round(p * 3)));
+      dots.forEach((d, i) => { d.style.background = i === idx ? 'var(--teal-deep)' : 'transparent'; });
+      code.textContent = P[idx].code; title.textContent = P[idx].t; desc.textContent = P[idx].d;
+    };
+    const mm = g.matchMedia();
+    mm.add('(min-width: 961px) and (prefers-reduced-motion: no-preference)', () => {
+      update(0);
+      const st = ST.create({
+        trigger: section, start: 'top top', end: '+=' + Math.round(window.innerHeight * 1.6),
+        pin: true, scrub: 1, invalidateOnRefresh: true, onUpdate: (self) => update(self.progress),
+      });
+      return () => { st.kill(); cube.style.transform = 'rotateX(-16deg) rotateY(-28deg)'; update(0); };
+    });
+    return () => mm.revert();
+  }, [es]);
+
+  return (
+    <section id="cube-c" ref={ref} style={{ overflow: 'hidden' }}>
+      <Container>
+        <div className="sec-head">
+          <Reveal><span className="eyebrow">{es ? 'Opción C · cubo 3D' : 'Option C · 3D cube'}</span></Reveal>
+          <Reveal delay={80}><h2 className="pre" style={{ marginTop: 14 }}>{es ? 'Gira el núcleo. Cada cara, un frente.' : 'Spin the core. Each face, a front.'}</h2></Reveal>
+        </div>
+        <div className="qcube-grid" style={{ display: 'grid', gridTemplateColumns: '300px minmax(0,1fr)', gap: 32, alignItems: 'center', maxWidth: 820, margin: '8px auto 0' }}>
+          <div>
+            <div style={{ perspective: '900px', width: 300, height: 300, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div className="q3d-cube" style={{ position: 'relative', width: 188, height: 188, transformStyle: 'preserve-3d', transform: 'rotateX(-16deg) rotateY(-28deg)' }}>
+                {faces.map((f, i) => (
+                  <div key={i} style={{ position: 'absolute', width: 188, height: 188, boxSizing: 'border-box', border: '1px solid rgba(246,244,239,0.28)', borderRadius: 12, background: f.bg, transform: f.tf, backfaceVisibility: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, color: '#eef4f3' }}>
+                    {f.icon && <div style={{ width: 42, height: 42 }}><PillarIcon name={f.icon} /></div>}
+                    {typeof f.label === 'number' && <span style={{ fontSize: 14, fontWeight: 600 }}>{P[f.label].t}</span>}
+                    {typeof f.label === 'number' && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', opacity: 0.82 }}>{P[f.label].code}</span>}
+                    {f.core && <span style={{ fontFamily: 'var(--font-display)', fontSize: 42, fontWeight: 900, lineHeight: 1 }}>Q</span>}
+                    {f.core && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', opacity: 0.85 }}>{es ? 'núcleo' : 'core'}</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 8 }}>
+              {[0, 1, 2, 3].map((i) => (<span key={i} className="q3d-dot" style={{ width: 9, height: 9, borderRadius: '50%', border: '1px solid var(--teal-deep)', background: i === 0 ? 'var(--teal-deep)' : 'transparent' }} />))}
+            </div>
+          </div>
+          <div>
+            <div className="qcube-code" style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--teal-deep)' }}>{P[0].code}</div>
+            <div className="qcube-title" style={{ fontSize: 22, fontWeight: 600, margin: '8px 0 6px', color: 'var(--ink)' }}>{P[0].t}</div>
+            <div className="qcube-desc" style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink-3)' }}>{P[0].d}</div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 Object.assign(window, {
   BadgeMark, TrustStrip, StatsBand, Pillars, Decisors, Proof, Geo, Pains, Services, Method, Deliverable, DeliverableMock, Stat,
-  Sectors, Resources, FAQ, FinalCTA, About,
+  Sectors, Resources, FAQ, FinalCTA, About, CubeFaceted, CubeRotating,
 });
