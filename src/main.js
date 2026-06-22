@@ -6,10 +6,7 @@ function HomePage() {
       <Pillars />
       <Decisors />
       <Proof />
-      <Pains />
-      <Services />
       <Method />
-      <Deliverable />
       <Geo />
       <Sectors />
       <Resources />

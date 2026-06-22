@@ -349,9 +349,10 @@ function ContactRow({ icon, label, href }) {
 function ServicesDetailPage() {
   const { t } = useT();
   return (
-    <div style={{ paddingTop: 130, paddingBottom: 60, minHeight: '100vh' }}>
+    <>
+    <div style={{ paddingTop: 130, paddingBottom: 8 }}>
       <Container>
-        <div style={{ maxWidth: 760, marginBottom: 56 }}>
+        <div style={{ maxWidth: 760 }}>
           <Reveal><span className="eyebrow">{t.services.eyebrow}</span></Reveal>
           <Reveal delay={80}>
             <h1 className="pre" style={{ marginTop: 18, fontSize: 'clamp(36px, 4.5vw, 56px)' }}>{t.services.title}</h1>
@@ -360,7 +361,13 @@ function ServicesDetailPage() {
             <p style={{ marginTop: 20, fontSize: 17, color: 'var(--ink-3)' }}>{t.services.sub}</p>
           </Reveal>
         </div>
+      </Container>
+    </div>
 
+    <Pains />
+
+    <div style={{ paddingTop: 72, paddingBottom: 60 }}>
+      <Container>
         <div style={{ display: 'grid', gap: 16 }}>
           {t.services.items.map((s, i) => (
             <Reveal key={i} delay={i * 50}>
@@ -416,12 +423,17 @@ function ServicesDetailPage() {
           ))}
         </div>
       </Container>
-      <style>{`
-        @media (max-width: 860px) {
-          .service-detail { grid-template-columns: 1fr !important; padding: 28px !important; gap: 24px !important; }
-        }
-      `}</style>
     </div>
+
+    <Deliverable />
+    <FinalCTA />
+
+    <style>{`
+      @media (max-width: 860px) {
+        .service-detail { grid-template-columns: 1fr !important; padding: 28px !important; gap: 24px !important; }
+      }
+    `}</style>
+    </>
   );
 }
 
