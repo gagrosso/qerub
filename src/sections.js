@@ -748,6 +748,9 @@ function Pillars() {
   const p = t.pillars;
   if (!p) return null;
   const isFounder = (s) => /fundador|founding/i.test(s || '');
+  // Lead with the same priority order as the hero (IA → software → staff → cyber).
+  const order = ['Q-Intelligence', 'Q-Build', 'Q-Pod', 'Q-Secure'];
+  const items = (p.items || []).slice().sort((a, b) => order.indexOf(a.code) - order.indexOf(b.code));
   return (
     <section id="pillars">
       <Container>
@@ -758,7 +761,7 @@ function Pillars() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 20 }}>
-          {p.items.map((it, i) => {
+          {items.map((it, i) => {
             const founder = isFounder(it.status);
             const Tag = it.href ? 'a' : 'div';
             const navProps = it.href ? { href: it.href } : { onClick: () => goto(it.to) };

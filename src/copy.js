@@ -50,8 +50,8 @@ window.QERUB_COPY = {
       items: ['NIST CSF 2.0', 'CIS Controls IG1', 'ENISA SME', 'INCIBE', 'CISA', 'NIS2'],
     },
     pillars: {
-      eyebrow: 'Lo que hacemos',
-      title: 'Cuatro frentes. Un solo socio senior.',
+      eyebrow: 'En detalle',
+      title: 'Un solo socio senior para los cuatro frentes.',
       sub: 'Tecnología que tu comité de dirección entiende a la primera — con precio y alcance cerrados, y equipos senior que se integran en tu empresa.',
       items: [
         {
@@ -452,8 +452,8 @@ window.QERUB_COPY = {
       items: ['NIST CSF 2.0', 'CIS Controls IG1', 'ENISA SME', 'INCIBE', 'CISA', 'NIS2'],
     },
     pillars: {
-      eyebrow: 'What we do',
-      title: 'Four fronts. One senior partner.',
+      eyebrow: 'In detail',
+      title: 'One senior partner for all four fronts.',
       sub: 'Technology your leadership team gets on the first read — with fixed scope and price, and senior teams that embed in your company.',
       items: [
         { code: 'Q-Secure', t: 'Cybersecurity', tagline: 'Security as a business advantage, not a brake.', d: 'Assessment, Microsoft 365, anti-fraud, incident response and vCISO. Our most mature pillar: nine services with fixed scope and price.', forWhom: 'CEO · CISO · IT', status: 'Live', to: 'services' },

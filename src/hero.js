@@ -48,13 +48,13 @@ function HeroFrontIcon({ name }) {
 function HeroNucleo({ fronts }) {
   // [path, fill, icon, icon-x, icon-y] per facet (clockwise from upper-left).
   const facets = [
-    { d: 'M170 170 L30 170 L170 30 Z',  fill: '#6aa0ac', x: 119, y: 119 },
-    { d: 'M170 170 L170 30 L310 170 Z', fill: '#4d7e8a', x: 221, y: 119 },
-    { d: 'M170 170 L310 170 L170 310 Z', fill: '#5d8b97', x: 221, y: 221 },
-    { d: 'M170 170 L170 310 L30 170 Z', fill: '#588f9b', x: 119, y: 221 },
+    { d: 'M58 66 L170 66 L170 170 L44 170 Q46 110 58 66 Z', fill: '#6aa0ac', x: 112, y: 116 },
+    { d: 'M170 66 L282 66 Q294 110 296 170 L170 170 Z',     fill: '#4d7e8a', x: 228, y: 116 },
+    { d: 'M170 170 L296 170 Q286 252 170 304 Z',            fill: '#5d8b97', x: 224, y: 220 },
+    { d: 'M170 170 L170 304 Q54 252 44 170 Z',              fill: '#588f9b', x: 116, y: 220 },
   ];
   return (
-    <div style={{ position: 'relative', width: 'min(460px, 92%)', margin: '0 auto', aspectRatio: '1 / 1' }}>
+    <div className="hn-wrap" style={{ position: 'relative', width: 'min(460px, 92%)', margin: '0 auto', aspectRatio: '1 / 1' }}>
       <svg viewBox="0 0 340 340" width="100%" height="100%" role="img" aria-label="Núcleo Qerub: IA y analítica, software con agentes IA, staff augmentation y ciberseguridad">
         <defs>
           <radialGradient id="hnGlow" cx="50%" cy="50%" r="50%">
@@ -78,8 +78,10 @@ function HeroNucleo({ fronts }) {
             style={{ transition: 'opacity 0.45s ease' }}
           />
         ))}
+        {/* Always-on shield outline so the silhouette reads at any state */}
+        <path d="M58 66 L282 66 Q294 110 296 170 Q286 252 170 304 Q54 252 44 170 Q46 110 58 66 Z" fill="none" stroke="rgba(246,244,239,0.24)" strokeWidth="1.5" strokeLinejoin="round" />
         {/* Center cutout for the Q */}
-        <circle cx="170" cy="170" r="52" fill="var(--dark)" stroke="rgba(140,192,207,0.5)" strokeWidth="1.5" />
+        <circle cx="170" cy="170" r="52" fill="var(--dark)" stroke="rgba(140,192,207,0.55)" strokeWidth="1.5" />
         {facets.map((f, i) => (
           <g
             key={'i' + i}
@@ -134,8 +136,12 @@ function Hero() {
     const iconEls = Array.from(section.querySelectorAll('.hn-ic'));
     const n = slideEls.length;
     const lightTo = (idx) => {
-      facetEls.forEach((f, i) => { f.style.opacity = i === idx ? 1 : 0.4; });
-      iconEls.forEach((ic, i) => { ic.style.opacity = i === idx ? 1 : 0.42; });
+      facetEls.forEach((f, i) => {
+        const on = i === idx;
+        f.style.opacity = on ? 1 : 0.26;
+        f.style.filter = on ? 'drop-shadow(0 0 10px rgba(140,192,207,0.6))' : 'none';
+      });
+      iconEls.forEach((ic, i) => { ic.style.opacity = i === idx ? 1 : 0.28; });
     };
     const mm = g.matchMedia();
     mm.add('(min-width: 961px) and (prefers-reduced-motion: no-preference)', () => {
@@ -171,7 +177,7 @@ function Hero() {
         wrap.style.height = '';
         g.set(slideEls, { clearProps: 'all' });
         dots.forEach((d) => d.classList.remove('active'));
-        facetEls.forEach((f) => { f.style.opacity = 1; });
+        facetEls.forEach((f) => { f.style.opacity = 1; f.style.filter = 'none'; });
         iconEls.forEach((ic) => { ic.style.opacity = 1; });
       };
     });

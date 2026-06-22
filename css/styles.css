@@ -391,6 +391,10 @@
   .trust-logo:hover { opacity: 1; filter: grayscale(0); color: var(--teal-deep); border-color: rgba(120, 165, 176, 0.5); }
   .trust-logo-name { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: 0.01em; white-space: nowrap; }
 
+  /* Hero núcleo: subtle breathing to invite scroll */
+  .hn-wrap { animation: hnBreathe 5.5s ease-in-out infinite; transform-origin: center center; }
+  @keyframes hnBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.018); } }
+
   /* Respect users who prefer less motion */
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -399,5 +403,6 @@
     .tilt, .tilt-3d, .tilt-3d-soft { transform: none !important; transition: none !important; }
     .hero-dot { transition: none !important; }
     .trust-logo { transition: none !important; }
+    .hn-wrap { animation: none !important; }
     html { scroll-behavior: auto; }
   }
