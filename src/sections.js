@@ -748,6 +748,9 @@ function Pillars() {
   const p = t.pillars;
   if (!p) return null;
   const isFounder = (s) => /fundador|founding/i.test(s || '');
+  const coreAlt = t.locale === 'es'
+    ? 'Las cuatro disciplinas de Qerub —ciberseguridad, IA y datos, software a medida y equipos senior— integradas en un único núcleo seguro'
+    : "Qerub's four disciplines — cybersecurity, AI and data, custom software and senior teams — integrated into a single secure core";
   return (
     <section id="pillars">
       <Container>
@@ -756,6 +759,20 @@ function Pillars() {
           <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{p.title}</h2></Reveal>
           <Reveal delay={140}><p className="sub">{p.sub}</p></Reveal>
         </div>
+
+        <Reveal delay={180}>
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0 40px' }}>
+            <img
+              src="/assets/img/qerub-core-pilares.webp"
+              width="1000"
+              height="1000"
+              alt={coreAlt}
+              loading="lazy"
+              decoding="async"
+              style={{ width: '100%', maxWidth: 320, height: 'auto', display: 'block' }}
+            />
+          </div>
+        </Reveal>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 20 }}>
           {p.items.map((it, i) => {
