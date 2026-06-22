@@ -19,85 +19,121 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://qerub.com/servicios/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/"/>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://qerub.com/servicios/auditoria-ciberseguridad-pymes</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/auditoria-ciberseguridad-pymes"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/auditoria-ciberseguridad-pymes"/>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/seguridad-microsoft-365-empresa</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/seguridad-microsoft-365-empresa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/seguridad-microsoft-365-empresa"/>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/email-bec-spf-dkim-dmarc</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/email-bec-spf-dkim-dmarc"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/email-bec-spf-dkim-dmarc"/>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/simulacion-phishing-empresa</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/simulacion-phishing-empresa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/simulacion-phishing-empresa"/>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/plan-respuesta-incidentes-pyme</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/plan-respuesta-incidentes-pyme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/plan-respuesta-incidentes-pyme"/>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/vciso-pyme</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/vciso-pyme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/vciso-pyme"/>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/vigilancia-dark-web-empresa</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/vigilancia-dark-web-empresa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/vigilancia-dark-web-empresa"/>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/ciberseguro-pyme</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/ciberseguro-pyme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/ciberseguro-pyme"/>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/seguridad-ia-empresa</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/seguridad-ia-empresa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/seguridad-ia-empresa"/>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/consultoria-ia-datos-empresa</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/consultoria-ia-datos-empresa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/consultoria-ia-datos-empresa"/>
     <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/desarrollo-software-medida-empresa</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/desarrollo-software-medida-empresa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/desarrollo-software-medida-empresa"/>
     <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/servicios/staff-augmentation-nearshore</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/servicios/staff-augmentation-nearshore"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/servicios/staff-augmentation-nearshore"/>
     <lastmod>2026-06-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://qerub.com/sectores/asesorias</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/sectores/asesorias"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/sectores/asesorias"/>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://qerub.com/sectores/clinicas</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://qerub.com/sectores/clinicas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://qerub.com/sectores/clinicas"/>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

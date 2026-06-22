@@ -1,4 +1,23 @@
+# Qerub — robots.txt
+# Permitimos todos los rastreadores, incluidos los de IA que citan en respuestas
+# generativas (ChatGPT/OAI-SearchBot, Perplexity, Claude, Google AI Overviews).
+# Para excluir SOLO el entrenamiento de modelos (sin perder la citación en vivo),
+# descomenta el bloque "entrenamiento IA" de más abajo.
+
 User-agent: *
 Allow: /
+Disallow: /interno/
+
+# --- Opcional: bloquear solo el ENTRENAMIENTO de IA (no afecta a la citación) ---
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ClaudeBot
+# Disallow: /
+# User-agent: Google-Extended
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /
+# User-agent: Applebot-Extended
+# Disallow: /
 
 Sitemap: https://qerub.com/sitemap.xml

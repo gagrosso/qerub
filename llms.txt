@@ -1,0 +1,26 @@
+# Qerub
+
+> Consultoría IT para empresas en crecimiento (pymes y medianas, 50-300 empleados) en España, Argentina y Estados Unidos. Cuatro frentes con un mismo equipo senior y precio cerrado: IA y analítica avanzada, software a medida con agentes de IA, staff augmentation (equipos senior nearshore) y ciberseguridad.
+
+Qerub (marca de GroMely Invest, S.L.) entrega tecnología con alcance y precio cerrados, sin junior facturados. Opera en tres husos horarios: España (cumplimiento europeo), Argentina (entrega senior nearshore, UTC-3) y Estados Unidos (frente comercial). Contacto: info@qerub.com · +34 615 60 07 07.
+
+## Servicios
+- [Consultoría de IA y analítica de datos (Q-Intelligence)](https://qerub.com/servicios/consultoria-ia-datos-empresa): IA generativa, agentes y Copilot con ROI medible, plataforma de datos y BI, y gobierno de IA (EU AI Act).
+- [Desarrollo de software a medida con agentes de IA (Q-Build)](https://qerub.com/servicios/desarrollo-software-medida-empresa): desarrollo, integraciones y modernización con criterio senior; el código y los datos son del cliente.
+- [Staff augmentation senior nearshore (Q-Pod)](https://qerub.com/servicios/staff-augmentation-nearshore): especialistas senior de IA, datos, cloud y software integrados en tu equipo en días, en tu huso horario.
+- [Auditoría de ciberseguridad para pymes (Q-Start)](https://qerub.com/servicios/auditoria-ciberseguridad-pymes): diagnóstico con alcance y precio cerrados en 7 días hábiles.
+- [Seguridad de Microsoft 365 (Q-365 Shield)](https://qerub.com/servicios/seguridad-microsoft-365-empresa): revisión y hardening de identidades, permisos y correo en M365.
+- [Correo seguro y anti-fraude BEC: SPF, DKIM, DMARC (Q-Mail Shield)](https://qerub.com/servicios/email-bec-spf-dkim-dmarc): protección del correo contra suplantación y fraude.
+- [Simulación de phishing y concienciación (Q-Phishing Drill)](https://qerub.com/servicios/simulacion-phishing-empresa): campañas controladas y formación al equipo.
+- [Plan de respuesta a incidentes (Q-Incident)](https://qerub.com/servicios/plan-respuesta-incidentes-pyme): plan accionable para responder a un incidente sin improvisar.
+- [vCISO para pymes (Q-Continuity)](https://qerub.com/servicios/vciso-pyme): gobierno de ciberseguridad mensual sin contratar un CISO interno.
+- [Vigilancia de dark web y filtraciones (Q-Dark Watch)](https://qerub.com/servicios/vigilancia-dark-web-empresa): monitorización de credenciales y datos filtrados.
+- [Preparación para el ciberseguro (Q-Insure)](https://qerub.com/servicios/ciberseguro-pyme): cerrar los requisitos para contratar (o renovar) un ciberseguro.
+- [Seguridad del uso de IA (Q-AI Ready)](https://qerub.com/servicios/seguridad-ia-empresa): uso seguro y gobernado de la IA en la empresa (EU AI Act, shadow AI).
+
+## Sectores
+- [Ciberseguridad para asesorías y despachos](https://qerub.com/sectores/asesorias)
+- [Ciberseguridad para clínicas y centros sanitarios](https://qerub.com/sectores/clinicas)
+
+## Optional
+- [Versión en inglés (Estados Unidos)](https://qerub.com/en-us/)
