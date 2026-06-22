@@ -890,6 +890,77 @@ function Proof() {
 }
 
 // ── Tres husos horarios (sedes con rol) ──────────────────────────────────────
+// Dotted world map with the three time-zone markers. Dots react to the cursor
+// (enlarge + push away) on canvas; markers pulse and reveal their role on hover.
+function GeoMap({ items }) {
+  const areaRef = useRef(null);
+  const cvRef = useRef(null);
+  useEffect(() => {
+    const W = qerubWorld(), D = W.d;
+    const area = areaRef.current, cv = cvRef.current;
+    if (!area || !cv) return;
+    const ctx = cv.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cw = 0, ch = 0, sx = 1, sy = 1, cursor = null, raf = 0;
+    const R = 70, PUSH = 8, BR = 1.4, XR = 2.2, BA = 0.22, XA = 0.7;
+    const M = W.m, arcs = [['us', 'es'], ['es', 'ar'], ['us', 'ar']];
+    const drawArc = (a, b) => {
+      const ax = M[a][0] * sx, ay = M[a][1] * sy, bx = M[b][0] * sx, by = M[b][1] * sy;
+      const mx = (ax + bx) / 2, my = (ay + by) / 2 - Math.hypot(bx - ax, by - ay) * 0.22;
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.quadraticCurveTo(mx, my, bx, by); ctx.stroke();
+    };
+    const render = () => {
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.strokeStyle = 'rgba(140,192,207,0.22)'; ctx.lineWidth = 1; ctx.setLineDash([2, 5]);
+      for (let k = 0; k < arcs.length; k++) drawArc(arcs[k][0], arcs[k][1]);
+      ctx.setLineDash([]);
+      for (let i = 0; i < D.length; i += 2) {
+        let bx = D[i] * sx, by = D[i + 1] * sy, x = bx, y = by, r = BR, a = BA;
+        if (cursor) {
+          const dx = bx - cursor.x, dy = by - cursor.y, d = Math.hypot(dx, dy);
+          if (d < R) { const f = 1 - d / R, p = f * PUSH, inv = d ? 1 / d : 0; x = bx + dx * inv * p; y = by + dy * inv * p; r = BR + f * XR; a = BA + f * XA; }
+        }
+        ctx.beginPath(); ctx.fillStyle = 'rgba(140,192,207,' + a.toFixed(3) + ')'; ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+      }
+    };
+    const size = () => {
+      cw = area.clientWidth; ch = area.clientHeight; if (!cw || !ch) return;
+      cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
+      sx = cw / W.w; sy = ch / W.h; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); render();
+    };
+    const onMove = (e) => { const rc = cv.getBoundingClientRect(); cursor = { x: e.clientX - rc.left, y: e.clientY - rc.top }; if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); };
+    const onLeave = () => { cursor = null; render(); };
+    if (!reduce) { area.addEventListener('pointermove', onMove); area.addEventListener('pointerleave', onLeave); }
+    size();
+    let ro = null;
+    if (window.ResizeObserver) { ro = new ResizeObserver(size); ro.observe(area); } else { window.addEventListener('resize', size); }
+    return () => {
+      area.removeEventListener('pointermove', onMove); area.removeEventListener('pointerleave', onLeave);
+      if (ro) ro.disconnect(); else window.removeEventListener('resize', size);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+  const W = qerubWorld();
+  const keyFor = (c) => /espa|spain/i.test(c) ? 'es' : (/argent/i.test(c) ? 'ar' : 'us');
+  return (
+    <div className="geo-map" ref={areaRef} role="group" aria-label="Mapa de los tres husos horarios: España, Argentina y Estados Unidos">
+      <canvas ref={cvRef} className="geo-canvas" aria-hidden="true" />
+      {(items || []).map((c, i) => {
+        const m = W.m[keyFor(c.city || '')];
+        if (!m) return null;
+        return (
+          <div key={i} className="gm" style={{ left: (m[0] / W.w * 100) + '%', top: (m[1] / W.h * 100) + '%' }} tabIndex={0}>
+            <span className="gm-ring" style={{ animationDelay: (i * 0.8) + 's' }} aria-hidden="true" />
+            <span className="gm-dot" aria-hidden="true" />
+            <span className="gm-label"><b>{c.city}</b><i>{c.role}</i></span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function Geo() {
   const { t } = useT();
   const g = t.geo;
@@ -906,6 +977,7 @@ function Geo() {
           <Reveal delay={80}><h2 className="pre" style={{ marginTop: 18 }}>{g.title}</h2></Reveal>
           <Reveal delay={140}><p className="sub" style={{ maxWidth: 720 }}>{g.sub}</p></Reveal>
         </div>
+        <Reveal delay={180}><GeoMap items={g.items} /></Reveal>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 1, background: 'rgba(246,244,239,0.08)', border: '1px solid rgba(246,244,239,0.08)', borderRadius: 16, overflow: 'hidden' }}>
           {g.items.map((c, i) => (
             <Reveal key={i} delay={i * 80}>

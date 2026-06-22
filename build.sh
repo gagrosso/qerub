@@ -9,7 +9,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Orden de dependencias (mismo que cargaban los <script> antes).
-ORDER=(copy shared brand header hero sections contact footer cookies main)
+ORDER=(copy worldmap shared brand header hero sections contact footer cookies main)
 
 TMP="$(mktemp -t qerub).jsx"
 trap 'rm -f "$TMP"' EXIT
