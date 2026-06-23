@@ -9,7 +9,7 @@
 
   var TEAL = '#4d7e8a', DARK = '#0e1416', CREAM = '#f6f4ef';
   var ENDPOINT = 'https://assistant.qerub.com/api/chat'; // Worker del asistente
-  var LABEL = 'Asistente IA';                 // texto de la píldora
+  var LABEL = 'Charla con QIA';               // texto de la píldora
   var QUICK = [                               // preguntas rápidas (chips)
     '¿Qué hace Qerub?',
     '¿Cuánto cuesta una auditoría?',
@@ -67,12 +67,12 @@
   var root = el('div'); root.id = 'qa-root';
   root.appendChild(el('style', null, css));
 
-  var btn = el('button', 'qa-btn'); btn.setAttribute('aria-label', 'Abrir el asistente de Qerub');
+  var btn = el('button', 'qa-btn'); btn.setAttribute('aria-label', 'Charla con QIA, el asistente de Qerub');
   btn.innerHTML = iconHTML + '<b>' + LABEL + '</b><span class="qa-pip" aria-hidden="true"></span>';
 
   var panel = el('div', 'qa-panel'); panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Asistente de Qerub');
   panel.innerHTML =
-    '<div class="qa-head">' + iconHTML + '<div><b>Asistente de Qerub</b><span>Responde sobre Qerub · no es asesoramiento</span></div><button class="qa-x" aria-label="Cerrar">×</button></div>' +
+    '<div class="qa-head">' + iconHTML + '<div><b>QIA · Asistente de Qerub</b><span>Responde sobre Qerub · no es asesoramiento</span></div><button class="qa-x" aria-label="Cerrar">×</button></div>' +
     '<div class="qa-msgs" id="qa-msgs"></div>' +
     '<div class="qa-chips" id="qa-chips"></div>' +
     '<div class="qa-foot"><textarea class="qa-in" id="qa-in" rows="1" placeholder="Pregunta sobre Qerub…" aria-label="Escribe tu mensaje"></textarea><button class="qa-send" id="qa-send">Enviar</button></div>';
@@ -104,7 +104,7 @@
     root.classList.add('qa-open'); btn.style.display = 'none';
     if (!greeted) {
       greeted = true;
-      add('assistant', 'Hola 👋 Soy el asistente de Qerub. Puedo contarte qué hacemos: IA y datos, software, equipos senior y ciberseguridad. ¿En qué te ayudo?');
+      add('assistant', 'Hola, soy QIA 👋 el asistente de Qerub. Puedo contarte qué hacemos: IA y datos, software, equipos senior y ciberseguridad. ¿En qué te ayudo?');
       renderChips();
     }
     setTimeout(function () { input.focus(); }, 60);

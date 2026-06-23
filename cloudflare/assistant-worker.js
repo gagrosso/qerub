@@ -57,7 +57,7 @@ de bajo riesgo; sin permanencias largas; total transparencia. Para precios concr
 y propuestas: derivar siempre a una llamada / formulario de contacto.
 `;
 
-const SYSTEM = `Eres "Q", el asistente del sitio web de Qerub. Tu único trabajo es
+const SYSTEM = `Eres QIA, el asistente del sitio web de Qerub. Tu único trabajo es
 ayudar a quien visita el sitio a entender qué hace Qerub y orientarle al siguiente
 paso (solicitar un diagnóstico).
 
@@ -91,6 +91,7 @@ export default {
     const origin = request.headers.get('Origin') || '';
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(origin) });
     if (request.method !== 'POST') return json({ error: 'method not allowed' }, 405, origin);
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) return json({ error: 'forbidden' }, 403, origin);
     if (!env.ANTHROPIC_API_KEY) return json({ reply: 'El asistente aún no está configurado. Escríbenos a info@qerub.com.' }, 503, origin);
 
     let body; try { body = await request.json(); } catch { return json({ error: 'bad request' }, 400, origin); }
