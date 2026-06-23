@@ -52,8 +52,13 @@
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
   function fmt(s) {
     s = esc(s);
-    s = s.replace(/(^|\s)(\/[a-z0-9\-\/]+)/g, '$1<a href="$2">$2</a>');
-    s = s.replace(/([\w.+-]+@[\w.-]+\.\w+)/g, '<a href="mailto:$1">$1</a>');
+    // Markdown básico → HTML
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, '<a href="$2">$1</a>'); // [texto](url)
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');                                 // **negrita**
+    s = s.replace(/(^|[^*\w])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');                           // *cursiva*
+    s = s.replace(/(^|\n)\s*[-*]\s+(.+)/g, '$1• $2');                                          // viñetas
+    s = s.replace(/(^|\s)(\/[a-z0-9\-\/]+)/g, '$1<a href="$2">$2</a>');                        // rutas internas
+    s = s.replace(/([\w.+-]+@[\w.-]+\.\w+)/g, '<a href="mailto:$1">$1</a>');                   // emails
     return s;
   }
 
