@@ -8,6 +8,7 @@
   if (window.__qerubAssistant) return; window.__qerubAssistant = true;
 
   var TEAL = '#4d7e8a', DARK = '#0e1416', CREAM = '#f6f4ef';
+  var ENDPOINT = 'https://assistant.qerub.com/api/chat'; // Worker del asistente
   var LABEL = 'Asistente IA';                 // texto de la píldora
   var QUICK = [                               // preguntas rápidas (chips)
     '¿Qué hace Qerub?',
@@ -120,7 +121,7 @@
     busy = true; sendBtn.disabled = true;
     var typing = el('div', 'qa-m qa-a qa-dots', '<span></span><span></span><span></span>');
     msgsEl.appendChild(typing); msgsEl.scrollTop = msgsEl.scrollHeight;
-    fetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-16) }) })
+    fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-16) }) })
       .then(function (r) { return r.json().catch(function () { return {}; }); })
       .then(function (d) {
         typing.remove();
