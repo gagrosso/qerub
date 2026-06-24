@@ -9,6 +9,7 @@
 
   var TEAL = '#4d7e8a', DARK = '#0e1416', CREAM = '#f6f4ef';
   var ENDPOINT = 'https://assistant.qerub.com/api/chat'; // Worker del asistente
+  var TURNSTILE_SITEKEY = '0x4AAAAAADqbgUgHjl5trm39';    // Cloudflare Turnstile (público); '' = desactivado
   var LABEL = 'Charla con QIA';               // texto de la píldora
   var QUICK = [                               // preguntas rápidas (chips)
     '¿Qué hace Qerub?',
@@ -80,6 +81,34 @@
   root.appendChild(btn); root.appendChild(panel);
   (document.body || document.documentElement).appendChild(root);
 
+  // Turnstile invisible (anti-bots): un token por mensaje.
+  var tsId = null, tsPending = null;
+  function onTsToken(t) { if (tsPending) { var f = tsPending; tsPending = null; f(t); } }
+  if (TURNSTILE_SITEKEY) {
+    var tsBox = el('div'); tsBox.style.cssText = 'position:fixed;left:-9999px;top:-9999px'; root.appendChild(tsBox);
+    var ts = document.createElement('script');
+    ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    ts.async = true; ts.defer = true;
+    ts.onload = function () {
+      try {
+        tsId = window.turnstile.render(tsBox, {
+          sitekey: TURNSTILE_SITEKEY, size: 'invisible',
+          callback: onTsToken, 'error-callback': function () { onTsToken(null); }, 'timeout-callback': function () { onTsToken(null); },
+        });
+      } catch (e) { /* noop */ }
+    };
+    document.head.appendChild(ts);
+  }
+  function getToken() {
+    return new Promise(function (resolve) {
+      if (!TURNSTILE_SITEKEY || !window.turnstile || tsId === null) { resolve(null); return; }
+      var done = false;
+      tsPending = function (t) { if (!done) { done = true; resolve(t); } };
+      try { window.turnstile.reset(tsId); window.turnstile.execute(tsId); } catch (e) { if (!done) { done = true; resolve(null); } }
+      setTimeout(function () { if (!done) { done = true; tsPending = null; resolve(null); } }, 8000);
+    });
+  }
+
   var msgsEl = panel.querySelector('#qa-msgs');
   var chipsEl = panel.querySelector('#qa-chips');
   var input = panel.querySelector('#qa-in');
@@ -126,7 +155,9 @@
     busy = true; sendBtn.disabled = true;
     var typing = el('div', 'qa-m qa-a qa-dots', '<span></span><span></span><span></span>');
     msgsEl.appendChild(typing); msgsEl.scrollTop = msgsEl.scrollHeight;
-    fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-16) }) })
+    getToken().then(function (token) {
+      return fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-16), turnstileToken: token }) });
+    })
       .then(function (r) { return r.json().catch(function () { return {}; }); })
       .then(function (d) {
         typing.remove();
