@@ -136,15 +136,17 @@ function Header() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <LangToggle onDark={overDark} />
-          <Btn
-            variant="primary"
-            onDark={overDark}
-            onClick={() => goto('contact')}
-            style={{ padding: '10px 18px', fontSize: 13.5 }}
-          >
-            {t.nav.cta}
-            <ArrowRight />
-          </Btn>
+          <span className="header-cta" style={{ display: 'inline-flex', alignItems: 'center' }}>
+            <Btn
+              variant="primary"
+              onDark={overDark}
+              onClick={() => goto('contact')}
+              style={{ padding: '10px 18px', fontSize: 13.5 }}
+            >
+              {t.nav.cta}
+              <ArrowRight />
+            </Btn>
+          </span>
           <button
             className="mobile-toggle"
             aria-label="Menu"
@@ -187,6 +189,14 @@ function Header() {
                 </button>
               ))}
             </div>
+            <Btn
+              variant="primary"
+              onClick={() => { setOpen(false); goto('contact'); }}
+              style={{ marginTop: 18, width: '100%', justifyContent: 'center' }}
+            >
+              {t.nav.cta}
+              <ArrowRight />
+            </Btn>
           </Container>
         </div>
       )}
@@ -195,6 +205,7 @@ function Header() {
         @media (max-width: 980px) {
           .desktop-nav { display: none !important; }
           .mobile-toggle { display: inline-flex !important; }
+          .header-cta { display: none !important; }
         }
         @media (min-width: 981px) {
           .mobile-menu { display: none !important; }
