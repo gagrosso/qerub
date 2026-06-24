@@ -53,8 +53,31 @@ function HeroNucleo({ fronts }) {
     { d: 'M170 170 L296 170 Q286 252 170 304 Z',            fill: '#5d8b97', x: 224, y: 220 },
     { d: 'M170 170 L170 304 Q54 252 44 170 Z',              fill: '#588f9b', x: 116, y: 220 },
   ];
+  const tiltRef = useRef(null);
+  // 3D tilt + parallax: el escudo se inclina siguiendo el cursor por todo el hero.
+  useEffect(() => {
+    const tilt = tiltRef.current; if (!tilt) return;
+    const section = tilt.closest('section') || tilt.parentElement;
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+    if (!mq.matches || !section) return;
+    const MAX = 9; let raf = 0, rx = 0, ry = 0;
+    const apply = () => { raf = 0; tilt.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)'; };
+    const onMove = (e) => {
+      const r = section.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      ry = nx * MAX * 2; rx = -ny * MAX * 2;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    const onLeave = () => { tilt.style.transform = 'rotateX(0deg) rotateY(0deg)'; };
+    section.addEventListener('pointermove', onMove);
+    section.addEventListener('pointerleave', onLeave);
+    return () => { section.removeEventListener('pointermove', onMove); section.removeEventListener('pointerleave', onLeave); if (raf) cancelAnimationFrame(raf); };
+  }, []);
   return (
-    <div className="hn-wrap" style={{ position: 'relative', width: 'min(460px, 92%)', margin: '0 auto', aspectRatio: '1 / 1' }}>
+    <div className="hn-scene" style={{ width: 'min(460px, 92%)', margin: '0 auto', perspective: '1000px' }}>
+      <div className="hn-tilt" ref={tiltRef}>
+        <div className="hn-wrap" style={{ position: 'relative', width: '100%', aspectRatio: '1 / 1' }}>
       <svg viewBox="0 0 340 340" width="100%" height="100%" role="img" aria-label="Núcleo Qerub: IA y analítica, software con agentes IA, staff augmentation y ciberseguridad">
         <defs>
           <radialGradient id="hnGlow" cx="50%" cy="50%" r="50%">
@@ -99,8 +122,10 @@ function HeroNucleo({ fronts }) {
           </g>
         ))}
       </svg>
-      <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: '20%', display: 'flex', justifyContent: 'center' }}>
-        <QMark size="100%" />
+        <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%) translateZ(42px)', width: '20%', display: 'flex', justifyContent: 'center' }}>
+          <QMark size="100%" />
+        </div>
+        </div>
       </div>
     </div>
   );

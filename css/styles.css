@@ -391,8 +391,10 @@
   .trust-logo:hover { opacity: 1; filter: grayscale(0); color: var(--teal-deep); border-color: rgba(120, 165, 176, 0.5); }
   .trust-logo-name { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: 0.01em; white-space: nowrap; }
 
-  /* Hero núcleo: subtle breathing to invite scroll */
-  .hn-wrap { animation: hnBreathe 5.5s ease-in-out infinite; transform-origin: center center; }
+  /* Hero núcleo: tilt 3D interactivo + breathing sutil */
+  .hn-scene { perspective: 1000px; }
+  .hn-tilt { transform-style: preserve-3d; transition: transform 0.25s ease-out; will-change: transform; }
+  .hn-wrap { animation: hnBreathe 5.5s ease-in-out infinite; transform-origin: center center; transform-style: preserve-3d; }
   @keyframes hnBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.018); } }
 
   /* Geo: dotted world map as a background layer + floating glass cards */
@@ -415,6 +417,7 @@
     .hero-dot { transition: none !important; }
     .trust-logo { transition: none !important; }
     .hn-wrap { animation: none !important; }
+    .hn-tilt { transition: none !important; transform: none !important; }
     .gm-ring { animation: none !important; }
     html { scroll-behavior: auto; }
   }
