@@ -145,69 +145,63 @@ function Hero() {
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
   };
 
-  // Pinned, scrub-linked conveyor: the left message hands off front by front while the
-  // matching facet of the shield lights up. Fails open (CSS shows the first front only,
-  // shield fully lit, no pin) without GSAP / a real viewport / motion. Desktop only.
+  // Auto-advancing front carousel: the left message rotates through the four fronts while
+  // the matching facet of the shield lights up. Works on every device — no scroll pin, no
+  // GSAP dependency. Pauses on hover/focus and respects reduced-motion (no auto-play; the
+  // dots still switch). Fails open: without JS the static first front shows (noscript / CSS).
+  const n = fronts.length;
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const showFront = (i) => setActive(i);
+
+  // The slides are absolutely stacked, so the wrapper would collapse — hold the tallest
+  // slide's height. Re-measure on resize and when the copy/locale changes.
   useEffect(() => {
-    const g = window.gsap, ST = window.ScrollTrigger;
-    if (!g || !ST || !window.innerHeight) return;
-    g.registerPlugin(ST);
-    const section = heroRef.current, wrap = slidesRef.current;
-    if (!section || !wrap) return;
-    const slideEls = Array.from(wrap.querySelectorAll('.hero-slide'));
-    const dots = Array.from(section.querySelectorAll('.hero-dot'));
-    const label = section.querySelector('.hero-progress-label');
-    const facetEls = Array.from(section.querySelectorAll('.hn-facet'));
-    const iconEls = Array.from(section.querySelectorAll('.hn-ic'));
-    const n = slideEls.length;
-    const lightTo = (idx) => {
-      facetEls.forEach((f, i) => {
-        const on = i === idx;
-        f.style.opacity = on ? 1 : 0.26;
-        f.style.filter = on ? 'drop-shadow(0 0 10px rgba(140,192,207,0.6))' : 'none';
-      });
-      iconEls.forEach((ic, i) => { ic.style.opacity = i === idx ? 1 : 0.28; });
+    const wrap = slidesRef.current;
+    if (!wrap) return;
+    const measure = () => {
+      const hs = Array.from(wrap.querySelectorAll('.hero-slide'));
+      if (!hs.length) return;
+      const max = Math.max.apply(null, hs.map((s) => s.offsetHeight));
+      if (max) wrap.style.minHeight = max + 'px';
     };
-    const mm = g.matchMedia();
-    mm.add('(min-width: 961px) and (prefers-reduced-motion: no-preference)', () => {
-      section.classList.add('hero-carousel-on');
-      const hMax = Math.max.apply(null, slideEls.map((s) => s.offsetHeight));
-      wrap.style.height = hMax + 'px';
-      g.set(slideEls, { display: 'block', position: 'absolute', top: 0, left: 0, width: '100%' });
-      g.set(slideEls, { xPercent: (i) => (i === 0 ? 0 : -110), autoAlpha: (i) => (i === 0 ? 1 : 0) });
-      const setActive = (idx) => {
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-        if (label) label.textContent = '0' + (idx + 1) + ' / 0' + n;
-        lightTo(idx);
-      };
-      lightTo(0);
-      const tl = g.timeline({
-        defaults: { ease: 'power2.inOut' },
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=' + window.innerHeight * (n - 1),
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => setActive(Math.round(self.progress * (n - 1))),
-        },
-      });
-      for (let i = 0; i < n - 1; i++) {
-        tl.to(slideEls[i], { xPercent: 110, autoAlpha: 0, duration: 0.6 }, i);
-        tl.to(slideEls[i + 1], { xPercent: 0, autoAlpha: 1, duration: 0.6 }, i + 0.18);
-      }
-      return () => {
-        section.classList.remove('hero-carousel-on');
-        wrap.style.height = '';
-        g.set(slideEls, { clearProps: 'all' });
-        dots.forEach((d) => d.classList.remove('active'));
-        facetEls.forEach((f) => { f.style.opacity = 1; f.style.filter = 'none'; });
-        iconEls.forEach((ic) => { ic.style.opacity = 1; });
-      };
+    measure();
+    // a second pass after fonts settle, so the measured height is accurate
+    const tid = setTimeout(measure, 300);
+    window.addEventListener('resize', measure);
+    return () => { clearTimeout(tid); window.removeEventListener('resize', measure); };
+  }, [es, n]);
+
+  // Auto-advance, unless paused or the visitor prefers reduced motion.
+  useEffect(() => {
+    if (n < 2 || paused) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    const id = setInterval(() => setActive((a) => (a + 1) % n), 5000);
+    return () => clearInterval(id);
+  }, [n, paused]);
+
+  // On every front change: crossfade the message and light the matching shield facet.
+  // Driven directly via JS (GSAP) rather than CSS transitions — those can freeze when the
+  // page isn't continuously repainting. Falls back to an instant swap without GSAP / motion.
+  useEffect(() => {
+    const section = heroRef.current;
+    if (!section) return;
+    section.querySelectorAll('.hn-facet').forEach((f, i) => {
+      const on = i === active;
+      f.style.opacity = on ? 1 : 0.26;
+      f.style.filter = on ? 'drop-shadow(0 0 10px rgba(140,192,207,0.6))' : 'none';
     });
-    return () => mm.revert();
-  }, [fronts.length, es]);
+    section.querySelectorAll('.hn-ic').forEach((ic, i) => { ic.style.opacity = i === active ? 1 : 0.28; });
+
+    const wrap = slidesRef.current;
+    if (!wrap) return;
+    Array.from(wrap.querySelectorAll('.hero-slide')).forEach((el, i) => {
+      const on = i === active;
+      el.style.opacity = on ? '1' : '0';
+      el.style.visibility = on ? 'visible' : 'hidden';
+    });
+  }, [active]);
 
   return (
     <section id="home" className="dark hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
@@ -243,12 +237,27 @@ function Hero() {
           className="hero-grid"
         >
           {/* Left: cycling fronts */}
-          <div>
+          <div
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocusCapture={() => setPaused(true)}
+            onBlurCapture={() => setPaused(false)}
+          >
             <Pill theme="dark">{h.eyebrow}</Pill>
 
-            <div className="hero-slides" ref={slidesRef} style={{ marginTop: 18 }}>
+            <div className="hero-slides" ref={slidesRef} style={{ marginTop: 18, position: 'relative', minHeight: 'clamp(200px, 26vh, 250px)' }}>
               {fronts.map((f, i) => (
-                <div className="hero-slide" key={i}>
+                <div
+                  className="hero-slide"
+                  key={i}
+                  aria-hidden={i === active ? undefined : 'true'}
+                  style={{
+                    position: 'absolute', top: 0, left: 0, width: '100%', display: 'block',
+                    opacity: i === 0 ? 1 : 0,
+                    visibility: i === 0 ? 'visible' : 'hidden',
+                    pointerEvents: i === active ? 'auto' : 'none',
+                  }}
+                >
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8cc0cf', marginBottom: 14 }}>
                     0{i + 1} · {f.name}
                   </div>
@@ -264,12 +273,22 @@ function Hero() {
               <Btn variant="ghost" onDark onClick={scrollToServices}>{h.secondary}</Btn>
             </div>
 
-            {/* Progress (only shown when the carousel is active) */}
-            <div className="hero-progress" aria-hidden="true">
-              <div className="hero-dots">
-                {fronts.map((_, i) => <span className={'hero-dot' + (i === 0 ? ' active' : '')} key={i} />)}
+            {/* Front selector — reflects the auto-rotation and lets you jump to a front */}
+            <div className="hero-progress" style={{ display: 'flex' }}>
+              <div className="hero-dots" role="tablist" aria-label={es ? 'Frentes' : 'Fronts'}>
+                {fronts.map((f, i) => (
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-label={f.name}
+                    aria-selected={i === active ? 'true' : 'false'}
+                    className={'hero-dot' + (i === active ? ' active' : '')}
+                    key={i}
+                    onClick={() => showFront(i)}
+                  />
+                ))}
               </div>
-              <span className="hero-progress-label">01 / 0{fronts.length}</span>
+              <span className="hero-progress-label">0{active + 1} / 0{fronts.length}</span>
             </div>
 
             {/* Persistent trust chips */}

@@ -329,10 +329,13 @@
   .hero-carousel-on .hero-progress { display: flex; }
   .hero-dots { display: inline-flex; gap: 9px; }
   .hero-dot {
-    width: 8px; height: 8px; border-radius: 999px;
+    width: 9px; height: 9px; border-radius: 999px; padding: 0; border: none;
+    -webkit-appearance: none; appearance: none; cursor: pointer;
     background: rgba(246, 244, 239, 0.22);
     transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   }
+  .hero-dot:hover { background: rgba(246, 244, 239, 0.45); }
+  .hero-dot:focus-visible { outline: 2px solid var(--teal-2); outline-offset: 3px; }
   .hero-dot.active { background: var(--teal-2); transform: scale(1.35); box-shadow: 0 0 12px rgba(140, 192, 207, 0.7); }
   .hero-progress-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: rgba(246, 244, 239, 0.45); }
 
