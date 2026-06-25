@@ -759,39 +759,37 @@ function Pillars() {
           <Reveal delay={140}><p className="sub">{p.sub}</p></Reveal>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 20 }}>
+        <div className="caps-list">
           {items.map((it, i) => {
-            const Tag = it.href ? 'a' : 'div';
-            const navProps = it.href ? { href: it.href } : { onClick: () => goto(it.to) };
+            const MoreTag = it.href ? 'a' : 'button';
+            const moreProps = it.href ? { href: it.href } : { type: 'button', onClick: () => goto(it.to) };
             return (
-              <Reveal key={i} delay={i * 70}>
-                <Tilt max={6} style={{ height: '100%' }}>
-                  <Tag
-                    className="card"
-                    {...navProps}
-                    style={{ padding: 28, height: '100%', display: 'flex', flexDirection: 'column', gap: 14, cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10 }}>
-                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--teal-deep)', background: 'var(--teal-soft)', padding: '5px 10px', borderRadius: 6 }}>{it.code}</span>
-                      <span style={{
-                        fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase',
-                        padding: '4px 9px', borderRadius: 999,
-                        color: 'var(--teal-deep)',
-                        background: 'rgba(120,165,176,0.16)',
-                        border: '1px solid rgba(120,165,176,0.35)',
-                      }}>{it.status}</span>
-                    </div>
-                    <h3 style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.2 }}>{it.t}</h3>
-                    <p style={{ fontSize: 14.5, color: 'var(--ink)', fontWeight: 600, lineHeight: 1.45 }}>{it.tagline}</p>
-                    <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.6 }}>{it.d}</p>
-                    <div style={{ marginTop: 'auto', paddingTop: 18, borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--ink-4)', letterSpacing: '0.04em' }}>{it.forWhom}</span>
-                      <span style={{ color: 'var(--ink)', fontWeight: 600, fontSize: 13.5, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                        {t.locale === 'es' ? 'Saber más' : 'Learn more'} <ArrowRight />
-                      </span>
-                    </div>
-                  </Tag>
-                </Tilt>
+              <Reveal key={it.code} delay={i * 60}>
+                <article className="cap-panel">
+                  <div className="cap-head">
+                    <span className="cap-code">{it.code}</span>
+                    <span className="cap-status">{it.status}</span>
+                  </div>
+                  <h3 className="cap-name">{it.t}</h3>
+                  <p className="cap-tagline">{it.tagline}</p>
+                  {it.intro && <p className="cap-intro">{it.intro}</p>}
+                  <ul className="cap-subs">
+                    {(it.subs || []).map((s, j) => {
+                      const inner = (<><strong>{s.n}</strong> — {s.d}</>);
+                      return (
+                        <li className="cap-sub" key={j}>
+                          {s.href ? <a className="cap-sub-link" href={s.href}>{inner}</a> : inner}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <div className="cap-foot">
+                    <span className="cap-for">{it.forWhom}</span>
+                    <MoreTag className="cap-more" {...moreProps}>
+                      {t.locale === 'es' ? 'Ver en detalle' : 'See in detail'} <ArrowRight />
+                    </MoreTag>
+                  </div>
+                </article>
               </Reveal>
             );
           })}

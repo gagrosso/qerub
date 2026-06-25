@@ -22,5 +22,16 @@ Qerub (marca de GroMely Invest, S.L.) entrega tecnología con alcance y precio c
 - [Ciberseguridad para asesorías y despachos](https://qerub.com/sectores/asesorias)
 - [Ciberseguridad para clínicas y centros sanitarios](https://qerub.com/sectores/clinicas)
 
+## Preguntas frecuentes
+- ¿Solo hacéis ciberseguridad, o también IA, datos y software? Las cuatro cosas, con un mismo equipo senior y precio cerrado. Ciberseguridad (Q-Secure) es el pilar más maduro; IA y datos (Q-Intelligence) y software a medida (Q-Build) se entregan con alcance acotado, precio cerrado y total transparencia.
+- ¿Cómo funciona el modelo de equipos senior (Q-Pod)? Presentamos una terna senior en 5-10 días con CV, años y stack. La persona se integra en tu equipo y trabaja en tu huso horario. Pagas resultado, no sillas; si en dos semanas no encaja, la cambiamos sin coste. Sin junior facturados.
+- ¿Tenéis oficinas en tres países? Operamos en tres husos horarios — España (cumplimiento europeo), Argentina (entrega senior nearshore) y Estados Unidos (frente comercial). No vendemos una "gran firma" que no somos.
+- ¿Cuánto cuesta el diagnóstico Q-Start? Precio cerrado en función del tamaño de la organización; propuesta concreta en 24 horas tras la primera llamada.
+- ¿Necesitamos equipo técnico interno? No. Q-Start está diseñado para que la dirección entienda y decida sin un CISO interno; si hay proveedor IT, coordinamos con él.
+- ¿Y si ya hicimos una auditoría hace tiempo? Partimos de ahí, no de cero: validamos qué se ejecutó, qué quedó abierto y dónde están hoy los riesgos vivos.
+- ¿Trabajáis con NIS2? Sí. Q-Continuity genera evidencias trazables de gobierno, gestión de incidentes y continuidad — los pilares de NIS2.
+- ¿Hacéis pentesting? No como puerta de entrada; lo introducimos cuando la postura base ya está sana.
+- ¿Puedo contrataros solo para formación? Sí. Q-Phishing Drill se contrata de forma independiente como cuota mensual.
+
 ## Optional
 - [Versión en inglés (Estados Unidos)](https://qerub.com/en-us/)
