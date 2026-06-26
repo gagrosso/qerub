@@ -496,21 +496,21 @@ window.QERUB_COPY = {
           intro: 'Q-Secure is Qerub’s most mature pillar: nine cybersecurity services with fixed scope and price, aligned with NIST CSF 2.0, CIS Controls IG1 and NIS2.',
           forWhom: 'CEO · CISO · IT', status: 'Live', to: 'services',
           subs: [
-            { n: 'Q-Start · Cybersecurity assessment', d: 'We audit email, identity, Microsoft 365 or Google Workspace, public web, TLS, backups and response plan. Executive scorecard, top 15 risks and a 90-day roadmap in 7 business days.', href: '/servicios/auditoria-ciberseguridad-pymes' },
-            { n: 'Q-365 Shield · Microsoft 365 security', d: 'Identity and tenant hardening: enforced MFA, Conditional Access, forwarding and privileged-access review, external tagging, backups and retention.', href: '/servicios/seguridad-microsoft-365-empresa' },
-            { n: 'Q-Mail Shield · Secure email & BEC anti-fraud', d: 'SPF, DKIM and DMARC deployed properly, external-email banners, dual approval for bank-detail changes and a CEO/supplier anti-fraud playbook.', href: '/servicios/email-bec-spf-dkim-dmarc' },
-            { n: 'Q-Phishing Drill · Phishing simulation & awareness', d: 'Short, continuous campaigns with post-click microlearning and monthly executive reporting. Not an annual PDF.', href: '/servicios/simulacion-phishing-empresa' },
-            { n: 'Q-Incident · Incident response plan', d: 'A tailored playbook with roles, decisions and contacts, a backup-restore test and a tabletop drill with your leadership.', href: '/servicios/plan-respuesta-incidentes-pyme' },
-            { n: 'Q-Continuity · vCISO & continuity', d: 'Practical monthly governance: live risk, action tracking, a mini committee, an incident drill and an evidence folder for NIS2 or audits.', href: '/servicios/vciso-pyme' },
-            { n: 'Q-Dark Watch · Dark web & breach monitoring', d: 'We monitor the dark web, forums and data dumps for your credentials, domains and brand. If something surfaces, you get an alert with an action plan.', href: '/servicios/vigilancia-dark-web-empresa' },
-            { n: 'Q-Insure · Cyber-insurance readiness', d: 'We get you ready to buy or renew cyber insurance: pre-assessment, answering the insurer’s questionnaire and closing the minimum required controls.', href: '/servicios/ciberseguro-pyme' },
-            { n: 'Q-AI Ready · AI usage security', d: 'AI usage policy, tool assessment, secure Copilot configuration in Microsoft 365 and short team training. Your team already uses ChatGPT, Copilot or Gemini.', href: '/servicios/seguridad-ia-empresa' },
+            { n: 'Q-Start · Cybersecurity assessment', d: 'We audit email, identity, Microsoft 365 or Google Workspace, public web, TLS, backups and response plan. Executive scorecard, top 15 risks and a 90-day roadmap in 7 business days.', href: '/en-us/servicios/auditoria-ciberseguridad-pymes' },
+            { n: 'Q-365 Shield · Microsoft 365 security', d: 'Identity and tenant hardening: enforced MFA, Conditional Access, forwarding and privileged-access review, external tagging, backups and retention.', href: '/en-us/servicios/seguridad-microsoft-365-empresa' },
+            { n: 'Q-Mail Shield · Secure email & BEC anti-fraud', d: 'SPF, DKIM and DMARC deployed properly, external-email banners, dual approval for bank-detail changes and a CEO/supplier anti-fraud playbook.', href: '/en-us/servicios/email-bec-spf-dkim-dmarc' },
+            { n: 'Q-Phishing Drill · Phishing simulation & awareness', d: 'Short, continuous campaigns with post-click microlearning and monthly executive reporting. Not an annual PDF.', href: '/en-us/servicios/simulacion-phishing-empresa' },
+            { n: 'Q-Incident · Incident response plan', d: 'A tailored playbook with roles, decisions and contacts, a backup-restore test and a tabletop drill with your leadership.', href: '/en-us/servicios/plan-respuesta-incidentes-pyme' },
+            { n: 'Q-Continuity · vCISO & continuity', d: 'Practical monthly governance: live risk, action tracking, a mini committee, an incident drill and an evidence folder for NIS2 or audits.', href: '/en-us/servicios/vciso-pyme' },
+            { n: 'Q-Dark Watch · Dark web & breach monitoring', d: 'We monitor the dark web, forums and data dumps for your credentials, domains and brand. If something surfaces, you get an alert with an action plan.', href: '/en-us/servicios/vigilancia-dark-web-empresa' },
+            { n: 'Q-Insure · Cyber-insurance readiness', d: 'We get you ready to buy or renew cyber insurance: pre-assessment, answering the insurer’s questionnaire and closing the minimum required controls.', href: '/en-us/servicios/ciberseguro-pyme' },
+            { n: 'Q-AI Ready · AI usage security', d: 'AI usage policy, tool assessment, secure Copilot configuration in Microsoft 365 and short team training. Your team already uses ChatGPT, Copilot or Gemini.', href: '/en-us/servicios/seguridad-ia-empresa' },
           ],
         },
         {
           code: 'Q-Intelligence', t: 'AI & Data', tagline: 'You have the data. You’re missing the decisions — and AI that reaches production.',
           intro: 'Q-Intelligence is Qerub’s AI and data front: it takes AI from use case to production with measurable ROI, organizes your data for self-service BI and governs AI use under the EU AI Act.',
-          forWhom: 'CEO · CIO', status: 'Available', to: 'contact', href: '/servicios/consultoria-ia-datos-empresa',
+          forWhom: 'CEO · CIO', status: 'Available', to: 'contact', href: '/en-us/servicios/consultoria-ia-datos-empresa',
           subs: [
             { n: 'AI-readiness assessment', d: 'In 7 days we map where your data lives, which decision is worth automating and a realistic estimate. You leave with a prioritized case.' },
             { n: 'Applied generative AI', d: 'Agents, assistants and RAG over your own documentation, with secure retrieval and traceability for every answer.' },
@@ -523,7 +523,7 @@ window.QERUB_COPY = {
         {
           code: 'Q-Build', t: 'Custom software', tagline: 'The software your business needs and off-the-shelf won’t give you.',
           intro: 'Q-Build is Qerub’s custom software front: applications, integrations and modernization with senior judgment and security by design. The code and data belong to the client.',
-          forWhom: 'CEO · CTO', status: 'Available', to: 'contact', href: '/servicios/desarrollo-software-medida-empresa',
+          forWhom: 'CEO · CTO', status: 'Available', to: 'contact', href: '/en-us/servicios/desarrollo-software-medida-empresa',
           subs: [
             { n: 'Custom development', d: 'Applications and internal tools that fit your real operation, not the other way around. Web, dashboards and automations.' },
             { n: 'Integrations', d: 'We connect CRM, ERP, billing, payments and APIs so your systems stop speaking different languages.' },
@@ -536,7 +536,7 @@ window.QERUB_COPY = {
         {
           code: 'Q-Pod', t: 'Embedded senior teams', tagline: 'Senior talent that embeds in your team in days. Pay for outcomes, not seats.',
           intro: 'Q-Pod is Qerub’s staff augmentation and managed-operations front: senior profiles embedded in your team in days, in your time zone. You pay for results, not seats.',
-          forWhom: 'Head of Talent · CIO', status: 'Available', to: 'contact', href: '/servicios/staff-augmentation-nearshore',
+          forWhom: 'Head of Talent · CIO', status: 'Available', to: 'contact', href: '/en-us/servicios/staff-augmentation-nearshore',
           subs: [
             { n: 'Senior profiles', d: 'Data engineers, backend developers, cloud and cybersecurity specialists. We share CV, years and stack before anyone joins.' },
             { n: 'Embedded in your team', d: 'They work under your backlog and your tools, as one of yours — not an external black box that delivers and disappears.' },

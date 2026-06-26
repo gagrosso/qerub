@@ -34,7 +34,7 @@ echo "✓ js/app.min.js ($(wc -c < js/app.min.js | tr -d ' ') bytes)"
 # Cache-busting: sella los assets locales con una versión (hash del contenido)
 # en todas las páginas, para que tras cada despliegue nadie vea versión cacheada.
 VER=$(cat js/app.min.js css/styles.css css/seo-page.css js/qerub-assistant.js 2>/dev/null | shasum | cut -c1-10)
-for f in index.html en-us/index.html servicios/*.html sectores/*.html; do
+for f in index.html en-us/index.html servicios/*.html sectores/*.html en-us/servicios/*.html; do
   [ -f "$f" ] || continue
   sed -i '' -E \
     -e "s#(/js/app\.min\.js)(\?v=[0-9a-f]+)?#\1?v=$VER#g" \
