@@ -17,3 +17,10 @@ dist/
 Qerub2/
 interno/
 _src_originals/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
