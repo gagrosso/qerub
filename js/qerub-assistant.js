@@ -92,7 +92,7 @@
     ts.onload = function () {
       try {
         tsId = window.turnstile.render(tsBox, {
-          sitekey: TURNSTILE_SITEKEY, size: 'invisible',
+          sitekey: TURNSTILE_SITEKEY, appearance: 'interaction-only',
           callback: onTsToken, 'error-callback': function () { onTsToken(null); }, 'timeout-callback': function () { onTsToken(null); },
         });
       } catch (e) { /* noop */ }

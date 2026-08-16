@@ -27,7 +27,6 @@ function App() {
       {route === 'services' && <main data-screen-label="02 Services"><ServicesDetailPage /></main>}
       {route === 'contact' && <main data-screen-label="03 Contact"><ContactPage /></main>}
       <Footer />
-      <CookieRoot />
     </>
   );
 }

@@ -7,9 +7,10 @@
 <meta name="description" content="Qué cookies y tecnologías similares utiliza el sitio web de Qerub.">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
-<link rel="stylesheet" href="/css/fonts.css?v=12b7eead1d">
-<link rel="stylesheet" href="/css/styles.css?v=12b7eead1d">
-<link rel="stylesheet" href="/css/legal.css?v=12b7eead1d">
+<link rel="stylesheet" href="/css/fonts.css?v=c6c45b4c80">
+<link rel="stylesheet" href="/css/styles.css?v=c6c45b4c80">
+<link rel="stylesheet" href="/css/legal.css?v=c6c45b4c80">
+  <link rel="stylesheet" href="/css/consent.css">
 </head>
 <body class="legal">
   <div class="legal-top">
@@ -19,7 +20,7 @@
 
   <main class="legal-wrap">
     <h1>Política de cookies</h1>
-    <span class="updated">Última actualización: 11 de junio de 2026</span>
+    <span class="updated">Última actualización: 16 de agosto de 2026</span>
 
     <h2>1. Qué son las cookies</h2>
     <p>Una cookie es un pequeño archivo que un sitio web almacena en tu navegador. Se utilizan,
@@ -27,9 +28,11 @@
       el sitio funcione, recuerde tus preferencias o mida su uso.</p>
 
     <h2>2. Tecnologías que usamos actualmente</h2>
-    <p>Hoy, este sitio <strong>no utiliza cookies de analítica ni de marketing</strong>, ni comparte
-      datos de navegación con terceros con fines publicitarios. Solo empleamos almacenamiento técnico
-      en tu propio navegador para que el sitio funcione y recuerde tus elecciones:</p>
+    <p>Este sitio <strong>no instala ninguna cookie de analítica ni de publicidad mientras no lo
+      autorices</strong>. Hasta que aceptas, no se carga ningún script de terceros con esa finalidad:
+      la medición está denegada por defecto (Consent Mode v2 de Google) y solo se activa si das tu
+      consentimiento en el panel de privacidad. El almacenamiento técnico que sí usamos siempre es
+      este:</p>
     <table>
       <thead>
         <tr><th>Nombre</th><th>Tipo</th><th>Finalidad</th><th>Duración</th></tr>
@@ -45,20 +48,62 @@
           <td><code>qerub_consent</code></td>
           <td>Técnica (localStorage)</td>
           <td>Recordar tu decisión sobre el panel de privacidad</td>
-          <td>Persistente hasta que borres los datos del navegador</td>
+          <td>24 meses (después se vuelve a preguntar)</td>
+        </tr>
+        <tr>
+          <td>Cloudflare Turnstile</td>
+          <td>Técnica / seguridad</td>
+          <td>Comprobar que quien escribe al asistente no es un bot. Implica comunicar tu
+            dirección IP a Cloudflare, Inc. Exenta de consentimiento por ser estrictamente
+            necesaria para la seguridad del servicio.</td>
+          <td>Duración de la sesión</td>
         </tr>
       </tbody>
     </table>
 
+    <h3>Si aceptas la medición o la publicidad</h3>
+    <p>Solo en ese caso cargamos las etiquetas de Google (Google&nbsp;Ads y, en su caso,
+      Google&nbsp;Analytics), que instalan cookies propias de Google para saber qué páginas se
+      consultan y si un anuncio nuestro te trajo hasta aquí:</p>
+    <table>
+      <thead>
+        <tr><th>Nombre</th><th>Tipo</th><th>Finalidad</th><th>Duración</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>_ga</code>, <code>_ga_*</code></td>
+          <td>Analítica (Google)</td>
+          <td>Distinguir visitantes y medir el uso del sitio de forma agregada</td>
+          <td>Hasta 2 años</td>
+        </tr>
+        <tr>
+          <td><code>_gcl_*</code></td>
+          <td>Publicidad (Google)</td>
+          <td>Atribuir una solicitud de contacto al anuncio que la originó</td>
+          <td>Hasta 90 días</td>
+        </tr>
+        <tr>
+          <td><code>qerub_gclid</code></td>
+          <td>Publicidad (sessionStorage)</td>
+          <td>Conservar el identificador de clic del anuncio durante tu visita</td>
+          <td>Se borra al cerrar la pestaña</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Responsable de estas cookies: Google Ireland Limited. Si rechazas o revocas el
+      consentimiento, no se cargan y las que existieran se eliminan. Consulta cómo trata Google
+      estos datos en <a href="https://policies.google.com/technologies/cookies" target="_blank"
+      rel="noopener">policies.google.com</a>.</p>
+
     <h2>3. Categorías del panel de privacidad</h2>
-    <p>El panel de configuración de privacidad contempla las siguientes categorías, previstas para
-      cuando se incorporen nuevos servicios:</p>
+    <p>El panel de configuración de privacidad permite decidir por separado sobre cada finalidad:</p>
     <ul>
       <li><strong>Necesarias:</strong> imprescindibles para el funcionamiento del sitio (idioma,
         seguridad, estado del consentimiento). No se pueden desactivar.</li>
-      <li><strong>Analíticas:</strong> ayudarían a entender el uso del sitio de forma agregada. No activas actualmente.</li>
-      <li><strong>Marketing:</strong> medirían la eficacia de campañas. No activas actualmente.</li>
-      <li><strong>Preferencias:</strong> recuerdan elecciones como el idioma o la región.</li>
+      <li><strong>Medición:</strong> permiten entender de forma agregada qué páginas se leen y
+        por dónde se abandona el sitio. Denegada por defecto.</li>
+      <li><strong>Publicidad:</strong> permiten medir si una campaña nuestra generó el contacto.
+        Denegada por defecto.</li>
     </ul>
 
     <h2>4. Cómo gestionar tus preferencias</h2>
@@ -79,6 +124,8 @@
     <a href="/legal/aviso-legal.html">Aviso legal</a> ·
     <a href="/legal/politica-privacidad.html">Privacidad</a> ·
     <a href="/legal/condiciones-contratacion.html">Condiciones</a>
+  <br><button type="button" class="qc-prefs" onclick="qerubConsent.open()">Configuración de privacidad</button>
   </footer>
+  <script src="/js/qerub-consent.js" defer></script>
 </body>
 </html>
