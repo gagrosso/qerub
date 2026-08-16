@@ -43,10 +43,10 @@ SERVICIOS DE CIBERSEGURIDAD:
 - Q-Start — Auditoría de ciberseguridad: diagnóstico cerrado en 7 días hábiles. /servicios/auditoria-ciberseguridad-pymes
 - Q-365 Shield — Seguridad de Microsoft 365 (identidades, permisos, correo). /servicios/seguridad-microsoft-365-empresa
 - Q-Mail Shield — Correo seguro y anti-fraude BEC (SPF, DKIM, DMARC). /servicios/email-bec-spf-dkim-dmarc
-- Q-Phishing Drill — Simulación de phishing y concienciación. /servicios/simulacion-phishing-empresa
+- Q-Phishing Test — Simulación de phishing y concienciación. /servicios/simulacion-phishing-empresa
 - Q-Incident — Plan de respuesta a incidentes. /servicios/plan-respuesta-incidentes-pyme
-- Q-Continuity — vCISO para pymes (gobierno mensual de ciberseguridad). /servicios/vciso-pyme
-- Q-Dark Watch — Vigilancia de dark web y filtraciones. /servicios/vigilancia-dark-web-empresa
+- Q-CISO — vCISO para pymes (gobierno mensual de ciberseguridad). /servicios/vciso-pyme
+- Q-Dark Alert — Vigilancia de dark web y filtraciones. /servicios/vigilancia-dark-web-empresa
 - Q-Insure — Preparación para el ciberseguro. /servicios/ciberseguro-pyme
 - Q-AI Ready — Seguridad del uso de IA (EU AI Act, shadow AI). /servicios/seguridad-ia-empresa
 

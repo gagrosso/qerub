@@ -11,10 +11,10 @@ Qerub (marca de GroMely Invest, S.L.) entrega tecnología con alcance y precio c
 - [Auditoría de ciberseguridad para pymes (Q-Start)](https://qerub.com/servicios/auditoria-ciberseguridad-pymes): diagnóstico con alcance y precio cerrados en 7 días hábiles.
 - [Seguridad de Microsoft 365 (Q-365 Shield)](https://qerub.com/servicios/seguridad-microsoft-365-empresa): revisión y hardening de identidades, permisos y correo en M365.
 - [Correo seguro y anti-fraude BEC: SPF, DKIM, DMARC (Q-Mail Shield)](https://qerub.com/servicios/email-bec-spf-dkim-dmarc): protección del correo contra suplantación y fraude.
-- [Simulación de phishing y concienciación (Q-Phishing Drill)](https://qerub.com/servicios/simulacion-phishing-empresa): campañas controladas y formación al equipo.
+- [Simulación de phishing y concienciación (Q-Phishing Test)](https://qerub.com/servicios/simulacion-phishing-empresa): campañas controladas y formación al equipo.
 - [Plan de respuesta a incidentes (Q-Incident)](https://qerub.com/servicios/plan-respuesta-incidentes-pyme): plan accionable para responder a un incidente sin improvisar.
-- [vCISO para pymes (Q-Continuity)](https://qerub.com/servicios/vciso-pyme): gobierno de ciberseguridad mensual sin contratar un CISO interno.
-- [Vigilancia de dark web y filtraciones (Q-Dark Watch)](https://qerub.com/servicios/vigilancia-dark-web-empresa): monitorización de credenciales y datos filtrados.
+- [vCISO para pymes (Q-CISO)](https://qerub.com/servicios/vciso-pyme): gobierno de ciberseguridad mensual sin contratar un CISO interno.
+- [Vigilancia de dark web y filtraciones (Q-Dark Alert)](https://qerub.com/servicios/vigilancia-dark-web-empresa): monitorización de credenciales y datos filtrados.
 - [Preparación para el ciberseguro (Q-Insure)](https://qerub.com/servicios/ciberseguro-pyme): cerrar los requisitos para contratar (o renovar) un ciberseguro.
 - [Seguridad del uso de IA (Q-AI Ready)](https://qerub.com/servicios/seguridad-ia-empresa): uso seguro y gobernado de la IA en la empresa (EU AI Act, shadow AI).
 
@@ -29,9 +29,9 @@ Qerub (marca de GroMely Invest, S.L.) entrega tecnología con alcance y precio c
 - ¿Cuánto cuesta el diagnóstico Q-Start? Precio cerrado en función del tamaño de la organización; propuesta concreta en 24 horas tras la primera llamada.
 - ¿Necesitamos equipo técnico interno? No. Q-Start está diseñado para que la dirección entienda y decida sin un CISO interno; si hay proveedor IT, coordinamos con él.
 - ¿Y si ya hicimos una auditoría hace tiempo? Partimos de ahí, no de cero: validamos qué se ejecutó, qué quedó abierto y dónde están hoy los riesgos vivos.
-- ¿Trabajáis con NIS2? Sí. Q-Continuity genera evidencias trazables de gobierno, gestión de incidentes y continuidad — los pilares de NIS2.
+- ¿Trabajáis con NIS2? Sí. Q-CISO genera evidencias trazables de gobierno, gestión de incidentes y continuidad — los pilares de NIS2.
 - ¿Hacéis pentesting? No como puerta de entrada; lo introducimos cuando la postura base ya está sana.
-- ¿Puedo contrataros solo para formación? Sí. Q-Phishing Drill se contrata de forma independiente como cuota mensual.
+- ¿Puedo contrataros solo para formación? Sí. Q-Phishing Test se contrata de forma independiente como cuota mensual.
 
 ## Optional
 - [Versión en inglés (Estados Unidos)](https://qerub.com/en-us/)
