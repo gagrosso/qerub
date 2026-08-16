@@ -55,6 +55,7 @@ function Footer() {
             <a href="/legal/aviso-legal.html" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: 3 }}>{t.locale === 'es' ? 'Aviso legal' : 'Legal notice'}</a>
             <a href="/legal/politica-privacidad.html" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: 3 }}>{t.locale === 'es' ? 'Privacidad' : 'Privacy'}</a>
             <a href="/legal/politica-cookies.html" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: 3 }}>Cookies</a>
+            <a href="/legal/condiciones-contratacion.html" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: 3 }}>{t.locale === 'es' ? 'Condiciones' : 'Terms'}</a>
           </span>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
             <button
