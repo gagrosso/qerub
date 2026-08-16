@@ -53,4 +53,6 @@ section.block h2{font-size:clamp(26px,3vw,36px);max-width:24ch}
 .site-footer{background:var(--dark);color:rgba(246,244,239,.6);padding:28px 0;border-top:1px solid rgba(246,244,239,.12)}
 .site-footer .container{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em}
 .site-footer a:hover{color:#fff}
+.site-footer .foot-legal{display:inline-flex;gap:8px;flex-wrap:wrap;color:rgba(246,244,239,.45)}
+.site-footer .foot-legal a{color:rgba(246,244,239,.7);text-decoration:underline;text-underline-offset:3px}
 @media(max-width:760px){.cols-2{grid-template-columns:1fr}.hnav{display:none}}
