@@ -33,7 +33,8 @@ echo "✓ js/app.min.js ($(wc -c < js/app.min.js | tr -d ' ') bytes)"
 
 # Cache-busting: sella los assets locales con una versión (hash del contenido)
 # en todas las páginas, para que tras cada despliegue nadie vea versión cacheada.
-VER=$(cat js/app.min.js css/styles.css css/seo-page.css css/legal.css css/fonts.css js/qerub-assistant.js 2>/dev/null | shasum | cut -c1-10)
+VER=$(cat js/app.min.js css/styles.css css/seo-page.css css/legal.css css/fonts.css css/consent.css \
+         js/qerub-assistant.js js/qerub-consent.js js/qerub-lead-form.js 2>/dev/null | shasum | cut -c1-10)
 for f in index.html en-us/index.html servicios/*.html sectores/*.html en-us/servicios/*.html legal/*.html; do
   [ -f "$f" ] || continue
   sed -i '' -E \
@@ -42,7 +43,10 @@ for f in index.html en-us/index.html servicios/*.html sectores/*.html en-us/serv
     -e "s#(/css/seo-page\.css)(\?v=[0-9a-f]+)?#\1?v=$VER#g" \
     -e "s#(/css/legal\.css)(\?v=[0-9a-f]+)?#\1?v=$VER#g" \
     -e "s#(/css/fonts\.css)(\?v=[0-9a-f]+)?#\1?v=$VER#g" \
+    -e "s#(/css/consent\.css)(\?v=[0-9a-f]+)?#\1?v=$VER#g" \
     -e "s#(/js/qerub-assistant\.js)(\?v=[0-9a-f]+)?#\1?v=$VER#g" \
+    -e "s#(/js/qerub-consent\.js)(\?v=[0-9a-f]+)?#\1?v=$VER#g" \
+    -e "s#(/js/qerub-lead-form\.js)(\?v=[0-9a-f]+)?#\1?v=$VER#g" \
     "$f"
 done
 echo "✓ cache-bust aplicado (v=$VER)"

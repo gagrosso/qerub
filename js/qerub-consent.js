@@ -24,6 +24,14 @@
   //   analytics: 'G-XXXXXXXXXX'
   var MEASUREMENT_IDS = { ads: '', analytics: '' };
 
+  // Etiqueta de la conversión principal de Google Ads: 'AW-XXXXXXXXX/YYYYYYYYYYYYY'.
+  // Se copia de Ads > Objetivos > Conversiones > Lead_Formulario > «Instalar la etiqueta
+  // manualmente». Mientras esté vacía no se envía ninguna conversión.
+  var CONVERSION_LEAD = '';
+  // Valor por lead usado solo para pujar (margen esperado × tasa de cierre estimada).
+  // Es una hipótesis: revísalo cuando haya histórico real de cierres.
+  var LEAD_VALUE = 150;
+
   var STORAGE_KEY = 'qerub_consent';
   var CONSENT_VERSION = 2;              // súbelo al cambiar finalidades
   var MAX_AGE_MS = 24 * 30 * 24 * 60 * 60 * 1000; // ~24 meses
@@ -243,6 +251,10 @@
   window.qerubConsent = {
     open: showModal,
     get: read,
+    // Identificador del clic de anuncio, si lo hay y si se consintió publicidad.
+    gclid: function () {
+      try { return sessionStorage.getItem('qerub_gclid') || ''; } catch (e) { return ''; }
+    },
     // Dispara una conversión solo si hay consentimiento de publicidad.
     track: function (name, params) {
       var v = read();
@@ -250,6 +262,15 @@
       if (!MEASUREMENT_IDS.ads) return false;
       gtag('event', name, params || {});
       return true;
+    },
+    // Conversión principal: un lead de formulario. Punto único para todos los
+    // formularios del sitio (SPA y landings estáticas), para que no se dupliquen
+    // ni se desincronicen los valores.
+    lead: function (params) {
+      if (!CONVERSION_LEAD) return false;
+      var p = { send_to: CONVERSION_LEAD, value: LEAD_VALUE, currency: 'EUR' };
+      Object.keys(params || {}).forEach(function (k) { p[k] = params[k]; });
+      return window.qerubConsent.track('conversion', p);
     }
   };
   // Compatibilidad con el enlace del footer de la SPA

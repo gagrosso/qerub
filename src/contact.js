@@ -45,10 +45,21 @@ function ContactPage() {
           telefono: form.phone,
           tamano: form.size,
           mensaje: form.msg,
+          origen: window.location.pathname + window.location.hash,
+          gclid: (window.qerubConsent && window.qerubConsent.gclid()) || '',
           _subject: `Nueva solicitud de diagnóstico — ${form.company || form.name}`,
         }),
       });
-      setStatus(res.ok ? 'sent' : 'error');
+      if (res.ok) {
+        setStatus('sent');
+        // Conversión: solo aquí, nunca en la rama del honeypot (línea 32), que
+        // devuelve 'sent' sin haber enviado nada.
+        if (window.qerubConsent && window.qerubConsent.lead) {
+          window.qerubConsent.lead({ transaction_id: `lead-${Date.now()}` });
+        }
+      } else {
+        setStatus('error');
+      }
     } catch (err) {
       setStatus('error');
     }

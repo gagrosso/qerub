@@ -60,3 +60,30 @@ section.block h2{font-size:clamp(26px,3vw,36px);max-width:24ch}
 .site-footer .foot-legal{display:inline-flex;gap:8px;flex-wrap:wrap;color:rgba(246,244,239,.45)}
 .site-footer .foot-legal a{color:rgba(246,244,239,.7);text-decoration:underline;text-underline-offset:3px}
 @media(max-width:760px){.cols-2{grid-template-columns:1fr}.hnav{display:none}}
+/* Formulario de contacto en la propia landing (js/qerub-lead-form.js) */
+.qlf-section{background:var(--bg-alt,#f2efe9);padding:80px 0;scroll-margin-top:80px}
+.qlf-head{max-width:640px}
+.qlf-head h2{font-size:clamp(28px,3.4vw,40px);margin-top:16px;line-height:1.15}
+.qlf-head p{margin-top:16px;font-size:17px;color:var(--ink-3);line-height:1.6}
+.qlf-form{margin-top:36px;max-width:720px;display:grid;gap:18px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:32px}
+.qlf-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.qlf-field{display:grid;gap:6px}
+.qlf-label{font-size:12.5px;font-weight:500;color:var(--ink-2);letter-spacing:.02em}
+.qlf-input{padding:13px 14px;font-family:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;outline:none;width:100%;transition:border-color .15s ease,box-shadow .15s ease}
+.qlf-input:focus{border-color:var(--teal-deep);box-shadow:0 0 0 3px rgba(120,165,176,.18)}
+select.qlf-input{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%235b5b5f' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+textarea.qlf-input{resize:vertical;min-height:88px}
+.qlf-input.qlf-bad{border-color:#c4574a}
+.qlf-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.qlf-consent{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.qlf-check{margin-top:3px;accent-color:var(--teal-deep);flex:none}
+.qlf-check.qlf-bad{outline:2px solid #c4574a;outline-offset:2px}
+.qlf-consent a{color:var(--teal-deep);text-decoration:underline;text-underline-offset:2px}
+.qlf-msg{font-size:13.5px;color:#c4574a;line-height:1.5;margin:0}
+.qlf-msg a{color:#c4574a;text-decoration:underline}
+.qlf-submit{width:100%;justify-content:center;text-align:center}
+.qlf-submit[disabled]{opacity:.7;cursor:wait}
+.qlf-ok{margin-top:36px;max-width:720px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:40px 32px;text-align:center}
+.qlf-ok strong{display:block;font-size:22px;font-weight:600}
+.qlf-ok p{margin:14px auto 0;font-size:15px;color:var(--ink-3);max-width:420px;line-height:1.6}
+@media (max-width:720px){.qlf-section{padding:56px 0}.qlf-row{grid-template-columns:1fr}.qlf-form{padding:24px}}

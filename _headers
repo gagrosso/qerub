@@ -20,3 +20,9 @@
 
 /js/qerub-assistant.js
   Cache-Control: public, max-age=31536000, immutable
+
+/js/qerub-consent.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/qerub-lead-form.js
+  Cache-Control: public, max-age=31536000, immutable
