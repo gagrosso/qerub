@@ -138,70 +138,15 @@ function Hero() {
   const es = t.locale === 'es';
   const fronts = heroFronts(es);
   const heroRef = useRef(null);
-  const slidesRef = useRef(null);
 
   const scrollToServices = () => {
     const el = document.getElementById('pillars') || document.getElementById('services');
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
   };
 
-  // Auto-advancing front carousel: the left message rotates through the four fronts while
-  // the matching facet of the shield lights up. Works on every device — no scroll pin, no
-  // GSAP dependency. Pauses on hover/focus and respects reduced-motion (no auto-play; the
-  // dots still switch). Fails open: without JS the static first front shows (noscript / CSS).
-  const n = fronts.length;
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const showFront = (i) => setActive(i);
-
-  // The slides are absolutely stacked, so the wrapper would collapse — hold the tallest
-  // slide's height. Re-measure on resize and when the copy/locale changes.
-  useEffect(() => {
-    const wrap = slidesRef.current;
-    if (!wrap) return;
-    const measure = () => {
-      const hs = Array.from(wrap.querySelectorAll('.hero-slide'));
-      if (!hs.length) return;
-      const max = Math.max.apply(null, hs.map((s) => s.offsetHeight));
-      if (max) wrap.style.minHeight = max + 'px';
-    };
-    measure();
-    // a second pass after fonts settle, so the measured height is accurate
-    const tid = setTimeout(measure, 300);
-    window.addEventListener('resize', measure);
-    return () => { clearTimeout(tid); window.removeEventListener('resize', measure); };
-  }, [es, n]);
-
-  // Auto-advance, unless paused or the visitor prefers reduced motion.
-  useEffect(() => {
-    if (n < 2 || paused) return;
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-    const id = setInterval(() => setActive((a) => (a + 1) % n), 5000);
-    return () => clearInterval(id);
-  }, [n, paused]);
-
-  // On every front change: crossfade the message and light the matching shield facet.
-  // Driven directly via JS (GSAP) rather than CSS transitions — those can freeze when the
-  // page isn't continuously repainting. Falls back to an instant swap without GSAP / motion.
-  useEffect(() => {
-    const section = heroRef.current;
-    if (!section) return;
-    section.querySelectorAll('.hn-facet').forEach((f, i) => {
-      const on = i === active;
-      f.style.opacity = on ? 1 : 0.26;
-      f.style.filter = on ? 'drop-shadow(0 0 10px rgba(140,192,207,0.6))' : 'none';
-    });
-    section.querySelectorAll('.hn-ic').forEach((ic, i) => { ic.style.opacity = i === active ? 1 : 0.28; });
-
-    const wrap = slidesRef.current;
-    if (!wrap) return;
-    Array.from(wrap.querySelectorAll('.hero-slide')).forEach((el, i) => {
-      const on = i === active;
-      el.style.opacity = on ? '1' : '0';
-      el.style.visibility = on ? 'visible' : 'hidden';
-    });
-  }, [active]);
+  // One message, held. The four fronts are listed below it and all four facets of the
+  // shield stay lit — nothing rotates, so the visitor reads the positioning we chose
+  // rather than whichever slide a timer happened to land on.
 
   return (
     <section id="home" className="dark hero-section" ref={heroRef} style={{ position: 'relative', overflow: 'hidden', background: 'var(--dark)' }}>
@@ -236,63 +181,33 @@ function Hero() {
           }}
           className="hero-grid"
         >
-          {/* Left: cycling fronts */}
-          <div
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onFocusCapture={() => setPaused(true)}
-            onBlurCapture={() => setPaused(false)}
-          >
+          {/* Left: one message, held */}
+          <div>
             <Pill theme="dark">{h.eyebrow}</Pill>
 
-            <div className="hero-slides" ref={slidesRef} style={{ marginTop: 18, position: 'relative', minHeight: 'clamp(200px, 26vh, 250px)' }}>
-              {fronts.map((f, i) => (
-                <div
-                  className="hero-slide"
-                  key={i}
-                  aria-hidden={i === active ? undefined : 'true'}
-                  style={{
-                    position: 'absolute', top: 0, left: 0, width: '100%', display: 'block',
-                    opacity: i === 0 ? 1 : 0,
-                    visibility: i === 0 ? 'visible' : 'hidden',
-                    pointerEvents: i === active ? 'auto' : 'none',
-                  }}
-                >
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#8cc0cf', marginBottom: 14 }}>
-                    0{i + 1} · {f.name}
-                  </div>
-                  <h1 className="pre" style={{ fontSize: 'clamp(30px, 3.6vw, 48px)', maxWidth: '600px' }}>{f.title}</h1>
-                  <p style={{ marginTop: 18, fontSize: 16.5, color: 'rgba(246,244,239,0.72)', maxWidth: 540, lineHeight: 1.55 }}>{f.sub}</p>
-                </div>
-              ))}
-            </div>
+            <h1 className="pre" style={{ marginTop: 18, fontSize: 'clamp(34px, 5.2vw, 60px)', maxWidth: '620px' }}>{h.title}</h1>
+            <p style={{ marginTop: 14, fontSize: 16.5, color: 'rgba(246,244,239,0.72)', maxWidth: 540, lineHeight: 1.55 }}>{h.sub}</p>
 
             {/* Persistent CTAs */}
-            <div style={{ display: 'flex', gap: 12, marginTop: 26, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 12, marginTop: 22, flexWrap: 'wrap' }}>
               <Btn variant="primary" onDark onClick={() => goto('contact')}>{h.primary} <ArrowRight /></Btn>
               <Btn variant="ghost" onDark onClick={scrollToServices}>{h.secondary}</Btn>
             </div>
 
-            {/* Front selector — reflects the auto-rotation and lets you jump to a front */}
-            <div className="hero-progress" style={{ display: 'flex' }}>
-              <div className="hero-dots" role="tablist" aria-label={es ? 'Frentes' : 'Fronts'}>
-                {fronts.map((f, i) => (
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-label={f.name}
-                    aria-selected={i === active ? 'true' : 'false'}
-                    className={'hero-dot' + (i === active ? ' active' : '')}
-                    key={i}
-                    onClick={() => showFront(i)}
-                  />
-                ))}
-              </div>
-              <span className="hero-progress-label">0{active + 1} / 0{fronts.length}</span>
-            </div>
+            {/* The four fronts, all visible at once — no rotation, no timer */}
+            <ul className="hero-fronts" aria-label={es ? 'Nuestros cuatro frentes' : 'Our four fronts'}>
+              {fronts.map((f, i) => (
+                <li key={i}>
+                  <button type="button" onClick={scrollToServices}>
+                    <span className="hf-code">{f.code}</span>
+                    <span className="hf-name">{f.name}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
 
             {/* Persistent trust chips */}
-            <div style={{ marginTop: 28, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+            <div style={{ marginTop: 20, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
               <div
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 12, padding: '14px 18px', borderRadius: 999,

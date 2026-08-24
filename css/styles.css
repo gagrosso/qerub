@@ -149,7 +149,7 @@
   section.dark .eyebrow::before { background: var(--teal-2); }
 
   .sec-head { max-width: 760px; margin-bottom: 56px; }
-  .sec-head h2 { font-size: clamp(34px, 4.2vw, 56px); margin-top: 18px; }
+  .sec-head h2 { font-size: clamp(26px, 3.2vw, 38px); margin-top: 18px; }
   .sec-head .sub { margin-top: 20px; color: var(--ink-3); font-size: 17px; max-width: 640px; }
   section.dark .sec-head .sub { color: rgba(246, 244, 239, 0.7); }
 
@@ -317,7 +317,7 @@
   .stat-num {
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: clamp(44px, 6vw, 72px);
+    font-size: clamp(24px, 2.8vw, 34px);
     line-height: 1;
     letter-spacing: -0.03em;
   }
@@ -354,21 +354,29 @@
      ───────────────────────────────────────────────────────────── */
 
   /* Hero message conveyor */
-  .hero-slides { position: relative; }
-  .hero-slide:not(:first-child) { display: none; }      /* fallback: first message only */
-  .hero-progress { display: none; align-items: center; gap: 14px; margin-top: 26px; }
-  .hero-carousel-on .hero-progress { display: flex; }
-  .hero-dots { display: inline-flex; gap: 9px; }
-  .hero-dot {
-    width: 9px; height: 9px; border-radius: 999px; padding: 0; border: none;
-    -webkit-appearance: none; appearance: none; cursor: pointer;
-    background: rgba(246, 244, 239, 0.22);
-    transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+  /* The four fronts, listed under the single hero message. Static: no rotation. */
+  .hero-fronts {
+    list-style: none; margin: 20px 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px; background: rgba(246, 244, 239, 0.14);
+    border: 1px solid rgba(246, 244, 239, 0.14); border-radius: var(--radius);
+    overflow: hidden; max-width: 640px;
   }
-  .hero-dot:hover { background: rgba(246, 244, 239, 0.45); }
-  .hero-dot:focus-visible { outline: 2px solid var(--teal-2); outline-offset: 3px; }
-  .hero-dot.active { background: var(--teal-2); transform: scale(1.35); box-shadow: 0 0 12px rgba(140, 192, 207, 0.7); }
-  .hero-progress-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: rgba(246, 244, 239, 0.45); }
+  .hero-fronts button {
+    display: flex; align-items: baseline; gap: 8px; width: 100%;
+    padding: 11px 12px; min-height: 44px;
+    background: var(--dark-2); border: 0; text-align: left;
+    transition: background 0.18s var(--ease-out);
+  }
+  .hero-fronts button:hover { background: var(--dark-3); }
+  .hero-fronts button:focus-visible { outline: 2px solid var(--teal-2); outline-offset: -2px; }
+  .hero-fronts .hf-code {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--teal-2); white-space: nowrap; flex: none;
+  }
+  .hero-fronts .hf-name { font-size: 13px; color: rgba(246, 244, 239, 0.82); line-height: 1.3; }
+  @media (max-width: 560px) { .hero-fronts { grid-template-columns: 1fr; } }
+
 
   /* Services horizontal gallery */
   .svc-track {
@@ -448,7 +456,7 @@
     .aurora-blob, .marquee-track, [class*="qDrift"] { animation: none !important; }
     .marquee-track { transform: none !important; }
     .tilt, .tilt-3d, .tilt-3d-soft { transform: none !important; transition: none !important; }
-    .hero-dot { transition: none !important; }
+    .hero-fronts button { transition: none !important; }
     .trust-logo { transition: none !important; }
     .hn-wrap { animation: none !important; }
     .hn-tilt { transition: none !important; transform: none !important; }

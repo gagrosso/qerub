@@ -356,7 +356,7 @@ function Deliverable() {
           <div>
             <Reveal><span className="eyebrow">{t.deliverable.eyebrow}</span></Reveal>
             <Reveal delay={80}>
-              <h2 className="pre" style={{ marginTop: 18, fontSize: 'clamp(32px, 4vw, 52px)' }}>{t.deliverable.title}</h2>
+              <h2 className="pre" style={{ marginTop: 18, fontSize: 'clamp(26px, 3.2vw, 38px)' }}>{t.deliverable.title}</h2>
             </Reveal>
             <Reveal delay={140}>
               <p style={{ marginTop: 22, fontSize: 17, color: 'var(--ink-3)', maxWidth: 480 }}>{t.deliverable.sub}</p>
@@ -675,7 +675,7 @@ function FinalCTA() {
       <Container style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: 880 }}>
           <Reveal>
-            <h2 className="pre" style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}>{t.finalCta.title}</h2>
+            <h2 className="pre" style={{ fontSize: 'clamp(28px, 3.6vw, 42px)' }}>{t.finalCta.title}</h2>
           </Reveal>
           <Reveal delay={100}>
             <p style={{ marginTop: 22, fontSize: 18, color: 'rgba(246,244,239,0.7)', maxWidth: 580 }}>{t.finalCta.sub}</p>
@@ -705,7 +705,7 @@ function About() {
           <div>
             <Reveal><span className="eyebrow">{t.about.eyebrow}</span></Reveal>
             <Reveal delay={80}>
-              <h2 className="pre" style={{ marginTop: 18, fontSize: 'clamp(32px, 4vw, 52px)' }}>{t.about.title}</h2>
+              <h2 className="pre" style={{ marginTop: 18, fontSize: 'clamp(26px, 3.2vw, 38px)' }}>{t.about.title}</h2>
             </Reveal>
           </div>
           <div>
@@ -860,7 +860,7 @@ function Proof() {
           {pr.metrics.map((m, i) => (
             <Reveal key={i} delay={i * 80}>
               <div style={{ padding: '8px 4px' }}>
-                <div className="stat-num grad-text" style={{ fontSize: 'clamp(36px, 4.6vw, 56px)' }}>{m.v}<span style={{ fontSize: '0.5em' }}>{m.u}</span></div>
+                <div className="stat-num grad-text" style={{ fontSize: 'clamp(24px, 2.8vw, 34px)' }}>{m.v}<span style={{ fontSize: '0.5em' }}>{m.u}</span></div>
                 <p style={{ marginTop: 10, fontSize: 13.5, color: 'var(--ink-3)', lineHeight: 1.5, maxWidth: 230 }}>{m.label}</p>
               </div>
             </Reveal>
