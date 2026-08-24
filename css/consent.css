@@ -1,5 +1,9 @@
 /* Qerub · banner y panel de consentimiento (autónomo, sin dependencias) */
-.qc-banner{position:fixed;left:20px;right:20px;bottom:20px;z-index:9000;display:flex;justify-content:center;pointer-events:none;animation:qcUp .35s cubic-bezier(.22,.61,.36,1) both}
+/* El consentimiento manda sobre cualquier otra capa flotante. La píldora del
+   asistente (.qa-btn) es fixed con z-index 2147483000 y tapaba el 55% de
+   «Aceptar todo» a 375px: el toque en el centro del botón abría el chat.
+   Hay solape siempre que el ancho sea < 1286px, no solo en móvil. */
+.qc-banner{position:fixed;left:20px;right:20px;bottom:20px;z-index:2147483100;display:flex;justify-content:center;pointer-events:none;animation:qcUp .35s cubic-bezier(.22,.61,.36,1) both}
 .qc-box{pointer-events:auto;max-width:880px;width:100%;background:#0e1416;color:#f6f4ef;border:1px solid rgba(246,244,239,.10);border-radius:18px;padding:22px 26px;box-shadow:0 30px 60px -30px rgba(0,0,0,.5);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
 .qc-copy strong{display:block;font-family:var(--font-display,inherit);font-size:16px;margin-bottom:6px}
 .qc-copy p{margin:0;font-size:13.5px;line-height:1.55;color:rgba(246,244,239,.78)}
@@ -11,7 +15,7 @@
 .qc-ghost{background:transparent;color:#f6f4ef;border-color:rgba(246,244,239,.25)}
 .qc-primary{background:#f6f4ef;color:#0e1416}
 
-.qc-overlay{position:fixed;inset:0;z-index:9100;background:rgba(14,20,22,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;animation:qcFade .18s ease both}
+.qc-overlay{position:fixed;inset:0;z-index:2147483200;background:rgba(14,20,22,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;animation:qcFade .18s ease both}
 .qc-panel{background:#f6f4ef;color:#0e1416;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;border-radius:20px;border:1px solid rgba(14,20,22,.10);box-shadow:0 40px 80px -30px rgba(14,20,22,.4);animation:qcIn .22s cubic-bezier(.22,.61,.36,1) both}
 .qc-head{padding:26px 30px 18px;border-bottom:1px solid rgba(14,20,22,.10);display:flex;justify-content:space-between;align-items:center;gap:16px}
 .qc-head h2{margin:0;font-size:22px;font-weight:700}
@@ -39,3 +43,10 @@
 .qc-prefs{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .qc-prefs:hover{color:#fff}
 .legal-foot .qc-prefs:hover{color:var(--teal-deep)}
+
+/* Segunda capa, por si el z-index no bastara: mientras el consentimiento está en
+   pantalla, la píldora del asistente se retira. Decidir sobre cookies es una acción
+   bloqueante; el chat puede esperar los segundos que dura. La especificidad (1,2,1)
+   gana al .qa-btn (0,1,0) que el propio widget se inyecta más abajo en el documento. */
+body:has(.qc-banner) #qa-root .qa-btn,
+body:has(.qc-overlay) #qa-root .qa-btn{opacity:0;visibility:hidden;pointer-events:none}

@@ -291,9 +291,13 @@
     .tilt-3d, .tilt-3d-soft { transform: none; }
   }
 
-  /* Gradient accent text (stat numbers, key words) */
+  /* Gradient accent text (stat numbers, key words).
+     El extremo claro era --teal-2 (#8cc0cf), que sobre el crema da 1,81:1 y no llega
+     ni al 3:1 que WCAG AA pide al texto grande: la mitad derecha de cada cifra se
+     desvanecía. Ningún verificador automático lo detecta porque leen color:transparent.
+     Ahora el degradado va #2f5b66 (6,80:1) → #4d7e8a (4,09:1): los dos extremos pasan. */
   .grad-text {
-    background: linear-gradient(100deg, var(--teal-deep), var(--teal-2));
+    background: linear-gradient(100deg, #2f5b66, #4d7e8a);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
