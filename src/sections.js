@@ -44,6 +44,18 @@ function TrustStrip() {
           ))}
         </div>
       </div>
+      {/* Alianza de fabricante, deliberadamente fuera de la marquesina de marcos:
+          los marcos son estándares públicos y esto es una relación comercial. */}
+      {t.trust.partnerName && (
+        <Container>
+          <Reveal delay={80}>
+            <p className="trust-partner">
+              <span className="trust-partner-label">{t.trust.partnerLabel}</span>
+              <span className="trust-partner-name">{t.trust.partnerName}</span>
+            </p>
+          </Reveal>
+        </Container>
+      )}
     </section>
   );
 }

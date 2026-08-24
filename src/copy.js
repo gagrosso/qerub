@@ -48,6 +48,10 @@ window.QERUB_COPY = {
     trust: {
       title: 'Trabajamos con los marcos de referencia que importan',
       items: ['NIST CSF 2.0', 'CIS Controls IG1', 'ENISA SME', 'INCIBE', 'CISA', 'NIS2'],
+      // Alianza de fabricante: va aparte de los marcos a propósito. NIST o CIS son
+      // estándares públicos; esto es una relación comercial y mezclarlas confundiría.
+      partnerLabel: 'Alianza de fabricante',
+      partnerName: 'Partner de Trend Micro',
     },
     pillars: {
       eyebrow: 'Lo que hacemos',
@@ -58,7 +62,7 @@ window.QERUB_COPY = {
           code: 'Q-Secure',
           t: 'Ciberseguridad',
           tagline: 'Seguridad como ventaja de negocio, no como freno.',
-          intro: 'Q-Secure es el pilar más maduro de Qerub: nueve servicios de ciberseguridad con alcance y precio cerrados, alineados con NIST CSF 2.0, CIS Controls IG1 y NIS2.',
+          intro: 'Q-Secure es el pilar más maduro de Qerub: nueve servicios de ciberseguridad con alcance y precio cerrados, alineados con NIST CSF 2.0, CIS Controls IG1 y NIS2. Qerub es partner de Trend Micro.',
           forWhom: 'CEO · CISO · IT',
           status: 'Operativo',
           to: 'services',
@@ -485,6 +489,8 @@ window.QERUB_COPY = {
     trust: {
       title: 'We work with the frameworks that matter',
       items: ['NIST CSF 2.0', 'CIS Controls IG1', 'ENISA SME', 'INCIBE', 'CISA', 'NIS2'],
+      partnerLabel: 'Vendor alliance',
+      partnerName: 'Trend Micro Partner',
     },
     pillars: {
       eyebrow: 'What we do',
@@ -493,7 +499,7 @@ window.QERUB_COPY = {
       items: [
         {
           code: 'Q-Secure', t: 'Cybersecurity', tagline: 'Security as a business advantage, not a brake.',
-          intro: 'Q-Secure is Qerub’s most mature pillar: nine cybersecurity services with fixed scope and price, aligned with NIST CSF 2.0, CIS Controls IG1 and NIS2.',
+          intro: 'Q-Secure is Qerub’s most mature pillar: nine cybersecurity services with fixed scope and price, aligned with NIST CSF 2.0, CIS Controls IG1 and NIS2. Qerub is a Trend Micro partner.',
           forWhom: 'CEO · CISO · IT', status: 'Live', to: 'services',
           subs: [
             { n: 'Q-Start · Cybersecurity assessment', d: 'We audit email, identity, Microsoft 365 or Google Workspace, public web, TLS, backups and response plan. Executive scorecard, top 15 risks and a 90-day roadmap in 7 business days.', href: '/en-us/servicios/auditoria-ciberseguridad-pymes' },

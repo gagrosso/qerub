@@ -437,6 +437,31 @@
   .trust-logo:hover { opacity: 1; filter: grayscale(0); color: var(--teal-deep); border-color: rgba(120, 165, 176, 0.5); }
   .trust-logo-name { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: 0.01em; white-space: nowrap; }
 
+  /* Alianza de fabricante. Va bajo la marquesina y con etiqueta propia para que no
+     se lea como si fuera otro marco de referencia: NIST o CIS son estándares
+     públicos, esto es una relación comercial. */
+  .trust-partner {
+    margin: 26px 0 0;
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; flex-wrap: wrap; text-align: center;
+  }
+  .trust-partner-label {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .trust-partner-label::after {
+    content: ""; display: inline-block; width: 18px; height: 1px;
+    background: var(--line-strong); margin-left: 12px; vertical-align: middle;
+  }
+  .trust-partner-name {
+    font-family: var(--font-display); font-weight: 600; font-size: 15.5px;
+    color: var(--ink-2); letter-spacing: -0.01em;
+  }
+  @media (max-width: 560px) {
+    .trust-partner { gap: 6px; flex-direction: column; }
+    .trust-partner-label::after { display: none; }
+  }
+
   /* Hero núcleo: tilt 3D interactivo + breathing sutil */
   .hn-scene { perspective: 1000px; }
   .hn-tilt { transform-style: preserve-3d; transition: transform 0.25s ease-out; will-change: transform; }
